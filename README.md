@@ -9,6 +9,7 @@ Teaching materials and reasoning notebooks for engineering practice, where judgm
 - `docs/start-here.md`
 - `docs/notebook-template.md`
 - `docs/notebooks/`
+- `docs/faculty-adoption.md`
 - `docs/mindsets/`
 - `docs/prompts/`
 - `docs/rubrics/`

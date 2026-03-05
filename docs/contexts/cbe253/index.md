@@ -1,12 +1,42 @@
-# Context: CBE 253
+# CBE 253 (Live)
 
-This context page maps course flow to reusable notebooks.
+This is the active implementation track. Students should start here each week.
 
-## Linked notebooks
-- [Aspen Process Framing](../../notebooks/2026/2026-03-aspen-process-framing.md)
-- [Assumption Failure Map](../../notebooks/2026/2026-03-assumption-failure-map.md)
+## Course objective
+Build the habit of making defensible engineering decisions when models are incomplete, assumptions are uncertain, and tradeoffs are unavoidable.
 
-## Use
-- Treat this page as a wrapper for sequencing and assignment alignment.
-- Keep notebook files themselves neutral and reusable.
+## Weekly workflow (10-15 minutes in-class + notebook homework)
+1. Identify the decision question for the week.
+2. State at least 3 explicit assumptions and expected failure modes.
+3. Perform one quantitative check (units, bounds, or sensitivity).
+4. Write a one-paragraph decision defense.
+
+## Module sequence
+### Week 1: Framing and boundaries
+- Deliverable: [Aspen Process Framing](../../notebooks/2026/2026-03-aspen-process-framing.md)
+- Checkpoint: boundary definition, basis, and first-pass assumptions
+
+### Week 2: Assumption stress testing
+- Deliverable: [Assumption Failure Map](../../notebooks/2026/2026-03-assumption-failure-map.md)
+- Checkpoint: identify highest-risk assumption and mitigation trigger
+
+### Week 3: Sensitivity and leverage
+- Deliverable: add one tornado-style ranking of sensitive inputs
+- Checkpoint: defend which variable deserves measurement budget
+
+### Week 4: Decision memo
+- Deliverable: 1-page memo with recommendation and confidence level
+- Checkpoint: include what evidence would change your conclusion
+
+## Grading map (recommended)
+- 30% Problem framing and assumptions
+- 25% Quantitative discipline
+- 25% Tradeoff articulation
+- 20% Decision defense
+
+Use: [Reasoning Rubric](../../rubrics/reasoning-rubric.md)
+
+## Instructor notes
+- Keep notebooks reusable; avoid course code in notebook file names.
+- Keep course-specific pacing and deadlines in this page only.
 

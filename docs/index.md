@@ -9,6 +9,9 @@ This site collects field notes: observations, worked examples, questions worth k
 - If you're faculty: feel free to adapt the structure and prompts.
 
 ## Current
+- **Live course implementation**: [CBE 253 (working example)](contexts/cbe253/index.md)
 - **Notebooks**: [Latest entries](notebooks/index.md)
-- **Context wrapper (CBE 253)**: [Context notebook](contexts/cbe253/index.md)
 - **Engineering Mindsets**: [The eight lenses](mindsets/index.md)
+
+## For faculty
+- [Adoption guide](faculty-adoption.md) with a concrete rollout plan, grading map, and calibration method.
