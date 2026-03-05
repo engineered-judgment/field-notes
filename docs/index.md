@@ -9,5 +9,6 @@ This site collects field notes: observations, worked examples, questions worth k
 - If you're faculty: feel free to adapt the structure and prompts.
 
 ## Current
-- **CBE 253**: [Course notebook](courses/cbe253/index.md)
+- **Notebooks**: [Latest entries](notebooks/index.md)
+- **Context wrapper (CBE 253)**: [Context notebook](contexts/cbe253/index.md)
 - **Engineering Mindsets**: [The eight lenses](mindsets/index.md)

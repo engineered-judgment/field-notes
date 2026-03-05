@@ -15,14 +15,35 @@ nav:
   - Home: index.md
   - Start Here: start-here.md
   - Notebook Template: notebook-template.md
-  - Courses:
-    - CBE 253: courses/cbe253/index.md
-    - CBE 312: courses/cbe312/index.md
-  - Engineering Mindsets: mindsets/index.md
-  - Prompts: prompts/index.md
-  - Rubrics: rubrics/index.md
+  - Notebooks:
+    - Overview: notebooks/index.md
+    - 2026:
+      - Aspen Process Framing: notebooks/2026/2026-03-aspen-process-framing.md
+      - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
+  - Engineering Mindsets:
+    - Overview: mindsets/index.md
+    - Constraint: mindsets/constraint.md
+    - Tradeoff: mindsets/tradeoff.md
+    - Approximation: mindsets/approximation.md
+    - Systems: mindsets/systems.md
+    - Decision: mindsets/decision.md
+    - Margin: mindsets/margin.md
+    - Satisficing: mindsets/satisficing.md
+    - Fragility: mindsets/fragility.md
+  - Prompts:
+    - Overview: prompts/index.md
+    - AI Use Policy: prompts/ai-use-policy.md
+    - Good Questions: prompts/good-questions.md
+    - Evidence Check: prompts/evidence-check.md
+  - Rubrics:
+    - Overview: rubrics/index.md
+    - Reasoning Rubric: rubrics/reasoning-rubric.md
+  - Contexts:
+    - CBE 253: contexts/cbe253/index.md
+    - CBE 312: contexts/cbe312/index.md
 
 markdown_extensions:
+  - meta
   - admonition
   - toc:
       permalink: true

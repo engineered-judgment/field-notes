@@ -8,10 +8,11 @@ Teaching materials and reasoning notebooks for engineering practice, where judgm
 - `docs/index.md`
 - `docs/start-here.md`
 - `docs/notebook-template.md`
-- `docs/courses/`
+- `docs/notebooks/`
 - `docs/mindsets/`
 - `docs/prompts/`
 - `docs/rubrics/`
+- `docs/contexts/`
 
 ## Local preview
 ```bash
