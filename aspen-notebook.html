@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBE 253 — Engineering Notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --surface3: #262626;
+    --border: #333333;
+    --border-light: #2a2a2a;
+    --text: #e8e8e8;
+    --text-dim: #8a8a8a;
+    --text-dimmer: #555555;
+    --accent: #f4a100;
+    --accent-dim: #7a5000;
+    --accent-subtle: #1a1200;
+    --red: #da1e28;
+    --green: #24a148;
+    --blue: #0f62fe;
+    --mindset-inactive: #2a2a2a;
+    --mindset-active: #f4a100;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'IBM Plex Serif', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* SETUP SCREEN */
+  #setup-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .setup-container {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .setup-header {
+    margin-bottom: 48px;
+  }
+
+  .setup-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .setup-title {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .setup-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+
+  .setup-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  .field-group {
+    margin-bottom: 24px;
+  }
+
+  .field-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .field-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .field-input:focus {
+    border-color: var(--accent);
+  }
+
+  .field-input::placeholder {
+    color: var(--text-dimmer);
+  }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 8px;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* MAIN APP */
+  #app {
+    display: none;
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    height: 48px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 24px;
+  }
+
+  .topbar-brand {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .topbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  .topbar-student {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .topbar-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-export {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-export:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* LAYOUT */
+  .app-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 48px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-section {
+    padding: 0 20px;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 12px;
+  }
+
+  /* WEEK NAV */
+  .week-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 12px;
+    margin-bottom: 32px;
+  }
+
+  .week-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.1s;
+    border: 1px solid transparent;
+  }
+
+  .week-nav-item:hover {
+    background: var(--surface2);
+  }
+
+  .week-nav-item.active {
+    background: var(--accent-subtle);
+    border-color: var(--accent-dim);
+  }
+
+  .week-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dimmer);
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .week-nav-item.active .week-num {
+    color: var(--accent);
+  }
+
+  .week-nav-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .week-nav-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .week-nav-item.active .week-nav-title {
+    color: var(--text);
+  }
+
+  .week-nav-status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .week-nav-status.complete {
+    background: var(--green);
+  }
+
+  .week-nav-status.partial {
+    background: var(--accent);
+  }
+
+  /* MINDSET PANEL */
+  .mindset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .mindset-chip {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .mindset-chip.engaged {
+    border-color: var(--accent-dim);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  .sidebar-spacer { flex: 1; }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--surface3);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    padding: 40px 48px;
+    max-width: 860px;
+  }
+
+  /* WEEK HEADER */
+  .week-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .week-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .week-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .week-mindset-tags {
+    display: flex;
+    gap: 6px;
+  }
+
+  .week-mindset-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+  }
+
+  .week-title {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .week-provocation {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 15px;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 16px;
+  }
+
+  /* ENTRY CARD */
+  .entry-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--surface2);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .entry-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .entry-number {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .entry-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .entry-timestamp {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dimmer);
+  }
+
+  .entry-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .entry-status-dot.complete { background: var(--green); }
+  .entry-status-dot.partial { background: var(--accent); }
+
+  .entry-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .entry-body.collapsed { display: none; }
+
+  /* FIELD */
+  .field-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .field-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .field-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .field-prompt {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    padding-left: 28px;
+  }
+
+  textarea.field-input {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+    font-size: 13px;
+    font-family: var(--sans);
+  }
+
+  textarea.field-input.tall { min-height: 120px; }
+
+  .char-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dimmer);
+    text-align: right;
+  }
+
+  .char-hint.warning { color: var(--accent); }
+  .char-hint.error { color: var(--red); }
+
+  /* ARTIFACT ZONE */
+  .artifact-zone {
+    border: 1px dashed var(--border);
+    padding: 20px;
+    background: var(--surface2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .artifact-zone-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    text-align: center;
+  }
+
+  .artifact-preview {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .artifact-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+  }
+
+  .artifact-filename {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .btn-artifact {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    align-self: center;
+  }
+
+  .btn-artifact:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* MINDSET SELECT */
+  .mindset-select-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .mindset-option {
+    padding: 8px 6px;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .mindset-option:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+  }
+
+  .mindset-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  /* FIELD DIVIDER */
+  .field-divider {
+    height: 1px;
+    background: var(--border-light);
+  }
+
+  /* SAVE BUTTON */
+  .entry-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface2);
+  }
+
+  .save-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dimmer);
+  }
+
+  .btn-save {
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-save:hover { opacity: 0.85; }
+
+  .save-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .save-status.visible { opacity: 1; }
+
+  /* WEEK SUMMARY */
+  .week-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-top: 8px;
+  }
+
+  .week-summary-header {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 12px;
+  }
+
+  .week-summary-stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+  }
+
+  /* HIDDEN FILE INPUT */
+  .hidden-file { display: none; }
+
+  /* PRINT / PDF */
+  @media print {
+    .topbar, .sidebar, .btn-export, .btn-save, .entry-footer, .btn-artifact { display: none !important; }
+    .app-body { grid-template-columns: 1fr !important; }
+    .main-content { padding: 20px !important; max-width: 100% !important; }
+    .entry-body.collapsed { display: flex !important; }
+    body { background: white !important; color: black !important; }
+    .entry-card, .week-summary { border-color: #ccc !important; background: white !important; }
+    .field-input, textarea.field-input { border-color: #ccc !important; background: white !important; color: black !important; }
+    .week-title, .entry-title, .field-name { color: black !important; }
+    .field-prompt { color: #555 !important; }
+    .week-tag, .entry-number, .field-num { color: #b37700 !important; }
+    .week-provocation { border-left-color: #b37700 !important; color: #555 !important; }
+    .mindset-option.selected { background: #fff8e0 !important; border-color: #b37700 !important; color: #b37700 !important; }
+    .artifact-preview { display: flex !important; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dimmer); }
+</style>
+</head>
+<body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen">
+  <div class="setup-container">
+    <div class="setup-header">
+      <div class="setup-label">CBE 253 — Aspen Plus Module</div>
+      <div class="setup-title">Engineering<br>Notebook</div>
+      <div class="setup-subtitle">A record of simulation, judgment, and engineering thinking</div>
+    </div>
+    <div class="setup-divider"></div>
+    <div class="field-group">
+      <label class="field-label">Full Name</label>
+      <input class="field-input" id="setup-name" type="text" placeholder="e.g. Maria Santos" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Student ID</label>
+      <input class="field-input" id="setup-id" type="text" placeholder="e.g. 202412345" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Section</label>
+      <input class="field-input" id="setup-section" type="text" placeholder="e.g. 001" autocomplete="off">
+    </div>
+    <button class="btn-primary" onclick="initNotebook()">Open Notebook →</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">CBE 253 // Notebook</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-student" id="topbar-student"></div>
+    <div class="topbar-actions">
+      <button class="btn-export" onclick="exportPDF()">Export PDF</button>
+      <button class="btn-export" onclick="resetNotebook()" style="border-color:#da1e2844;color:#da1e2888;">Reset</button>
+    </div>
+  </div>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Weeks</div>
+      </div>
+      <nav class="week-nav" id="week-nav"></nav>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Mindsets Engaged</div>
+        <div class="mindset-grid" id="mindset-tracker"></div>
+      </div>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-footer">
+        <div class="progress-label">
+          <span>Overall Progress</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content" id="main-content"></div>
+  </div>
+</div>
+
+<input type="file" class="hidden-file" id="file-input" accept="image/*">
+
+<script>
+const WEEKS = [
+  {
+    num: 1,
+    title: "Mixers & Splitters",
+    topic: "MIXER, FSPLIT",
+    mindsets: ["Approximations", "Constraints"],
+    provocation: "Every model is a simplification. What did you decide to ignore this week, and why was that acceptable?"
+  },
+  {
+    num: 2,
+    title: "Pressure & Temperature Changers",
+    topic: "PUMP, COMPR, HEATER, HEATX",
+    mindsets: ["Tradeoffs", "Margins"],
+    provocation: "Where is the gap between your design point and the point at which your process fails?"
+  },
+  {
+    num: 3,
+    title: "Separators",
+    topic: "SEP, SEP2, FLASH2",
+    mindsets: ["Constraints", "Satisficing"],
+    provocation: "Did you find the best solution or a good enough one? How do you know the difference?"
+  },
+  {
+    num: 4,
+    title: "Distillation — DSTWU",
+    topic: "DSTWU",
+    mindsets: ["Decisions", "Systems"],
+    provocation: "DSTWU gives you estimates, not answers. What decision did you make with imperfect information?"
+  },
+  {
+    num: 5,
+    title: "Distillation — RadFrac",
+    topic: "RADFRAC",
+    mindsets: ["Systems", "Tradeoffs"],
+    provocation: "You changed one variable and three things moved. Which system behavior surprised you most?"
+  },
+  {
+    num: 6,
+    title: "Reactors",
+    topic: "RSTOIC, RGIBBS, REQUIL, RBATCH",
+    mindsets: ["Fragility", "Approximations"],
+    provocation: "Every reactor model has a regime where it becomes dangerous to trust. Where is that regime in yours?"
+  },
+  {
+    num: 7,
+    title: "Thermodynamic Properties",
+    topic: "Pure & Binary Analysis",
+    mindsets: ["Approximations", "Decisions"],
+    provocation: "The property method is a choice with consequences. What did you choose and what did you accept as a result?"
+  },
+  {
+    num: 8,
+    title: "Property Methods & Ternary Analysis",
+    topic: "EOS, Activity Models, Ternary",
+    mindsets: ["Tradeoffs", "Fragility", "Satisficing"],
+    provocation: "All eight mindsets are in play now. Where in this week's simulation did each one appear?"
+  }
+];
+
+const MINDSETS = ["Constraints","Approximations","Tradeoffs","Decisions","Systems","Margins","Satisficing","Fragility"];
+
+const FIELD_PROMPTS = {
+  "Constraints": "What boundaries shaped your decisions this week?",
+  "Approximations": "What did your model assume away — and was that acceptable?",
+  "Tradeoffs": "What did you sacrifice and what did you protect?",
+  "Decisions": "What judgment call did you make that another engineer might have made differently?",
+  "Systems": "What happened downstream when you changed something upstream?",
+  "Margins": "How much gap did you build between your design point and failure?",
+  "Satisficing": "Where did you settle for good enough — and was that the right call?",
+  "Fragility": "Where is your model most likely to mislead you?"
+};
+
+let state = {
+  student: { name: '', id: '', section: '' },
+  currentWeek: 1,
+  entries: {},
+  artifacts: {}
+};
+
+function getStorageKey() {
+  return `cbe253_notebook_${state.student.id || 'default'}`;
+}
+
+function save() {
+  try {
+    localStorage.setItem(getStorageKey(), JSON.stringify(state));
+  } catch(e) {}
+}
+
+function load(studentId) {
+  try {
+    const raw = localStorage.getItem(`cbe253_notebook_${studentId}`);
+    if (raw) {
+      const loaded = JSON.parse(raw);
+      state = { ...state, ...loaded };
+    }
+  } catch(e) {}
+}
+
+function initNotebook() {
+  const name = document.getElementById('setup-name').value.trim();
+  const id = document.getElementById('setup-id').value.trim();
+  const section = document.getElementById('setup-section').value.trim();
+  if (!name || !id) {
+    alert('Please enter your name and student ID.');
+    return;
+  }
+  state.student = { name, id, section };
+  load(id);
+  state.student = { name, id, section };
+  save();
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('topbar-student').textContent = `${name}  ·  ID ${id}  ·  Section ${section}`;
+  buildSidebar();
+  renderWeek(state.currentWeek);
+  updateProgress();
+}
+
+function buildSidebar() {
+  // Week nav
+  const nav = document.getElementById('week-nav');
+  nav.innerHTML = '';
+  WEEKS.forEach(w => {
+    const item = document.createElement('div');
+    item.className = 'week-nav-item' + (w.num === state.currentWeek ? ' active' : '');
+    item.onclick = () => { renderWeek(w.num); };
+    const status = getWeekStatus(w.num);
+    item.innerHTML = `
+      <span class="week-num">W${w.num}</span>
+      <div class="week-nav-content">
+        <div class="week-nav-title">${w.title}</div>
+      </div>
+      <div class="week-nav-status ${status}"></div>
+    `;
+    nav.appendChild(item);
+  });
+
+  // Mindset tracker
+  const tracker = document.getElementById('mindset-tracker');
+  tracker.innerHTML = '';
+  const engaged = getEngagedMindsets();
+  MINDSETS.forEach(m => {
+    const chip = document.createElement('div');
+    chip.className = 'mindset-chip' + (engaged.has(m) ? ' engaged' : '');
+    chip.textContent = m;
+    tracker.appendChild(chip);
+  });
+}
+
+function getWeekStatus(weekNum) {
+  const entries = state.entries[weekNum] || {};
+  let filled = 0, total = 0;
+  for (let e = 1; e <= 2; e++) {
+    const entry = entries[e] || {};
+    ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(f => {
+      total++;
+      if (entry[f] && entry[f].trim()) filled++;
+    });
+  }
+  if (filled === 0) return '';
+  if (filled === total) return 'complete';
+  return 'partial';
+}
+
+function getEngagedMindsets() {
+  const engaged = new Set();
+  Object.values(state.entries).forEach(weekEntries => {
+    Object.values(weekEntries).forEach(entry => {
+      if (entry.mindset) engaged.add(entry.mindset);
+    });
+  });
+  return engaged;
+}
+
+function updateProgress() {
+  let filled = 0, total = 0;
+  WEEKS.forEach(w => {
+    const entries = state.entries[w.num] || {};
+    for (let e = 1; e <= 2; e++) {
+      const entry = entries[e] || {};
+      ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(f => {
+        total++;
+        if (entry[f] && entry[f].trim()) filled++;
+      });
+    }
+  });
+  const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function renderWeek(weekNum) {
+  state.currentWeek = weekNum;
+  save();
+
+  // Update nav active state
+  document.querySelectorAll('.week-nav-item').forEach((item, i) => {
+    item.classList.toggle('active', WEEKS[i].num === weekNum);
+  });
+
+  const week = WEEKS.find(w => w.num === weekNum);
+  const mc = document.getElementById('main-content');
+
+  mc.innerHTML = `
+    <div class="week-header">
+      <div class="week-eyebrow">
+        <span class="week-tag">Week ${week.num}</span>
+        <div class="week-mindset-tags">
+          ${week.mindsets.map(m => `<span class="week-mindset-tag">${m}</span>`).join('')}
+        </div>
+      </div>
+      <div class="week-title">${week.title}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);margin-top:4px;letter-spacing:0.08em">${week.topic}</div>
+      <div class="week-provocation">${week.provocation}</div>
+    </div>
+    <div id="entries-container"></div>
+    <div class="week-summary" id="week-summary"></div>
+  `;
+
+  const container = document.getElementById('entries-container');
+  for (let i = 1; i <= 2; i++) {
+    container.appendChild(buildEntry(weekNum, i));
+  }
+
+  renderWeekSummary(weekNum);
+}
+
+function buildEntry(weekNum, entryNum) {
+  const week = WEEKS.find(w => w.num === weekNum);
+  const entryData = (state.entries[weekNum] || {})[entryNum] || {};
+  const timestamp = entryData.timestamp || '';
+  const isCollapsed = entryData.collapsed !== false && !hasAnyData(entryData);
+
+  const card = document.createElement('div');
+  card.className = 'entry-card';
+  card.id = `entry-${weekNum}-${entryNum}`;
+
+  const statusClass = getEntryStatus(entryData);
+
+  card.innerHTML = `
+    <div class="entry-header" onclick="toggleEntry(${weekNum},${entryNum})">
+      <div class="entry-header-left">
+        <span class="entry-number">Entry ${entryNum}</span>
+        <span class="entry-title">${week.title}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="entry-timestamp" id="ts-${weekNum}-${entryNum}">${timestamp ? 'Saved ' + timestamp : 'Not yet saved'}</span>
+        <div class="entry-status-dot ${statusClass}" id="dot-${weekNum}-${entryNum}"></div>
+      </div>
+    </div>
+    <div class="entry-body ${isCollapsed ? 'collapsed' : ''}" id="body-${weekNum}-${entryNum}">
+
+      <!-- FIELD 1: ARTIFACT -->
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">01</span>
+          <span class="field-name">The Artifact</span>
+        </div>
+        <div class="field-prompt">Attach a screenshot, stream table, or plot from your Aspen simulation. Then caption it: what am I looking at, and why does it matter?</div>
+        <div class="artifact-zone" id="artifact-zone-${weekNum}-${entryNum}">
+          <div class="artifact-preview" id="artifact-preview-${weekNum}-${entryNum}">
+            <img id="artifact-img-${weekNum}-${entryNum}" src="" alt="Artifact">
+            <span class="artifact-filename" id="artifact-name-${weekNum}-${entryNum}"></span>
+          </div>
+          <div class="artifact-zone-label" id="artifact-placeholder-${weekNum}-${entryNum}">Drop image here or click to upload</div>
+          <button class="btn-artifact" onclick="triggerUpload(${weekNum},${entryNum})">+ Attach Screenshot</button>
+        </div>
+        <input type="text" class="field-input"
+          id="artifact_caption-${weekNum}-${entryNum}"
+          placeholder="Caption: What am I looking at, and why does it matter?"
+          value="${escHtml(entryData.artifact_caption || '')}"
+          oninput="autosave(${weekNum},${entryNum})">
+      </div>
+
+      <div class="field-divider"></div>
+
+      <!-- FIELD 2: CONFUSION -->
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">02</span>
+          <span class="field-name">The Moment of Confusion</span>
+        </div>
+        <div class="field-prompt">What didn't work as you expected, and what did you do? Be specific — describe the exact moment, what Aspen showed you, and how you responded.</div>
+        <textarea class="field-input tall"
+          id="confusion-${weekNum}-${entryNum}"
+          placeholder="Describe a specific moment where the simulation behaved unexpectedly..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.confusion || '')}</textarea>
+        <div class="char-hint" id="confusion-hint-${weekNum}-${entryNum}">Minimum 3 sentences</div>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <!-- FIELD 3: JUDGMENT -->
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">03</span>
+          <span class="field-name">The Judgment Statement</span>
+        </div>
+        <div class="field-prompt">Not what you did — what you decided. What would have happened if you'd decided differently?</div>
+        <textarea class="field-input tall"
+          id="judgment-${weekNum}-${entryNum}"
+          placeholder="I decided to... because... If I had instead... the result would have been..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.judgment || '')}</textarea>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <!-- FIELD 4: WEAK POINT -->
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">04</span>
+          <span class="field-name">The Weak Point</span>
+        </div>
+        <div class="field-prompt">One sentence only. Forced brevity is deliberate.</div>
+        <input type="text" class="field-input"
+          id="weak_point-${weekNum}-${entryNum}"
+          placeholder="The weakest assumption in my model this week was _____ because _____."
+          value="${escHtml(entryData.weak_point || '')}"
+          oninput="autosave(${weekNum},${entryNum})">
+      </div>
+
+      <div class="field-divider"></div>
+
+      <!-- FIELD 5: MINDSET -->
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">05</span>
+          <span class="field-name">Primary Mindset</span>
+        </div>
+        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one — the constraint forces prioritization.</div>
+        <div class="mindset-select-grid" id="mindset-grid-${weekNum}-${entryNum}">
+          ${MINDSETS.map(m => `
+            <div class="mindset-option ${entryData.mindset === m ? 'selected' : ''}"
+              onclick="selectMindset(${weekNum},${entryNum},'${m}')">${m}</div>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+    <div class="entry-footer">
+      <span class="save-hint">Auto-saves as you type</span>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="save-status" id="save-status-${weekNum}-${entryNum}">✓ Saved</span>
+        <button class="btn-save" onclick="manualSave(${weekNum},${entryNum})">Save Entry</button>
+      </div>
+    </div>
+  `;
+
+  // Restore artifact if present
+  if (state.artifacts && state.artifacts[`${weekNum}-${entryNum}`]) {
+    setTimeout(() => restoreArtifact(weekNum, entryNum), 50);
+  }
+
+  return card;
+}
+
+function hasAnyData(entry) {
+  return !!(entry.artifact_caption || entry.confusion || entry.judgment || entry.weak_point || entry.mindset);
+}
+
+function getEntryStatus(entry) {
+  const fields = ['artifact_caption', 'confusion', 'judgment', 'weak_point'];
+  const filled = fields.filter(f => entry[f] && entry[f].trim()).length;
+  if (filled === 0) return '';
+  if (filled === fields.length && entry.mindset) return 'complete';
+  return 'partial';
+}
+
+function toggleEntry(weekNum, entryNum) {
+  const body = document.getElementById(`body-${weekNum}-${entryNum}`);
+  body.classList.toggle('collapsed');
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].collapsed = body.classList.contains('collapsed');
+  save();
+}
+
+function autosave(weekNum, entryNum) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  const entry = state.entries[weekNum][entryNum];
+  ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(field => {
+    const el = document.getElementById(`${field}-${weekNum}-${entryNum}`);
+    if (el) entry[field] = el.value;
+  });
+  updateEntryUI(weekNum, entryNum);
+  save();
+  buildSidebar();
+  updateProgress();
+}
+
+function manualSave(weekNum, entryNum) {
+  autosave(weekNum, entryNum);
+  const now = new Date();
+  const ts = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].timestamp = ts;
+  state.entries[weekNum][entryNum].collapsed = false;
+  save();
+  const tsEl = document.getElementById(`ts-${weekNum}-${entryNum}`);
+  if (tsEl) tsEl.textContent = 'Saved ' + ts;
+  const statusEl = document.getElementById(`save-status-${weekNum}-${entryNum}`);
+  if (statusEl) {
+    statusEl.classList.add('visible');
+    setTimeout(() => statusEl.classList.remove('visible'), 2000);
+  }
+  renderWeekSummary(weekNum);
+}
+
+function updateEntryUI(weekNum, entryNum) {
+  const entry = (state.entries[weekNum] || {})[entryNum] || {};
+  const dot = document.getElementById(`dot-${weekNum}-${entryNum}`);
+  if (dot) {
+    dot.className = 'entry-status-dot ' + getEntryStatus(entry);
+  }
+}
+
+function selectMindset(weekNum, entryNum, mindset) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].mindset = mindset;
+
+  // Update UI
+  const grid = document.getElementById(`mindset-grid-${weekNum}-${entryNum}`);
+  if (grid) {
+    grid.querySelectorAll('.mindset-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent === mindset);
+    });
+  }
+
+  // Update prompt
+  const prompt = document.getElementById(`mindset-prompt-${weekNum}-${entryNum}`);
+  if (prompt && FIELD_PROMPTS[mindset]) {
+    prompt.textContent = FIELD_PROMPTS[mindset];
+  }
+
+  save();
+  buildSidebar();
+  updateProgress();
+  renderWeekSummary(weekNum);
+}
+
+function triggerUpload(weekNum, entryNum) {
+  const fileInput = document.getElementById('file-input');
+  fileInput.onchange = (e) => handleFileUpload(e, weekNum, entryNum);
+  fileInput.click();
+}
+
+function handleFileUpload(e, weekNum, entryNum) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const dataUrl = ev.target.result;
+    if (!state.artifacts) state.artifacts = {};
+    state.artifacts[`${weekNum}-${entryNum}`] = { dataUrl, name: file.name };
+    save();
+    showArtifact(weekNum, entryNum, dataUrl, file.name);
+  };
+  reader.readAsDataURL(file);
+}
+
+function restoreArtifact(weekNum, entryNum) {
+  const artifact = state.artifacts && state.artifacts[`${weekNum}-${entryNum}`];
+  if (artifact) showArtifact(weekNum, entryNum, artifact.dataUrl, artifact.name);
+}
+
+function showArtifact(weekNum, entryNum, dataUrl, name) {
+  const preview = document.getElementById(`artifact-preview-${weekNum}-${entryNum}`);
+  const placeholder = document.getElementById(`artifact-placeholder-${weekNum}-${entryNum}`);
+  const img = document.getElementById(`artifact-img-${weekNum}-${entryNum}`);
+  const nameEl = document.getElementById(`artifact-name-${weekNum}-${entryNum}`);
+  if (preview) preview.style.display = 'flex';
+  if (placeholder) placeholder.style.display = 'none';
+  if (img) img.src = dataUrl;
+  if (nameEl) nameEl.textContent = name;
+}
+
+function renderWeekSummary(weekNum) {
+  const summary = document.getElementById('week-summary');
+  if (!summary) return;
+  const entries = state.entries[weekNum] || {};
+  let entriesSaved = 0;
+  const mindsets = new Set();
+  for (let i = 1; i <= 2; i++) {
+    const e = entries[i] || {};
+    if (e.timestamp) entriesSaved++;
+    if (e.mindset) mindsets.add(e.mindset);
+  }
+  const week = WEEKS.find(w => w.num === weekNum);
+  summary.innerHTML = `
+    <div class="week-summary-header">Week ${weekNum} Summary</div>
+    <div class="week-summary-stats">
+      <div class="stat">
+        <div class="stat-value">${entriesSaved}/2</div>
+        <div class="stat-label">Entries Saved</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">${mindsets.size}</div>
+        <div class="stat-label">Mindsets Tagged</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">${[...mindsets].join(', ') || '—'}</div>
+        <div class="stat-label">This Week</div>
+      </div>
+    </div>
+  `;
+}
+
+function exportPDF() {
+  // Expand all entries before printing
+  document.querySelectorAll('.entry-body').forEach(b => b.classList.remove('collapsed'));
+  setTimeout(() => window.print(), 100);
+}
+
+function resetNotebook() {
+  if (!confirm('This will clear all your notebook data. Are you sure?')) return;
+  try { localStorage.removeItem(getStorageKey()); } catch(e) {}
+  location.reload();
+}
+
+function escHtml(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Check for existing session
+window.addEventListener('load', () => {
+  // Try to find any existing notebook
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('cbe253_notebook_')) {
+      try {
+        const data = JSON.parse(localStorage.getItem(key));
+        if (data && data.student && data.student.name) {
+          state = data;
+          document.getElementById('setup-name').value = data.student.name;
+          document.getElementById('setup-id').value = data.student.id;
+          document.getElementById('setup-section').value = data.student.section;
+        }
+      } catch(e) {}
+      break;
+    }
+  }
+});
+</script>
+</body>
+</html>

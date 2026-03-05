@@ -1,0 +1,28 @@
+site_name: Field Notes
+site_description: Teaching materials and reasoning notebooks for engineering practice.
+site_url: https://engineered-judgment.github.io/field-notes/
+repo_url: https://github.com/engineered-judgment/field-notes
+repo_name: engineered-judgment/field-notes
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Start Here: start-here.md
+  - Notebook Template: notebook-template.md
+  - Courses:
+    - CBE 253: courses/cbe253/index.md
+    - CBE 312: courses/cbe312/index.md
+  - Engineering Mindsets: mindsets/index.md
+  - Prompts: prompts/index.md
+  - Rubrics: rubrics/index.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
