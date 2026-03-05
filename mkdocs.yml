@@ -21,6 +21,8 @@ nav:
     - 2026:
       - Aspen Process Framing: notebooks/2026/2026-03-aspen-process-framing.md
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
+      - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
+      - Decision Memo: notebooks/2026/2026-03-decision-memo.md
   - Engineering Mindsets:
     - Overview: mindsets/index.md
     - Constraint: mindsets/constraint.md
@@ -40,8 +42,7 @@ nav:
     - Overview: rubrics/index.md
     - Reasoning Rubric: rubrics/reasoning-rubric.md
   - Faculty Adoption: faculty-adoption.md
-  - Contexts:
-    - CBE 253: contexts/cbe253/index.md
+  - Additional Contexts:
     - CBE 312: contexts/cbe312/index.md
 
 markdown_extensions:

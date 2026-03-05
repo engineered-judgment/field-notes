@@ -4,7 +4,7 @@ date: 2026-03-05
 tags: [assumptions, sensitivity, risk]
 context: cbe253
 institution: unm
-status: draft
+status: v1.0
 ---
 
 # Assumption Failure Map

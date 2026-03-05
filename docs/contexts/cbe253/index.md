@@ -21,11 +21,11 @@ Build the habit of making defensible engineering decisions when models are incom
 - Checkpoint: identify highest-risk assumption and mitigation trigger
 
 ### Week 3: Sensitivity and leverage
-- Deliverable: add one tornado-style ranking of sensitive inputs
+- Deliverable: [Sensitivity Leverage Scan](../../notebooks/2026/2026-03-sensitivity-leverage-scan.md)
 - Checkpoint: defend which variable deserves measurement budget
 
 ### Week 4: Decision memo
-- Deliverable: 1-page memo with recommendation and confidence level
+- Deliverable: [Decision Memo](../../notebooks/2026/2026-03-decision-memo.md)
 - Checkpoint: include what evidence would change your conclusion
 
 ## Grading map (recommended)

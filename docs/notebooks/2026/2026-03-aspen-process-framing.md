@@ -4,7 +4,7 @@ date: 2026-03-05
 tags: [process-modeling, assumptions, tradeoffs]
 context: cbe253
 institution: unm
-status: draft
+status: v1.0
 ---
 
 # Aspen Process Framing
