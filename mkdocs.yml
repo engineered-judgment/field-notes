@@ -29,8 +29,8 @@ nav:
       - Overview: rubrics/index.md
       - Reasoning Rubric: rubrics/reasoning-rubric.md
   - Courses Using This Method:
-    - CBE 253 Overview:
-      - Overview: contexts/cbe253/index.md
+    - CBE 253:
+      - Course Overview: contexts/cbe253/index.md
       - Warrant Worked Example: contexts/cbe253/warrant-worked-example.md
     - Cross-Domain:
       - Facilities Energy Retrofit: notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
