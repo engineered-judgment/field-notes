@@ -8,7 +8,7 @@ AI can now complete many procedural engineering tasks. What it cannot do is make
 ### What is this?
 Observations, worked examples, questions worth keeping, and short exercises organized around reasoning frameworks engineers actually use.
 
-**Worked example (CBE 253):**
+**What a field note looks like in practice (CBE 253):**
 > Decision question: should the next design sprint prioritize yield or utility intensity?  
 > Constraint framing: with steam at $11/GJ and fixed purity specs, reboiler duty dominates near-term cost risk.  
 > Tradeoff named: utility-reduction wins this week, unless selectivity drops below 72%.

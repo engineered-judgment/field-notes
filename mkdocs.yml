@@ -14,10 +14,20 @@ theme:
 nav:
   - Home: index.md
   - Aspen Plus Notebook: aspen-notebook.md
-  - Start Here: start-here.md
-  - CBE 253 (Live): contexts/cbe253/index.md
-  - Faculty Adoption: faculty-adoption.md
-  - Notebook Template: notebook-template.md
+  - Students:
+    - Start Here: start-here.md
+    - CBE 253 (Live): contexts/cbe253/index.md
+  - Faculty:
+    - Adoption Guide: faculty-adoption.md
+    - Notebook Template: notebook-template.md
+    - Prompts:
+      - Overview: prompts/index.md
+      - AI Use Policy: prompts/ai-use-policy.md
+      - Good Questions: prompts/good-questions.md
+      - Evidence Check: prompts/evidence-check.md
+    - Rubrics:
+      - Overview: rubrics/index.md
+      - Reasoning Rubric: rubrics/reasoning-rubric.md
   - Notebooks:
     - Overview: notebooks/index.md
     - 2026:
@@ -35,15 +45,8 @@ nav:
     - Margin: mindsets/margin.md
     - Satisficing: mindsets/satisficing.md
     - Fragility: mindsets/fragility.md
-  - Prompts:
-    - Overview: prompts/index.md
-    - AI Use Policy: prompts/ai-use-policy.md
-    - Good Questions: prompts/good-questions.md
-    - Evidence Check: prompts/evidence-check.md
-  - Rubrics:
-    - Overview: rubrics/index.md
-    - Reasoning Rubric: rubrics/reasoning-rubric.md
-  - Additional Contexts:
+  - Live Implementations:
+    - CBE 253: contexts/cbe253/index.md
     - CBE 312: contexts/cbe312/index.md
 
 markdown_extensions:
