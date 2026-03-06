@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Warrant Notebook</title>
+<title>CBE 253 Warrant Notebook</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -896,7 +896,7 @@
 <div id="setup-screen">
   <div class="setup-container">
     <div class="setup-header">
-      <div class="setup-label">Engineering Reasoning Notebook</div>
+      <div class="setup-label">CBE 253 Aspen Plus Module</div>
       <div class="setup-title">Warrant<br>Notebook</div>
       <div class="setup-subtitle">A record of simulation, judgment, and engineered thinking</div>
     </div>
@@ -921,7 +921,7 @@
 <div id="app">
   <!-- TOP BAR -->
   <div class="topbar">
-    <div class="topbar-brand">Warrant // Generic</div>
+    <div class="topbar-brand">CBE 253 // Warrant</div>
     <div class="topbar-divider"></div>
     <div class="topbar-student" id="topbar-student"></div>
     <div class="topbar-actions">
@@ -967,103 +967,103 @@
 const WEEKS = [
   {
     num: 1,
-    hw: "M1",
-    title: "Problem Framing and Assumptions",
-    topic: "System boundaries, inputs, assumptions",
-    due: "Self-paced",
+    hw: "HW1",
+    title: "Mixers and Splitters",
+    topic: "MIXER, FSPLIT",
+    due: "Mar 31",
     mindset: "Constraint",
-    provocation: "What did you assume without checking, and what boundary condition controls whether your result can be trusted?",
+    provocation: "The property method is a physical claim about molecular interactions. What claim did IDEAL make this week, and was it warranted?",
     promptCard: {
-      subtitle: "Model Setup and Framing",
+      subtitle: "Methanol Stream Separation and Mixing",
       questions: [
-        "Before running your model, write one sentence that states the engineering decision you are trying to inform.",
-        "List the single most consequential assumption in your setup. What measurable condition would make that assumption fail?",
-        "Identify one output you expect to move the most if your primary assumption is wrong."
+        "The feed is 98.5 mol% methanol mixed with liquid water streams at different temperatures. Methanol and water both form hydrogen bonds with each other and with themselves. What does the IDEAL property method assume about the energy released or absorbed when these two liquids mix?",
+        "The FSPLIT block routes 40 wt% of the feed to one mixer and 60 wt% to another. If the feed composition shifted from 98.5 mol% methanol to 70 mol% methanol tomorrow, would you expect the two product stream compositions to remain the same, change proportionally, or change in a way you cannot predict without rerunning?",
+        "One mixer receives a hot methanol stream at 130 F and a cold water stream at 15 C. Before running, predict whether the outlet temperature will sit closer to the hot inlet, the cold inlet, or somewhere determined by the relative flow rates and heat capacities of the two streams."
       ]
     }
   },
   {
     num: 2,
-    hw: "M2",
-    title: "Energy and Work Accounting",
-    topic: "First-law balance, efficiency, losses",
-    due: "Self-paced",
+    hw: "HW2",
+    title: "Rankine Cycle",
+    topic: "PUMP, COMPR, HEATER",
+    due: "Mar 31",
     mindset: "Tradeoff",
-    provocation: "What did your design gain, and what did it cost in energy, complexity, or robustness?",
+    provocation: "The cycle converts heat to work and rejects the rest. Where did the rejected energy go in your simulation, and where does it go in a real plant?",
     promptCard: {
-      subtitle: "Performance Tradeoffs",
+      subtitle: "Steam Power Cycle",
       questions: [
-        "Predict which performance metric will improve if you push your design harder, and which metric will worsen.",
-        "State one operating condition where your nominal efficiency assumption is likely to break down.",
-        "Name one energy flow your simulation reports and one related physical destination or source it does not model."
+        "The pump compresses liquid water from 0.025 MPa to 0.8 MPa. The turbine expands steam from 0.8 MPa back to 0.025 MPa. Both cross the same pressure difference. Before running, predict whether the pump work and turbine work will be approximately equal, and commit to a reason.",
+        "The turbine isentropic efficiency is specified as 0.9 at design conditions. Real power plants vary their output continuously in response to grid demand. At what operating condition would the actual turbine efficiency drop below the specified value, and by how much?",
+        "The simulation will report a condenser duty as a number in your stream table. Before running, identify what happens to that energy in a real plant, and whether the simulation has any way of representing that destination."
       ]
     }
   },
   {
     num: 3,
-    hw: "M3",
-    title: "Phase and Separation Behavior",
-    topic: "Equilibrium, separations, feasibility",
-    due: "Self-paced",
+    hw: "HW3",
+    title: "Flash Separators",
+    topic: "SEP, FLASH2, HEATER",
+    due: "Apr 14",
     mindset: "Fragility",
-    provocation: "Convergence means the calculation completed. What remains unvalidated about the physics?",
+    provocation: "Your simulation converged without errors. What does that confirm, and what does it leave completely unverified?",
     promptCard: {
-      subtitle: "Separation Feasibility",
+      subtitle: "Moist Air Cryogenic Separation",
       questions: [
-        "Identify one separator or phase-model block in your flowsheet that enforces a result versus one that calculates it from thermodynamics.",
-        "Name one property-model choice in your simulation and the regime where it is most likely to fail.",
-        "Write one check you can run to detect physically unrealistic separation behavior before finalizing results."
+        "You will specify 100% water removal in the SEP block and the simulation will converge cleanly regardless of the temperature or pressure you set. If you replaced the SEP block with a FLASH2 block at 65 F and 14 psia, what do you think Aspen would calculate for the vapor fraction, and what does that tell you about the SEP result?",
+        "The FLASH2 units operate at roughly 280 F below zero, where nitrogen and oxygen are near their normal boiling points. UNIFAC was developed for liquid mixtures of organic compounds at moderate conditions. Before running, state whether you expect UNIFAC to be reliable here, and name one property method that would be a better choice.",
+        "The HEATER block cools the stream to 280 F below zero. That cooling requires refrigeration. Before running, identify what the simulation will report about that cooling duty and what it will not report."
       ]
     }
   },
   {
     num: 4,
-    hw: "M4",
-    title: "Approximate Design Methods",
-    topic: "Shortcut design, preliminary estimates",
-    due: "Self-paced",
+    hw: "HW4",
+    title: "Distillation DSTWU",
+    topic: "DSTWU",
+    due: "Apr 21",
     mindset: "Approximation",
-    provocation: "Which outputs are estimates, and what would validate them in a higher-fidelity model?",
+    provocation: "DSTWU gave you estimates that feel precise. What would it take to find out whether those estimates are right?",
     promptCard: {
-      subtitle: "Shortcut to Rigorous",
+      subtitle: "Styrene / Ethylbenzene / Toluene Separation",
       questions: [
-        "State one heuristic you are using and what economic or physical context it implicitly assumes.",
-        "Predict how your recommended design point would shift if one key cost or feed condition changed materially.",
-        "Name the next rigorous calculation needed before treating your estimate as a design decision."
+        "The heuristics give you a range for the reflux ratio (1.2 to 1.5 times the minimum) and a target for the number of stages (about twice the minimum). If energy costs doubled overnight, would the optimal point within those ranges shift, stay the same, or disappear entirely? Commit to an answer before running.",
+        "SRK is specified for a styrene, ethylbenzene, and toluene mixture. All three are nonpolar hydrocarbons and SRK handles them well in this form. Describe one realistic change to the feed that would make SRK unreliable for this system.",
+        "DSTWU will give you a number of stages, a reflux ratio, and a distillate to feed ratio. Before running, state what additional calculation you would need to perform before using those numbers to specify an actual column design, and why DSTWU alone is not sufficient."
       ]
     }
   },
   {
     num: 5,
-    hw: "M5",
-    title: "Coupled Unit Operations",
-    topic: "System interactions, downstream impact",
-    due: "Self-paced",
+    hw: "HW5",
+    title: "Reactor and Distillation",
+    topic: "RSTOIC, RADFRAC",
+    due: "Apr 28",
     mindset: "Systems",
-    provocation: "What upstream change created the largest downstream consequence in your model?",
+    provocation: "You changed the reactor conversion and the distillation column had to follow. Where else in this flowsheet does one unit constrain another?",
     promptCard: {
-      subtitle: "System Coupling",
+      subtitle: "Ethylbenzene Dehydrogenation",
       questions: [
-        "Choose one upstream variable and state exactly which downstream unit operation is most sensitive to it.",
-        "Name one physically plausible phenomenon missing from your model that would alter downstream composition or duty.",
-        "Write one alternative specification and predict its system-level tradeoff before rerunning."
+        "Two reactions occur in series. The fractional conversion of 0.34 in reaction 2 applies to the styrene present after reaction 1 completes, not to the original feed. Calculate by hand how many lbmol/hr of styrene reaction 2 consumes if reaction 1 converts 60% of a 100 lbmol/hr ethylbenzene feed.",
+        "The RStoic block models exactly the two reactions you specify. The reactor operates at 1100 F. Describe one class of chemical reaction that is physically plausible at that temperature but invisible to the simulation, and state how it would change the composition entering the distillation column.",
+        "The bottoms purity target is 99.8 mol% styrene. Before running, identify what downstream process or customer specification might require exactly that purity rather than 99.0%, and whether the simulation gives you any information about the energy cost difference between the two targets."
       ]
     }
   },
   {
     num: 6,
-    hw: "M6",
-    title: "Model Selection and Decision Defense",
-    topic: "Method choice, evidence, validation",
-    due: "Self-paced",
+    hw: "HW6",
+    title: "Properties and Ternary Analysis",
+    topic: "Binary Analysis, Ternary, Property Methods",
+    due: "May 5",
     mindset: "Decision",
-    provocation: "What model choice are you defending, and what evidence would make you reverse that decision?",
+    provocation: "Every simulation in this course used a property method someone chose. You now have the tools to evaluate that choice. What did IDEAL cost you in HW1?",
     promptCard: {
-      subtitle: "Method Justification",
+      subtitle: "n-Pentane / Methanol / Acetone System",
       questions: [
-        "State the model or property-method you selected and the strongest reason for that choice in this regime.",
-        "Identify one dataset, benchmark, or independent check needed to validate this choice for your system.",
-        "Write a reversal condition: what new evidence would cause you to choose a different method?"
+        "You will generate T-xy diagrams for n-pentane and methanol using three property methods: van Laar, Peng-Robinson, and UNIQUAC. Peng-Robinson was designed for nonpolar systems. n-Pentane is nonpolar and methanol is strongly polar. Before running, predict whether all three methods will agree on whether this system has an azeotrope.",
+        "You will recommend one property method as most accurate for this system. The course decision tree will point you toward an activity coefficient model. State what information beyond the decision tree you would need to confirm that your chosen method is reliable for this specific system at 100 psia.",
+        "In HW1 you used IDEAL for a methanol and water mixture and accepted it because the assignment specified it. The T-xy diagram you generate this week will show you what IDEAL cannot predict for a polar system. Before running, state your best guess at what feature of the T-xy diagram IDEAL would get wrong for methanol and water."
       ]
     }
   }
@@ -1088,7 +1088,7 @@ let state = {
 };
 
 function getStorageKey() {
-  return `warrant_notebook_generic_${state.student.id || 'default'}`;
+  return `cbe253_notebook_${state.student.id || 'default'}`;
 }
 
 function save() {
@@ -1099,7 +1099,7 @@ function save() {
 
 function load(studentId) {
   try {
-    const raw = localStorage.getItem(`warrant_notebook_generic_${studentId}`);
+    const raw = localStorage.getItem(`cbe253_notebook_${studentId}`);
     if (raw) {
       const loaded = JSON.parse(raw);
       state = { ...state, ...loaded };
@@ -1121,7 +1121,7 @@ function initNotebook() {
   save();
   document.getElementById('setup-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section}`;
+  document.getElementById('topbar-student').textContent = `${name}  ·  ID ${id}  ·  Section ${section}`;
   buildSidebar();
   renderWeek(state.currentWeek);
   updateProgress();
@@ -1130,7 +1130,7 @@ function initNotebook() {
 function buildSidebar() {
   const nav = document.getElementById('week-nav');
   nav.innerHTML = `
-    <div class="week-nav-group-label">Course Modules</div>
+    <div class="week-nav-group-label">CBE 253</div>
     <div class="week-nav-children" id="week-nav-children"></div>
   `;
   const children = document.getElementById('week-nav-children');
@@ -1147,7 +1147,7 @@ function buildSidebar() {
         <span style="font-size:12px;color:var(--text)">${w.title}</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer)">${w.due}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer)">Due ${w.due}</span>
         ${status === 'complete' ? '<span style="color:var(--green);font-size:10px">complete</span>' : status === 'partial' ? '<span style="color:var(--accent);font-size:10px">in progress</span>' : ''}
       </div>
     `;
@@ -1217,7 +1217,7 @@ function renderWeek(weekNum) {
     <div class="week-header">
       <div class="week-eyebrow">
         <span class="week-tag">${week.hw}</span>
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);letter-spacing:0.08em">${week.due}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);letter-spacing:0.08em">Due ${week.due}</span>
         <span class="week-mindset-tags"><span class="week-mindset-tag">${week.mindset}</span></span>
       </div>
       <div class="week-title">${week.title}</div>
@@ -1243,13 +1243,13 @@ function buildPromptCard(week) {
   card.innerHTML = `
     <div class="prompt-card-header" onclick="this.parentElement.classList.toggle('open')">
       <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase">Pre-Run Prompt Card</span>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase">Before You Open Aspen</span>
         <span style="font-family:var(--serif);font-size:12px;color:var(--text-dimmer);font-style:italic">${week.promptCard.subtitle}</span>
       </div>
       <span class="prompt-card-chevron">&#x25BE;</span>
     </div>
     <div class="prompt-card-body">
-      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence answering each question. before running your model.</p>
+      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence answering each question. Do this before opening Aspen.</p>
       <ol class="prompt-questions">
         ${week.promptCard.questions.map((q, i) => `
           <li class="prompt-question">
@@ -1562,7 +1562,7 @@ window.addEventListener('load', () => {
   // Try to find any existing notebook
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key && key.startsWith('warrant_notebook_generic_')) {
+    if (key && key.startsWith('cbe253_notebook_')) {
       try {
         const data = JSON.parse(localStorage.getItem(key));
         if (data && data.student && data.student.name) {
@@ -1579,7 +1579,6 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-
 
 
 

@@ -9,7 +9,7 @@ Current live course:
 - [CBE 253 (Live)](../contexts/cbe253/index.md)
 
 ## I am exploring independently
-Start with [Warrant](../warrant.md) at the stable tool URL.
+Start with the [generic Warrant tool](../warrant-tool.html) for any engineering course.
 
 Then use:
 - [Warrant Template](../warrant-template.md)

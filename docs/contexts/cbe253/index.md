@@ -5,7 +5,7 @@
 
 This is the active course page for Warrant in CBE 253. Each homework has one Warrant entry. Complete your simulation first, then open Warrant, fill in the four fields, export to PDF, and submit alongside your `.apwz` file on Canvas.
 
--> [Open Warrant](../../warrant.md)  
+-> [Open CBE 253 Warrant](../../warrant-tool-cbe253.html)  
 -> [Warrant Worked Example](warrant-worked-example.md)
 
 ---
