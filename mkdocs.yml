@@ -13,7 +13,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Aspen Notebook (Flagship): aspen-notebook.md
+  - Aspen Plus Notebook: aspen-notebook.md
   - Start Here: start-here.md
   - CBE 253 (Live): contexts/cbe253/index.md
   - Faculty Adoption: faculty-adoption.md

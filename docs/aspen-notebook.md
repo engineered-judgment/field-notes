@@ -1,4 +1,4 @@
-# Aspen Notebook (Flagship)
+# Aspen Plus Notebook
 
 If you want one page that demonstrates the site's standard of reasoning, start here.
 
