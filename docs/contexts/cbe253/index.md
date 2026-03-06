@@ -13,7 +13,7 @@ Build the habit of making defensible engineering decisions when models are incom
 
 ## Module sequence
 ### Week 1: Framing and boundaries
-- Deliverable: [Aspen Process Framing](../../notebooks/2026/2026-03-aspen-process-framing.md)
+- Deliverable: [Framing](../../notebooks/2026/2026-03-aspen-process-framing.md)
 - Checkpoint: boundary definition, basis, and first-pass assumptions
 
 ### Week 2: Assumption stress testing
@@ -39,3 +39,4 @@ Use: [Reasoning Rubric](../../rubrics/reasoning-rubric.md)
 ## Instructor notes
 - Keep notebooks reusable; avoid course code in notebook file names.
 - Keep course-specific pacing and deadlines in this page only.
+

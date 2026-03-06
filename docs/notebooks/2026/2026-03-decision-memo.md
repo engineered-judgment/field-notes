@@ -13,7 +13,7 @@ status: v1.1
 Advance the utility-reduction pathway for the next design sprint while maintaining selectivity guardrails.
 
 ## Basis
-- [Aspen Process Framing](2026-03-aspen-process-framing.md) established boundary and first-order economics.
+- [Framing](2026-03-aspen-process-framing.md) established boundary and first-order economics.
 - [Assumption Failure Map](2026-03-assumption-failure-map.md) identified selectivity degradation and steam volatility as primary risks.
 - [Sensitivity Leverage Scan](2026-03-sensitivity-leverage-scan.md) showed steam price and selectivity dominate leverage.
 
@@ -48,3 +48,4 @@ Switch recommendation if either condition is observed:
 - Decision defense: 4/4
 - Tradeoff clarity: 4/4
 - Assumption quality: 3/4
+

@@ -1,5 +1,5 @@
 ---
-title: Aspen Process Framing
+title: Framing
 date: 2026-03-05
 tags: [process-modeling, assumptions, tradeoffs]
 context: cbe253
@@ -7,7 +7,7 @@ institution: unm
 status: v1.1
 ---
 
-# Aspen Process Framing
+# Framing
 
 This notebook captures process framing decisions, assumptions, and tradeoffs in a reusable format.
 
@@ -62,3 +62,4 @@ Next in sequence: [Assumption Failure Map](2026-03-assumption-failure-map.md)
 
 ## Appendix
 Archived course-specific HTML export: [Aspen appendix](2026-03-aspen-process-framing-appendix.html).
+

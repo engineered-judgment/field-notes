@@ -32,7 +32,7 @@ nav:
     - Overview: notebooks/index.md
     - Aspen Plus Notebook (Example): aspen-notebook.md
     - 2026:
-      - Aspen Process Framing: notebooks/2026/2026-03-aspen-process-framing.md
+      - Framing: notebooks/2026/2026-03-aspen-process-framing.md
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
       - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
       - Decision Memo: notebooks/2026/2026-03-decision-memo.md
@@ -55,4 +55,5 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
+
 

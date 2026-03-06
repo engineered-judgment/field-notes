@@ -15,8 +15,9 @@ If the embedded view does not load, use the full-screen link above.
 ## Looking for worked examples?
 Use [Field Notes (Examples)](notebooks/index.md) for completed entries that show what strong output looks like.
 
-- [Aspen Process Framing](notebooks/2026/2026-03-aspen-process-framing.md)
+- [Framing](notebooks/2026/2026-03-aspen-process-framing.md)
 - [Facilities Energy Retrofit Decision (Cross-Domain)](notebooks/2026/2026-03-facilities-energy-retrofit-decision.md)
+
 
 
 
