@@ -36,7 +36,7 @@ nav:
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
       - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
       - Decision Memo: notebooks/2026/2026-03-decision-memo.md
-      - Pump VFD Control Decision (Cross-Domain): notebooks/2026/2026-03-pump-vfd-control-decision.md
+      - Facilities Energy Retrofit Decision (Cross-Domain): notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
   - Engineering Mindsets:
     - Overview: mindsets/index.md
     - Constraint: mindsets/constraint.md
@@ -55,3 +55,4 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
+

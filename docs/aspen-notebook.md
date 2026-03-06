@@ -27,7 +27,8 @@ This example shows how to identify a binding operating constraint before over-in
 [View archived HTML for this example](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
 
 **Looking for a non-chemical example?**  
-[Pump VFD Control Decision (Cross-Domain)](notebooks/2026/2026-03-pump-vfd-control-decision.md)
+[Facilities Energy Retrofit Decision (Cross-Domain)](notebooks/2026/2026-03-facilities-energy-retrofit-decision.md)
 
 **Need the interactive tool instead?**  
 Open [Warrant](warrant.md).
+

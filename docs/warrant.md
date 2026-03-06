@@ -16,6 +16,7 @@ If the embedded view does not load, use the full-screen link above.
 Use [Field Notes (Examples)](notebooks/index.md) for completed entries that show what strong output looks like.
 
 - [Aspen Process Framing](notebooks/2026/2026-03-aspen-process-framing.md)
-- [Pump VFD Control Decision (Cross-Domain)](notebooks/2026/2026-03-pump-vfd-control-decision.md)
+- [Facilities Energy Retrofit Decision (Cross-Domain)](notebooks/2026/2026-03-facilities-energy-retrofit-decision.md)
+
 
 

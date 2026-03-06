@@ -4,7 +4,7 @@ date: 2026-03-05
 tags: [process-modeling, assumptions, tradeoffs]
 context: cbe253
 institution: unm
-status: v1.0
+status: v1.1
 ---
 
 # Aspen Process Framing
@@ -44,10 +44,21 @@ Prioritize utility intensity reduction in the next iteration, while holding sele
 - If steam price falls below $6/GJ
 - If downstream purity specs tighten and force higher reflux ratios
 
+## Mindsets demonstrated
+- [Constraint](../../mindsets/constraint.md)
+- [Tradeoff](../../mindsets/tradeoff.md)
+- [Decision](../../mindsets/decision.md)
+
+## Rubric snapshot (example)
+- Problem framing: 4/4
+- Assumption quality: 3/4
+- Quantitative discipline: 3/4
+
 ## Evidence requested next week
 - One sensitivity run on steam cost (+/-30%)
 - One sensitivity run on selectivity (70-82%)
 
-## Appendix
-Original working HTML export: [Aspen appendix](2026-03-aspen-process-framing-appendix.html).
+Next in sequence: [Assumption Failure Map](2026-03-assumption-failure-map.md)
 
+## Appendix
+Archived course-specific HTML export: [Aspen appendix](2026-03-aspen-process-framing-appendix.html).

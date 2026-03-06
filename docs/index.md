@@ -62,3 +62,4 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 - [Margin](mindsets/margin.md): how uncertainty is absorbed.
 - [Satisficing](mindsets/satisficing.md): what is good enough under real constraints.
 - [Fragility](mindsets/fragility.md): what fails first when assumptions break.
+
