@@ -1,48 +1,35 @@
 # Field Notes for Engineering
 
 Engineering is the practice of making decisions under constraint.
+This site builds the habit of thinking that way.
 
-This site collects field notes: observations, worked examples, questions worth keeping, and short exercises designed to strengthen *reasoning*, not just answer production.
+### What is this?
+Observations, worked examples, questions worth keeping, and short exercises organized around reasoning frameworks engineers actually use.
 
-<div class="hero-note">
-  <strong>Field Notes</strong> means working records of judgment under uncertainty:
-  what you assumed, what you checked, what you decided, and what evidence would change that decision.
-</div>
+**Inline example (CBE 253):**
+> Decision question: should the next design sprint prioritize yield or utility intensity?  
+> Constraint framing: with steam at $11/GJ and fixed purity specs, reboiler duty dominates near-term cost risk.  
+> Tradeoff named: utility-reduction wins this week, unless selectivity drops below 72%.
 
-## See it, don't just read about it
-From the live Aspen notebook ([full page](notebooks/2026/2026-03-aspen-process-framing.md)):
+### Why trust it?
+- Every notebook shows assumptions, checks, and reversal conditions, not just conclusions.
+- The [Aspen Notebook (Flagship)](aspen-notebook.md) is a full working example.
+- The [Reasoning Rubric](rubrics/reasoning-rubric.md) makes evaluation criteria explicit.
+- The method is already implemented in a live teaching context: [CBE 253 (Live)](contexts/cbe253/index.md).
 
-> At baseline, reboiler duty dominates OPEX sensitivity.  
-> A 10% duty reduction has larger cost effect than a 1-point selectivity change.
+### Where do I go next?
+**For Students**
+- Start with [Start Here](start-here.md), then follow [CBE 253 (Live)](contexts/cbe253/index.md).
 
-This is the core style of the site: explicit assumptions, quantitative checks, decision logic, and reversal conditions.
+**For Faculty**
+- Use the [Faculty Adoption Guide](faculty-adoption.md), then deploy the [Notebook Template](notebook-template.md).
 
-## Start paths
-<div class="path-grid">
-  <div class="path-card">
-    <h3>For Students</h3>
-    <p>Use the live CBE 253 flow this week, then log one notebook entry.</p>
-    <p><a href="contexts/cbe253/">Open CBE 253 (Live)</a></p>
-    <p><a href="start-here/">Start Here</a></p>
-  </div>
-  <div class="path-card">
-    <h3>For Faculty</h3>
-    <p>Adopt with a 2-week pilot, rubric calibration, and template-first deployment.</p>
-    <p><a href="faculty-adoption/">Faculty Adoption Guide</a></p>
-    <p><a href="notebook-template/">Notebook Template</a></p>
-  </div>
-</div>
-
-## What makes this transferable
-- The notebook files are discipline-neutral; context pages carry course-specific pacing.
-- The same pattern can be used in process systems, structures, controls, manufacturing, or design.
-- Evaluation is based on reasoning quality, not just final numeric output.
-
-## Current anchors
-- **Flagship example**: [Aspen Notebook](aspen-notebook.md)
-- **Live implementation**: [CBE 253 (working example)](contexts/cbe253/index.md)
-- **Reusable notebook library**: [Notebooks](notebooks/index.md)
-- **Core lenses**: [Engineering Mindsets](mindsets/index.md)
-
-## Authorial perspective
-This site is built from practice: decision-making in settings where data is incomplete, models are imperfect, and engineering accountability still applies.
+### The Eight Mindsets
+- [Constraint](mindsets/constraint.md): what cannot be violated.
+- [Tradeoff](mindsets/tradeoff.md): what improves and what worsens.
+- [Approximation](mindsets/approximation.md): what simplification buys and what it hides.
+- [Systems](mindsets/systems.md): where local fixes create global effects.
+- [Decision](mindsets/decision.md): what commitment is being made.
+- [Margin](mindsets/margin.md): how uncertainty is absorbed.
+- [Satisficing](mindsets/satisficing.md): what is good enough under real constraints.
+- [Fragility](mindsets/fragility.md): what fails first when assumptions break.

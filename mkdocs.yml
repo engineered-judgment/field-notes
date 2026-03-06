@@ -51,6 +51,3 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-
-extra_css:
-  - stylesheets/home.css
