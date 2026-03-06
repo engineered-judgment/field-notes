@@ -773,7 +773,7 @@
 <div id="setup-screen">
   <div class="setup-container">
     <div class="setup-header">
-      <div class="setup-label">Warrant — Reasoning Module</div>
+      <div class="setup-label">Warrant - Reasoning Module</div>
       <div class="setup-title">Warrant<br>Notebook</div>
       <div class="setup-subtitle">A record of simulation, judgment, and engineering thinking</div>
     </div>
@@ -790,7 +790,7 @@
       <label class="field-label">Section</label>
       <input class="field-input" id="setup-section" type="text" placeholder="e.g. 001" autocomplete="off">
     </div>
-    <button class="btn-primary" onclick="initNotebook()">Open Notebook →</button>
+    <button class="btn-primary" onclick="initNotebook()">Open Notebook -></button>
   </div>
 </div>
 
@@ -844,73 +844,60 @@
 const WEEKS = [
   {
     num: 1,
-    title: "Mixers & Splitters",
+    title: "HW1 - Mixers and Splitters",
     topic: "MIXER, FSPLIT",
-    mindsets: ["Approximations", "Constraints"],
-    provocation: "Every model is a simplification. What did you decide to ignore this week, and why was that acceptable?"
+    mindsets: ["Constraint", "Approximation"],
+    provocation: "Where did you simplify the system, and why was that acceptable for this decision?"
   },
   {
     num: 2,
-    title: "Pressure & Temperature Changers",
+    title: "HW2 - Pressure and Temperature Changers",
     topic: "PUMP, COMPR, HEATER, HEATX",
-    mindsets: ["Tradeoffs", "Margins"],
-    provocation: "Where is the gap between your design point and the point at which your process fails?"
+    mindsets: ["Margin", "Tradeoff"],
+    provocation: "Where is your safety or performance margin, and what did it cost you?"
   },
   {
     num: 3,
-    title: "Separators",
+    title: "HW3 - Flash Separators",
     topic: "SEP, SEP2, FLASH2",
-    mindsets: ["Constraints", "Satisficing"],
-    provocation: "Did you find the best solution or a good enough one? How do you know the difference?"
+    mindsets: ["Fragility", "Systems"],
+    provocation: "Which property-method or phase assumption could fail first, and how would you detect it?"
   },
   {
     num: 4,
-    title: "Distillation — DSTWU",
+    title: "HW4 - Distillation DSTWU",
     topic: "DSTWU",
-    mindsets: ["Decisions", "Systems"],
-    provocation: "DSTWU gives you estimates, not answers. What decision did you make with imperfect information?"
+    mindsets: ["Approximation", "Decision"],
+    provocation: "DSTWU gives estimates, not verified operation. What decision did you make with that limitation?"
   },
   {
     num: 5,
-    title: "Distillation — RadFrac",
-    topic: "RADFRAC",
-    mindsets: ["Systems", "Tradeoffs"],
-    provocation: "You changed one variable and three things moved. Which system behavior surprised you most?"
+    title: "HW5 - Reactor and Distillation",
+    topic: "RADFRAC, RSTOIC, RGIBBS",
+    mindsets: ["Systems", "Tradeoff"],
+    provocation: "What changed across the coupled system when you changed one block assumption?"
   },
   {
     num: 6,
-    title: "Reactors",
-    topic: "RSTOIC, RGIBBS, REQUIL, RBATCH",
-    mindsets: ["Fragility", "Approximations"],
-    provocation: "Every reactor model has a regime where it becomes dangerous to trust. Where is that regime in yours?"
-  },
-  {
-    num: 7,
-    title: "Thermodynamic Properties",
-    topic: "Pure & Binary Analysis",
-    mindsets: ["Approximations", "Decisions"],
-    provocation: "The property method is a choice with consequences. What did you choose and what did you accept as a result?"
-  },
-  {
-    num: 8,
-    title: "Property Methods & Ternary Analysis",
-    topic: "EOS, Activity Models, Ternary",
-    mindsets: ["Tradeoffs", "Fragility", "Satisficing"],
-    provocation: "All eight mindsets are in play now. Where in this week's simulation did each one appear?"
+    title: "HW6 - Property Methods",
+    topic: "EOS, Activity Models, Method Selection",
+    mindsets: ["Fragility", "Satisficing"],
+    provocation: "What method did you choose, what did it miss, and why was that still acceptable?"
   }
 ];
 
-const MINDSETS = ["Constraints","Approximations","Tradeoffs","Decisions","Systems","Margins","Satisficing","Fragility"];
+const MINDSETS = ["Constraint","Tradeoff","Approximation","Systems","Decision","Margin","Satisficing","Fragility"];
+const ENTRY_FIELDS = ["belief_update", "assumption_failure", "math_physical_link", "skeptical_challenge"];
 
 const FIELD_PROMPTS = {
-  "Constraints": "What boundaries shaped your decisions this week?",
-  "Approximations": "What did your model assume away — and was that acceptable?",
-  "Tradeoffs": "What did you sacrifice and what did you protect?",
-  "Decisions": "What judgment call did you make that another engineer might have made differently?",
-  "Systems": "What happened downstream when you changed something upstream?",
-  "Margins": "How much gap did you build between your design point and failure?",
-  "Satisficing": "Where did you settle for good enough — and was that the right call?",
-  "Fragility": "Where is your model most likely to mislead you?"
+  "Constraint": "What boundary condition or requirement dominated your decision?",
+  "Tradeoff": "What did you gain, and what did you accept losing?",
+  "Approximation": "Which approximation shaped your result, and when might it break?",
+  "Systems": "What upstream-downstream interaction mattered most this week?",
+  "Decision": "What recommendation did you make, and what would reverse it?",
+  "Margin": "How much buffer do you have before failure and why is it enough?",
+  "Satisficing": "Where did you choose good-enough over optimal, and why?",
+  "Fragility": "Which assumption could fail silently and mislead your conclusion?"
 };
 
 let state = {
@@ -954,7 +941,7 @@ function initNotebook() {
   save();
   document.getElementById('setup-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('topbar-student').textContent = `${name}  ·  ID ${id}  ·  Section ${section}`;
+  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section}`;
   buildSidebar();
   renderWeek(state.currentWeek);
   updateProgress();
@@ -994,9 +981,9 @@ function buildSidebar() {
 function getWeekStatus(weekNum) {
   const entries = state.entries[weekNum] || {};
   let filled = 0, total = 0;
-  for (let e = 1; e <= 2; e++) {
+  for (let e = 1; e <= 1; e++) {
     const entry = entries[e] || {};
-    ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(f => {
+    ENTRY_FIELDS.forEach(f => {
       total++;
       if (entry[f] && entry[f].trim()) filled++;
     });
@@ -1020,9 +1007,9 @@ function updateProgress() {
   let filled = 0, total = 0;
   WEEKS.forEach(w => {
     const entries = state.entries[w.num] || {};
-    for (let e = 1; e <= 2; e++) {
+    for (let e = 1; e <= 1; e++) {
       const entry = entries[e] || {};
-      ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(f => {
+      ENTRY_FIELDS.forEach(f => {
         total++;
         if (entry[f] && entry[f].trim()) filled++;
       });
@@ -1062,7 +1049,7 @@ function renderWeek(weekNum) {
   `;
 
   const container = document.getElementById('entries-container');
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= 1; i++) {
     container.appendChild(buildEntry(weekNum, i));
   }
 
@@ -1084,7 +1071,7 @@ function buildEntry(weekNum, entryNum) {
   card.innerHTML = `
     <div class="entry-header" onclick="toggleEntry(${weekNum},${entryNum})">
       <div class="entry-header-left">
-        <span class="entry-number">Entry ${entryNum}</span>
+        <span class="entry-number">Warrant Entry</span>
         <span class="entry-title">${week.title}</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
@@ -1094,84 +1081,68 @@ function buildEntry(weekNum, entryNum) {
     </div>
     <div class="entry-body ${isCollapsed ? 'collapsed' : ''}" id="body-${weekNum}-${entryNum}">
 
-      <!-- FIELD 1: ARTIFACT -->
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">01</span>
-          <span class="field-name">The Artifact</span>
+          <span class="field-name">Belief Update</span>
         </div>
-        <div class="field-prompt">Attach a screenshot, stream table, or plot from your analysis workflow. Then caption it: what am I looking at, and why does it matter?</div>
-        <div class="artifact-zone" id="artifact-zone-${weekNum}-${entryNum}">
-          <div class="artifact-preview" id="artifact-preview-${weekNum}-${entryNum}">
-            <img id="artifact-img-${weekNum}-${entryNum}" src="" alt="Artifact">
-            <span class="artifact-filename" id="artifact-name-${weekNum}-${entryNum}"></span>
-          </div>
-          <div class="artifact-zone-label" id="artifact-placeholder-${weekNum}-${entryNum}">Drop image here or click to upload</div>
-          <button class="btn-artifact" onclick="triggerUpload(${weekNum},${entryNum})">+ Attach Screenshot</button>
-        </div>
-        <input type="text" class="field-input"
-          id="artifact_caption-${weekNum}-${entryNum}"
-          placeholder="Caption: What am I looking at, and why does it matter?"
-          value="${escHtml(entryData.artifact_caption || '')}"
-          oninput="autosave(${weekNum},${entryNum})">
+        <div class="field-prompt">What did you believe before this session that you no longer believe, and what changed it?</div>
+        <textarea class="field-input tall"
+          id="belief_update-${weekNum}-${entryNum}"
+          placeholder="State your prior belief, then name the evidence or observation that changed it."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.belief_update || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
 
-      <!-- FIELD 2: CONFUSION -->
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">02</span>
-          <span class="field-name">The Moment of Confusion</span>
+          <span class="field-name">Assumption + Failure Condition</span>
         </div>
-        <div class="field-prompt">What didn't work as you expected, and what did you do? Be specific — describe the exact moment, what Model showed you, and how you responded.</div>
+        <div class="field-prompt">State one consequential assumption, then the condition under which it fails.</div>
         <textarea class="field-input tall"
-          id="confusion-${weekNum}-${entryNum}"
-          placeholder="Describe a specific moment where the simulation behaved unexpectedly..."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.confusion || '')}</textarea>
-        <div class="char-hint" id="confusion-hint-${weekNum}-${entryNum}">Minimum 3 sentences</div>
+          id="assumption_failure-${weekNum}-${entryNum}"
+          placeholder="I assumed ____. This fails when ____."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.assumption_failure || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
 
-      <!-- FIELD 3: JUDGMENT -->
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">03</span>
-          <span class="field-name">The Judgment Statement</span>
+          <span class="field-name">Math to Physical Link</span>
         </div>
-        <div class="field-prompt">Not what you did — what you decided. What would have happened if you'd decided differently?</div>
+        <div class="field-prompt">Name one equation or model output and connect it to a physical behavior in the system.</div>
         <textarea class="field-input tall"
-          id="judgment-${weekNum}-${entryNum}"
-          placeholder="I decided to... because... If I had instead... the result would have been..."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.judgment || '')}</textarea>
+          id="math_physical_link-${weekNum}-${entryNum}"
+          placeholder="Equation/output: ____. Physical meaning: ____."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.math_physical_link || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
 
-      <!-- FIELD 4: WEAK POINT -->
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">04</span>
-          <span class="field-name">The Weak Point</span>
+          <span class="field-name">Skeptical Challenge</span>
         </div>
-        <div class="field-prompt">One sentence only. Forced brevity is deliberate.</div>
-        <input type="text" class="field-input"
-          id="weak_point-${weekNum}-${entryNum}"
-          placeholder="The weakest assumption in my model this week was _____ because _____."
-          value="${escHtml(entryData.weak_point || '')}"
-          oninput="autosave(${weekNum},${entryNum})">
+        <div class="field-prompt">What would a skeptical engineer challenge first, and what evidence would you need to answer it?</div>
+        <textarea class="field-input tall"
+          id="skeptical_challenge-${weekNum}-${entryNum}"
+          placeholder="A skeptical engineer would challenge ____. I would need ____ evidence."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.skeptical_challenge || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
 
-      <!-- FIELD 5: MINDSET -->
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">05</span>
           <span class="field-name">Primary Mindset</span>
         </div>
-        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one — the constraint forces prioritization.</div>
+        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one.</div>
         <div class="mindset-select-grid" id="mindset-grid-${weekNum}-${entryNum}">
           ${MINDSETS.map(m => `
             <div class="mindset-option ${entryData.mindset === m ? 'selected' : ''}"
@@ -1184,29 +1155,23 @@ function buildEntry(weekNum, entryNum) {
     <div class="entry-footer">
       <span class="save-hint">Auto-saves as you type</span>
       <div style="display:flex;align-items:center;gap:16px">
-        <span class="save-status" id="save-status-${weekNum}-${entryNum}">✓ Saved</span>
+        <span class="save-status" id="save-status-${weekNum}-${entryNum}">Saved</span>
         <button class="btn-save" onclick="manualSave(${weekNum},${entryNum})">Save Entry</button>
       </div>
     </div>
   `;
 
-  // Restore artifact if present
-  if (state.artifacts && state.artifacts[`${weekNum}-${entryNum}`]) {
-    setTimeout(() => restoreArtifact(weekNum, entryNum), 50);
-  }
-
   return card;
 }
 
 function hasAnyData(entry) {
-  return !!(entry.artifact_caption || entry.confusion || entry.judgment || entry.weak_point || entry.mindset);
+  return ENTRY_FIELDS.some(f => entry[f] && entry[f].trim()) || !!entry.mindset;
 }
 
 function getEntryStatus(entry) {
-  const fields = ['artifact_caption', 'confusion', 'judgment', 'weak_point'];
-  const filled = fields.filter(f => entry[f] && entry[f].trim()).length;
+  const filled = ENTRY_FIELDS.filter(f => entry[f] && entry[f].trim()).length;
   if (filled === 0) return '';
-  if (filled === fields.length && entry.mindset) return 'complete';
+  if (filled === ENTRY_FIELDS.length && entry.mindset) return 'complete';
   return 'partial';
 }
 
@@ -1223,7 +1188,7 @@ function autosave(weekNum, entryNum) {
   if (!state.entries[weekNum]) state.entries[weekNum] = {};
   if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
   const entry = state.entries[weekNum][entryNum];
-  ['artifact_caption', 'confusion', 'judgment', 'weak_point'].forEach(field => {
+  ENTRY_FIELDS.forEach(field => {
     const el = document.getElementById(`${field}-${weekNum}-${entryNum}`);
     if (el) entry[field] = el.value;
   });
@@ -1327,17 +1292,16 @@ function renderWeekSummary(weekNum) {
   const entries = state.entries[weekNum] || {};
   let entriesSaved = 0;
   const mindsets = new Set();
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= 1; i++) {
     const e = entries[i] || {};
     if (e.timestamp) entriesSaved++;
     if (e.mindset) mindsets.add(e.mindset);
   }
-  const week = WEEKS.find(w => w.num === weekNum);
   summary.innerHTML = `
     <div class="week-summary-header">Week ${weekNum} Summary</div>
     <div class="week-summary-stats">
       <div class="stat">
-        <div class="stat-value">${entriesSaved}/2</div>
+        <div class="stat-value">${entriesSaved}/1</div>
         <div class="stat-label">Entries Saved</div>
       </div>
       <div class="stat">
@@ -1345,7 +1309,7 @@ function renderWeekSummary(weekNum) {
         <div class="stat-label">Mindsets Tagged</div>
       </div>
       <div class="stat">
-        <div class="stat-value">${[...mindsets].join(', ') || '—'}</div>
+        <div class="stat-value">${[...mindsets].join(', ') || '-'}</div>
         <div class="stat-label">This Week</div>
       </div>
     </div>
@@ -1390,6 +1354,8 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
+
+
 
 
 
