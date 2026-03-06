@@ -10,6 +10,7 @@ Current live course:
 
 ## I am exploring independently
 Start with the [generic Warrant tool](../warrant-tool.html) for any engineering course.
+Select your **Discipline Profile** when you open it.
 
 Then use:
 - [Warrant Template](../warrant-template.md)

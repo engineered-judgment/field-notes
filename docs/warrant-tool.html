@@ -851,6 +851,7 @@
     font-weight: 600;
     padding-top: 3px;
     letter-spacing: 0.05em;
+    grid-row: 1 / span 2;
   }
 
   .prompt-q-text {
@@ -859,6 +860,7 @@
     color: var(--text);
     line-height: 1.6;
     margin-bottom: 8px;
+    grid-column: 2;
   }
 
   .prompt-answer {
@@ -873,6 +875,8 @@
     padding: 8px 10px;
     resize: vertical;
     transition: border-color 0.15s;
+    grid-column: 2;
+    display: block;
   }
   .prompt-answer:focus {
     outline: none;
@@ -913,7 +917,18 @@
       <label class="field-label">Section</label>
       <input class="field-input" id="setup-section" type="text" placeholder="e.g. 001" autocomplete="off">
     </div>
-    <button class="btn-primary" onclick="initNotebook()">Open Notebook →</button>
+    <div class="field-group">
+      <label class="field-label">Discipline Profile</label>
+      <select class="field-input" id="setup-profile">
+        <option value="general">General Engineering</option>
+        <option value="civil">Civil Engineering</option>
+        <option value="mechanical">Mechanical Engineering</option>
+        <option value="chemical">Chemical Engineering</option>
+        <option value="ece">Electrical and Computer Engineering</option>
+        <option value="cs">Computer Science</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="initNotebook()">Open Notebook -></button>
   </div>
 </div>
 
@@ -969,105 +984,378 @@ const WEEKS = [
     num: 1,
     hw: "M1",
     title: "Problem Framing and Assumptions",
-    topic: "System boundaries, inputs, assumptions",
+    topic: "Decision question, boundaries, assumptions",
     due: "Self-paced",
     mindset: "Constraint",
-    provocation: "What did you assume without checking, and what boundary condition controls whether your result can be trusted?",
-    promptCard: {
-      subtitle: "Model Setup and Framing",
-      questions: [
-        "Before running your model, write one sentence that states the engineering decision you are trying to inform.",
-        "List the single most consequential assumption in your setup. What measurable condition would make that assumption fail?",
-        "Identify one output you expect to move the most if your primary assumption is wrong."
-      ]
-    }
+    provocation: "What did you assume without checking, and what boundary condition controls whether your result can be trusted?"
   },
   {
     num: 2,
     hw: "M2",
-    title: "Energy and Work Accounting",
-    topic: "First-law balance, efficiency, losses",
+    title: "Math, Models, and Physical Meaning",
+    topic: "Governing equations, checks, interpretation",
     due: "Self-paced",
-    mindset: "Tradeoff",
-    provocation: "What did your design gain, and what did it cost in energy, complexity, or robustness?",
-    promptCard: {
-      subtitle: "Performance Tradeoffs",
-      questions: [
-        "Predict which performance metric will improve if you push your design harder, and which metric will worsen.",
-        "State one operating condition where your nominal efficiency assumption is likely to break down.",
-        "Name one energy flow your simulation reports and one related physical destination or source it does not model."
-      ]
-    }
+    mindset: "Approximation",
+    provocation: "Where does your model simplify reality, and what physical consequence does that simplification create?"
   },
   {
     num: 3,
     hw: "M3",
-    title: "Phase and Separation Behavior",
-    topic: "Equilibrium, separations, feasibility",
+    title: "Tradeoffs and Constraints",
+    topic: "Competing objectives, performance limits",
     due: "Self-paced",
-    mindset: "Fragility",
-    provocation: "Convergence means the calculation completed. What remains unvalidated about the physics?",
-    promptCard: {
-      subtitle: "Separation Feasibility",
-      questions: [
-        "Identify one separator or phase-model block in your flowsheet that enforces a result versus one that calculates it from thermodynamics.",
-        "Name one property-model choice in your simulation and the regime where it is most likely to fail.",
-        "Write one check you can run to detect physically unrealistic separation behavior before finalizing results."
-      ]
-    }
+    mindset: "Tradeoff",
+    provocation: "What did your design gain, and what did it cost in performance, risk, or complexity?"
   },
   {
     num: 4,
     hw: "M4",
-    title: "Approximate Design Methods",
-    topic: "Shortcut design, preliminary estimates",
+    title: "Systems and Coupling",
+    topic: "Upstream-downstream effects, propagation",
     due: "Self-paced",
-    mindset: "Approximation",
-    provocation: "Which outputs are estimates, and what would validate them in a higher-fidelity model?",
-    promptCard: {
-      subtitle: "Shortcut to Rigorous",
-      questions: [
-        "State one heuristic you are using and what economic or physical context it implicitly assumes.",
-        "Predict how your recommended design point would shift if one key cost or feed condition changed materially.",
-        "Name the next rigorous calculation needed before treating your estimate as a design decision."
-      ]
-    }
+    mindset: "Systems",
+    provocation: "What change in one subsystem produced the largest consequence somewhere else?"
   },
   {
     num: 5,
     hw: "M5",
-    title: "Coupled Unit Operations",
-    topic: "System interactions, downstream impact",
+    title: "Failure Modes and Robustness",
+    topic: "Fragility, uncertainty, operating envelope",
     due: "Self-paced",
-    mindset: "Systems",
-    provocation: "What upstream change created the largest downstream consequence in your model?",
-    promptCard: {
-      subtitle: "System Coupling",
-      questions: [
-        "Choose one upstream variable and state exactly which downstream unit operation is most sensitive to it.",
-        "Name one physically plausible phenomenon missing from your model that would alter downstream composition or duty.",
-        "Write one alternative specification and predict its system-level tradeoff before rerunning."
-      ]
-    }
+    mindset: "Fragility",
+    provocation: "Where is your model most likely to fail silently, and how would you detect it early?"
   },
   {
     num: 6,
     hw: "M6",
-    title: "Model Selection and Decision Defense",
-    topic: "Method choice, evidence, validation",
+    title: "Decision Defense and Evidence",
+    topic: "Recommendation, reversal conditions, evidence plan",
     due: "Self-paced",
     mindset: "Decision",
-    provocation: "What model choice are you defending, and what evidence would make you reverse that decision?",
-    promptCard: {
-      subtitle: "Method Justification",
+    provocation: "What decision are you defending, and what evidence would make you reverse it?"
+  }
+];
+
+const PROFILE_LABELS = {
+  general: "General Engineering",
+  civil: "Civil Engineering",
+  mechanical: "Mechanical Engineering",
+  chemical: "Chemical Engineering",
+  ece: "Electrical and Computer Engineering",
+  cs: "Computer Science"
+};
+
+const PROFILE_EXAMPLES = {
+  general: "Generic design or analysis notebook entry",
+  civil: "Example context: retaining wall sizing with serviceability checks",
+  mechanical: "Example context: pump retrofit and duty-cycle control strategy",
+  chemical: "Example context: reactor-separator train with utility constraints",
+  ece: "Example context: control loop and power budget co-design",
+  cs: "Example context: model serving architecture under latency constraints"
+};
+
+const PROFILE_PROMPTS = {
+  general: {
+    1: {
+      subtitle: "General Problem Framing",
       questions: [
-        "State the model or property-method you selected and the strongest reason for that choice in this regime.",
-        "Identify one dataset, benchmark, or independent check needed to validate this choice for your system.",
-        "Write a reversal condition: what new evidence would cause you to choose a different method?"
+        "State the engineering decision this model is intended to inform in one sentence.",
+        "List the most consequential assumption and one measurable condition that would invalidate it.",
+        "Identify one output you expect to change the most if that assumption is wrong."
+      ]
+    },
+    2: {
+      subtitle: "Model Interpretation",
+      questions: [
+        "Name one equation or model relation driving your result and the variable it is most sensitive to.",
+        "Predict one numerical result before running, then compare with model output.",
+        "Translate one computed quantity into a physical or operational meaning."
+      ]
+    },
+    3: {
+      subtitle: "Tradeoff Framing",
+      questions: [
+        "Name two objectives in conflict and which one your current setup prioritizes.",
+        "What constraint is binding first (cost, safety, code, time, energy, reliability)?",
+        "Define a switching condition that would make you choose the alternative design."
+      ]
+    },
+    4: {
+      subtitle: "System Coupling",
+      questions: [
+        "Choose one upstream variable and identify the downstream response most sensitive to it.",
+        "What feedback or coupling is not represented in your current model boundary?",
+        "Which subsystem should be re-validated first if the upstream assumption changes?"
+      ]
+    },
+    5: {
+      subtitle: "Robustness Check",
+      questions: [
+        "What failure mode is most plausible under off-design conditions?",
+        "What signal would reveal that failure mode early in operation?",
+        "What low-effort verification step would reduce your fragility risk the most?"
+      ]
+    },
+    6: {
+      subtitle: "Decision Defense",
+      questions: [
+        "Write your recommendation in one sentence with scope and confidence.",
+        "State one reversal condition with a measurable threshold.",
+        "List the minimum evidence package required before final implementation."
+      ]
+    }
+  },
+  civil: {
+    1: {
+      subtitle: "Site, Loads, and Code Assumptions",
+      questions: [
+        "State the civil decision (alignment, section, material, or staging) this model supports.",
+        "Which code assumption (loads, soil class, drainage, safety factor) is most consequential?",
+        "What field condition would invalidate that assumption first?"
+      ]
+    },
+    2: {
+      subtitle: "Structural/Geotechnical Interpretation",
+      questions: [
+        "Name one governing relation (stress, deflection, bearing, settlement) and key sensitivity.",
+        "Predict whether strength or serviceability controls before checking results.",
+        "Translate one model output into a physical risk (cracking, settlement, slope movement, drainage failure)."
+      ]
+    },
+    3: {
+      subtitle: "Cost-Safety-Constructability Tradeoff",
+      questions: [
+        "What tradeoff are you making between safety margin, cost, and constructability?",
+        "Which constraint is binding now: right-of-way, code, staging, budget, or schedule?",
+        "What threshold would shift you to an alternate section or method?"
+      ]
+    },
+    4: {
+      subtitle: "Infrastructure Coupling",
+      questions: [
+        "How does changing one element (grade, section, material, drainage) affect adjacent systems?",
+        "What lifecycle effect (maintenance, resilience, flood behavior) is omitted from this model?",
+        "What downstream stakeholder impact should be checked before finalizing?"
+      ]
+    },
+    5: {
+      subtitle: "Failure Modes",
+      questions: [
+        "What off-design event is most critical (extreme storm, scour, overload, liquefaction, creep)?",
+        "What monitoring indicator would provide earliest warning?",
+        "What conservative check would you add before stamp-level confidence?"
+      ]
+    },
+    6: {
+      subtitle: "Permit and Decision Defense",
+      questions: [
+        "State the recommendation and confidence range for this design choice.",
+        "Define a measurable reversal condition tied to code or field verification.",
+        "List the minimum evidence needed for review board or permitting approval."
+      ]
+    }
+  },
+  mechanical: {
+    1: {
+      subtitle: "System Definition and Assumptions",
+      questions: [
+        "State the mechanical decision (component sizing, control strategy, duty point) in one sentence.",
+        "Which assumption about load profile, efficiency map, or boundary condition is most consequential?",
+        "What measured operating condition would break that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Thermo/Fluids Interpretation",
+      questions: [
+        "Name one governing relation (energy balance, affinity, pressure drop, stress) driving your result.",
+        "Predict one key output before running and compare magnitude after run.",
+        "Explain one model output as a physical mechanism (heat transfer limit, flow regime, fatigue driver)."
+      ]
+    },
+    3: {
+      subtitle: "Performance Tradeoff",
+      questions: [
+        "What tradeoff are you making between efficiency, reliability, and controllability?",
+        "Which design limit binds first: temperature, stress, vibration, duty, or maintenance interval?",
+        "What quantitative threshold would make you choose the alternative design?"
+      ]
+    },
+    4: {
+      subtitle: "Subsystem Coupling",
+      questions: [
+        "How does changing one subsystem parameter propagate to others (thermal, structural, controls)?",
+        "What coupling is missing (control loop dynamics, transient behavior, degradation)?",
+        "Which subsystem should be validated first after any design change?"
+      ]
+    },
+    5: {
+      subtitle: "Reliability and Failure",
+      questions: [
+        "What failure mode dominates risk (fatigue, cavitation, overheating, wear, instability)?",
+        "Which operating signal would indicate that failure mode earliest?",
+        "What quick test would most reduce uncertainty before procurement?"
+      ]
+    },
+    6: {
+      subtitle: "Recommendation and Evidence",
+      questions: [
+        "Write your recommendation with expected performance delta and confidence.",
+        "Name a measurable reversal condition for your recommendation.",
+        "List the minimum test data required before implementation."
+      ]
+    }
+  },
+  chemical: {
+    1: {
+      subtitle: "Process Framing",
+      questions: [
+        "State the process decision (configuration, condition, or method choice) this model informs.",
+        "Which thermodynamic, kinetic, or separation assumption is most consequential?",
+        "What composition/operating condition would make that assumption fail?"
+      ]
+    },
+    2: {
+      subtitle: "Thermo/Kinetics Interpretation",
+      questions: [
+        "Name one governing relation (equilibrium, rate law, energy balance) and key sensitivity.",
+        "Predict one stream or unit output before running and compare after run.",
+        "Translate one output into a physical process meaning (selectivity, duty, conversion, phase behavior)."
+      ]
+    },
+    3: {
+      subtitle: "Yield-Energy-Capital Tradeoff",
+      questions: [
+        "What tradeoff are you making between yield, purity, energy, and equipment complexity?",
+        "Which process constraint binds first (safety, utility, equilibrium, throughput, emissions)?",
+        "What switching condition would justify an alternative process choice?"
+      ]
+    },
+    4: {
+      subtitle: "Flowsheet Coupling",
+      questions: [
+        "What upstream change most strongly affects downstream separation or utility demand?",
+        "What recycle, purge, or control interaction is not represented in your current boundary?",
+        "Which downstream unit should be rechecked first after upstream changes?"
+      ]
+    },
+    5: {
+      subtitle: "Fragility and Off-Design",
+      questions: [
+        "What off-design condition is most likely to break model validity (fouling, feed swing, side reaction)?",
+        "What process measurement would detect this deviation earliest?",
+        "What additional verification run would reduce this fragility risk?"
+      ]
+    },
+    6: {
+      subtitle: "Decision Defense",
+      questions: [
+        "State your recommendation and expected process impact in one sentence.",
+        "Define one measurable reversal condition for this recommendation.",
+        "List the minimum evidence package needed before design freeze."
+      ]
+    }
+  },
+  ece: {
+    1: {
+      subtitle: "Architecture and Assumptions",
+      questions: [
+        "State the ECE decision (topology, control law, interface, or implementation target) in one sentence.",
+        "Which assumption about load, timing, noise, or operating environment is most consequential?",
+        "What measurable condition would invalidate that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Circuit/Signal Interpretation",
+      questions: [
+        "Name one governing relation (transfer function, KCL/KVL, timing, power budget) driving your result.",
+        "Predict one key output (gain, delay, SNR, power, thermal rise) before simulation.",
+        "Map one simulated metric to a physical behavior in hardware."
+      ]
+    },
+    3: {
+      subtitle: "Performance Tradeoff",
+      questions: [
+        "What tradeoff is central: power vs performance, latency vs robustness, cost vs precision?",
+        "Which constraint is binding: bandwidth, thermal, area, EMC, battery, or real-time deadline?",
+        "What threshold would make you switch to another design option?"
+      ]
+    },
+    4: {
+      subtitle: "System Integration",
+      questions: [
+        "How does a change in one block propagate through sensing, compute, control, and actuation?",
+        "What interface or coupling (clocking, quantization, communication delay) is omitted now?",
+        "Which subsystem needs first re-validation after any change?"
+      ]
+    },
+    5: {
+      subtitle: "Failure and Robustness",
+      questions: [
+        "What failure mode is most likely under off-nominal operation (noise burst, drift, overload, race)?",
+        "What telemetry signal would reveal it first?",
+        "What bench test would most reduce deployment risk?"
+      ]
+    },
+    6: {
+      subtitle: "Engineering Decision Defense",
+      questions: [
+        "State the recommendation and expected system-level benefit.",
+        "Define a measurable reversal condition.",
+        "List the minimum verification evidence required before release."
+      ]
+    }
+  },
+  cs: {
+    1: {
+      subtitle: "Problem and Assumptions",
+      questions: [
+        "State the CS decision (algorithm, architecture, model choice, or system policy) in one sentence.",
+        "Which assumption about data, workload, user behavior, or environment is most consequential?",
+        "What measurable condition would invalidate that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Model and Metric Interpretation",
+      questions: [
+        "Name one governing relation (complexity, objective, throughput/latency model, error metric).",
+        "Predict one key metric before running experiments or benchmarks.",
+        "Explain what one observed metric means for real system behavior or user impact."
+      ]
+    },
+    3: {
+      subtitle: "Tradeoff Analysis",
+      questions: [
+        "What tradeoff dominates: accuracy vs latency, memory vs speed, fairness vs utility, security vs usability?",
+        "Which constraint binds first: compute budget, memory, SLA, policy, maintainability, or risk?",
+        "What threshold would make you select an alternative approach?"
+      ]
+    },
+    4: {
+      subtitle: "System Effects",
+      questions: [
+        "How does changing one module affect other services, pipelines, or users?",
+        "What dependency or feedback loop is missing from your current evaluation?",
+        "Which integration point should be re-validated first after changes?"
+      ]
+    },
+    5: {
+      subtitle: "Failure Modes",
+      questions: [
+        "What failure mode is most plausible (distribution shift, adversarial input, outage, drift, regression)?",
+        "What monitoring signal would detect this earliest in production?",
+        "What pre-release test would most reduce that risk?"
+      ]
+    },
+    6: {
+      subtitle: "Decision and Evidence",
+      questions: [
+        "State your recommendation and expected impact in one sentence.",
+        "Define one measurable reversal condition.",
+        "List the minimum evidence package needed before deployment approval."
       ]
     }
   }
-];
+};
 
 const MINDSETS = ["Constraint","Approximation","Tradeoff","Decision","Systems","Fragility"];
 
@@ -1081,14 +1369,14 @@ const FIELD_PROMPTS = {
 };
 
 let state = {
-  student: { name: '', id: '', section: '' },
+  student: { name: '', id: '', section: '', profile: 'general' },
   currentWeek: 1,
   entries: {},
   artifacts: {}
 };
 
 function getStorageKey() {
-  return `warrant_notebook_generic_${state.student.id || 'default'}`;
+  return `warrant_notebook_generic_${state.student.profile || 'general'}_${state.student.id || 'default'}`;
 }
 
 function save() {
@@ -1097,9 +1385,9 @@ function save() {
   } catch(e) {}
 }
 
-function load(studentId) {
+function load() {
   try {
-    const raw = localStorage.getItem(`warrant_notebook_generic_${studentId}`);
+    const raw = localStorage.getItem(getStorageKey());
     if (raw) {
       const loaded = JSON.parse(raw);
       state = { ...state, ...loaded };
@@ -1107,21 +1395,42 @@ function load(studentId) {
   } catch(e) {}
 }
 
+function getProfileKey() {
+  return state.student.profile || 'general';
+}
+
+function getProfileLabel(key) {
+  return PROFILE_LABELS[key] || PROFILE_LABELS.general;
+}
+
+function getProfileExample(key) {
+  return PROFILE_EXAMPLES[key] || PROFILE_EXAMPLES.general;
+}
+
+function getWeekConfig(weekNum) {
+  const base = WEEKS.find(w => w.num === weekNum);
+  const profileKey = getProfileKey();
+  const profilePack = PROFILE_PROMPTS[profileKey] || PROFILE_PROMPTS.general;
+  const promptCard = profilePack[weekNum] || PROFILE_PROMPTS.general[weekNum];
+  return { ...base, promptCard };
+}
+
 function initNotebook() {
   const name = document.getElementById('setup-name').value.trim();
   const id = document.getElementById('setup-id').value.trim();
   const section = document.getElementById('setup-section').value.trim();
+  const profile = document.getElementById('setup-profile').value || 'general';
   if (!name || !id) {
     alert('Please enter your name and student ID.');
     return;
   }
-  state.student = { name, id, section };
-  load(id);
-  state.student = { name, id, section };
+  state.student = { name, id, section, profile };
+  load();
+  state.student = { name, id, section, profile };
   save();
   document.getElementById('setup-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section}`;
+  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section} - ${getProfileLabel(profile)}`;
   buildSidebar();
   renderWeek(state.currentWeek);
   updateProgress();
@@ -1130,7 +1439,7 @@ function initNotebook() {
 function buildSidebar() {
   const nav = document.getElementById('week-nav');
   nav.innerHTML = `
-    <div class="week-nav-group-label">Course Modules</div>
+    <div class="week-nav-group-label">${getProfileLabel(getProfileKey())}</div>
     <div class="week-nav-children" id="week-nav-children"></div>
   `;
   const children = document.getElementById('week-nav-children');
@@ -1222,6 +1531,7 @@ function renderWeek(weekNum) {
       </div>
       <div class="week-title">${week.title}</div>
       <div style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);margin-top:4px;letter-spacing:0.08em">${week.topic}</div>
+      <div style="font-family:var(--serif);font-size:12px;color:var(--text-dim);margin-top:6px;font-style:italic">${getProfileExample(getProfileKey())}</div>
       <div class="week-provocation">${week.provocation}</div>
     </div>
     <div id="entries-container"></div>
@@ -1249,7 +1559,7 @@ function buildPromptCard(week) {
       <span class="prompt-card-chevron">&#x25BE;</span>
     </div>
     <div class="prompt-card-body">
-      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence answering each question. before running your model.</p>
+      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence for each question before running your model.</p>
       <ol class="prompt-questions">
         ${week.promptCard.questions.map((q, i) => `
           <li class="prompt-question">
@@ -1520,7 +1830,7 @@ function renderWeekSummary(weekNum) {
   const entry = entries[1] || {};
   const saved = !!entry.timestamp;
   const mindset = entry.mindset || '';
-  const week = WEEKS.find(w => w.num === weekNum);
+  const week = getWeekConfig(weekNum);
   const fieldsComplete = ['belief','assumption','mathlink','skeptic'].filter(f => entry[f] && entry[f].trim()).length;
   summary.innerHTML = `
     <div class="week-summary-header">${week.hw} Summary</div>
@@ -1570,6 +1880,7 @@ window.addEventListener('load', () => {
           document.getElementById('setup-name').value = data.student.name;
           document.getElementById('setup-id').value = data.student.id;
           document.getElementById('setup-section').value = data.student.section;
+          document.getElementById('setup-profile').value = data.student.profile || 'general';
         }
       } catch(e) {}
       break;
@@ -1579,6 +1890,8 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
+
+
 
 
 
