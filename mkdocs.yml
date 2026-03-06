@@ -15,6 +15,7 @@ nav:
   - Home: index.md
   - Start Here: start-here.md
   - CBE 253 (Live): contexts/cbe253/index.md
+  - Faculty Adoption: faculty-adoption.md
   - Notebook Template: notebook-template.md
   - Notebooks:
     - Overview: notebooks/index.md
@@ -41,7 +42,6 @@ nav:
   - Rubrics:
     - Overview: rubrics/index.md
     - Reasoning Rubric: rubrics/reasoning-rubric.md
-  - Faculty Adoption: faculty-adoption.md
   - Additional Contexts:
     - CBE 312: contexts/cbe312/index.md
 
@@ -50,3 +50,6 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
+
+extra_css:
+  - stylesheets/home.css
