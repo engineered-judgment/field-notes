@@ -251,6 +251,24 @@
     margin-bottom: 32px;
   }
 
+  .week-nav-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 6px 12px 8px;
+  }
+
+  .week-nav-children {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .week-nav-item {
     display: flex;
     align-items: center;
@@ -1111,7 +1129,11 @@ function initNotebook() {
 
 function buildSidebar() {
   const nav = document.getElementById('week-nav');
-  nav.innerHTML = '';
+  nav.innerHTML = `
+    <div class="week-nav-group-label">CBE 253</div>
+    <div class="week-nav-children" id="week-nav-children"></div>
+  `;
+  const children = document.getElementById('week-nav-children');
   WEEKS.forEach(w => {
     const entries = state.entries[w.num] || {};
     const entry = entries[1] || {};
@@ -1129,7 +1151,7 @@ function buildSidebar() {
         ${status === 'complete' ? '<span style="color:var(--green);font-size:10px">complete</span>' : status === 'partial' ? '<span style="color:var(--accent);font-size:10px">in progress</span>' : ''}
       </div>
     `;
-    nav.appendChild(item);
+    children.appendChild(item);
   });
 
   // Mindset tracker
