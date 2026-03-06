@@ -12,6 +12,19 @@ In the generic tool, choose a **Discipline Profile** at startup:
 `General`, `Civil`, `Mechanical`, `Chemical`, `Electrical and Computer Engineering`, or `Computer Science`.
 The notebook structure stays the same; only pre-run prompts and examples change by profile.
 
+## Field guidance
+### Belief update
+State what you believed before this session that you now revise. Name the evidence or calculation that changed your view.
+
+### Assumption + failure condition
+Name one assumption and the condition under which it fails. If it fails, note what part of your recommendation changes.
+
+### Math to physical link
+Show one equation-to-physical-system connection. Do not just show math; explain what physical behavior it represents.
+
+### Skeptical challenge
+Name the first point a skeptical engineer would challenge. State what additional evidence would resolve that challenge.
+
 ## Embedded view
 <iframe src="../warrant-tool.html" title="Warrant Tool (Generic)" style="width:100%; min-height:960px; border:1px solid #d9d9d9; border-radius:8px;"></iframe>
 

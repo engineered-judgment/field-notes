@@ -578,6 +578,40 @@
   .char-hint.warning { color: var(--accent); }
   .char-hint.error { color: var(--red); }
 
+  .guidance-card {
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    padding: 14px 16px;
+    margin-bottom: 4px;
+  }
+
+  .guidance-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .guidance-item {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .guidance-item:last-child { margin-bottom: 0; }
+
+  .guidance-item strong {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+
   /* ARTIFACT ZONE */
   .artifact-zone {
     border: 1px dashed var(--border);
@@ -1305,6 +1339,13 @@ function buildEntry(weekNum, entryNum) {
       </div>
     </div>
     <div class="entry-body ${isCollapsed ? 'collapsed' : ''}" id="body-${weekNum}-${entryNum}">
+      <div class="guidance-card">
+        <div class="guidance-title">Field guidance</div>
+        <div class="guidance-item"><strong>Belief update:</strong> State what you believed before this session that you now revise. Name the evidence or calculation that changed your view.</div>
+        <div class="guidance-item"><strong>Assumption + failure condition:</strong> Name one assumption and the condition under which it fails. If it fails, note what part of your recommendation changes.</div>
+        <div class="guidance-item"><strong>Math to physical link:</strong> Show one equation-to-physical-system connection. Do not just show math; explain what physical behavior it represents.</div>
+        <div class="guidance-item"><strong>Skeptical challenge:</strong> Name the first point a skeptical engineer would challenge. State what additional evidence would resolve that challenge.</div>
+      </div>
 
       <div class="field-block">
         <div class="field-header">
