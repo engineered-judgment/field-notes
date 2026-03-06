@@ -910,6 +910,11 @@
     transition: border-color 0.15s;
     display: block;
     pointer-events: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
+    position: relative;
+    z-index: 1;
   }
   .prompt-answer:focus {
     outline: none;
@@ -970,6 +975,8 @@
   <!-- TOP BAR -->
   <div class="topbar">
     <div class="topbar-brand">Warrant // Generic</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-student" id="build-id" style="flex:0;color:var(--text-dimmer);font-size:10px;">build</div>
     <div class="topbar-divider"></div>
     <div class="topbar-student" id="topbar-student"></div>
     <div class="topbar-actions">
@@ -1391,6 +1398,7 @@ const PROFILE_PROMPTS = {
 };
 
 const MINDSETS = ["Constraint","Approximation","Tradeoff","Decision","Systems","Fragility"];
+const BUILD_ID = "2026-03-06f";
 
 const FIELD_PROMPTS = {
   "Constraint":    "What boundaries shaped the decisions you could make, and which of those boundaries did you choose versus inherit?",
@@ -1464,6 +1472,8 @@ function initNotebook() {
   document.getElementById('setup-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section} - ${getProfileLabel(profile)}`;
+  const buildEl = document.getElementById('build-id');
+  if (buildEl) buildEl.textContent = BUILD_ID;
   buildSidebar();
   renderWeek(state.currentWeek);
   updateProgress();
@@ -1574,6 +1584,7 @@ function renderWeek(weekNum) {
   const container = document.getElementById('entries-container');
   container.appendChild(buildPromptCard(week));
   container.appendChild(buildEntry(weekNum, 1));
+  ensurePromptInputsEditable(weekNum);
   renderWeekSummary(weekNum);
 }
 
@@ -1601,6 +1612,8 @@ function buildPromptCard(week) {
               id="pq-${week.num}-${i}"
               placeholder="Your answer..."
               rows="2"
+              onclick="event.stopPropagation()"
+              onfocus="event.stopPropagation()"
               oninput="savePromptAnswer(${week.num},${i})">${escHtml(getPromptAnswer(week.num, i))}</textarea>
           </li>
         `).join('')}
@@ -1622,6 +1635,23 @@ function savePromptAnswer(weekNum, qIndex) {
   const el = document.getElementById(`pq-${weekNum}-${qIndex}`);
   if (el) state.entries[weekNum].promptAnswers[qIndex] = el.value;
   save();
+}
+
+function ensurePromptInputsEditable(weekNum) {
+  const selectors = [
+    `#pq-${weekNum}-0`,
+    `#pq-${weekNum}-1`,
+    `#pq-${weekNum}-2`,
+    `#pq-${weekNum}-3`
+  ];
+  selectors.forEach(sel => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.readOnly = false;
+    el.disabled = false;
+    el.style.pointerEvents = 'auto';
+    el.style.userSelect = 'text';
+  });
 }
 
 function buildEntry(weekNum, entryNum) {
