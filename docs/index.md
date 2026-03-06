@@ -19,9 +19,11 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 
 ### Where do I go next?
 **For Students**
+
 - Start with [Start Here](start-here.md), then follow [CBE 253 (Live)](contexts/cbe253/index.md).
 
 **For Faculty**
+
 - Use the [Faculty Adoption Guide](faculty-adoption.md), then deploy the [Notebook Template](notebook-template.md).
 
 ### The Eight Mindsets
