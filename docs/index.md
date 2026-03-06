@@ -33,17 +33,20 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 **Class time required in week 1:** 10-15 minutes in-class + one notebook submission
 
 **Required assets**
+
 - [Notebook Template](notebook-template.md)
 - [Reasoning Rubric](rubrics/reasoning-rubric.md)
 - [CBE 253 (Live)](contexts/cbe253/index.md) as implementation example
 
 **Week-1 grading workflow**
+
 1. Assign one notebook entry tied to a real module decision.
 2. Grade only three criteria: framing, assumptions, one quantitative check.
 3. Return feedback with one required revision target.
 4. In week 2, add tradeoff and decision-defense criteria.
 
 **Minimal deployment checklist**
+
 - Publish course context page
 - Post notebook template
 - Post rubric weights
