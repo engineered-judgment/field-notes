@@ -31,15 +31,13 @@ nav:
       - Reasoning Rubric: rubrics/reasoning-rubric.md
   - Field Notes (Examples):
     - Overview: notebooks/index.md
-    - Aspen Plus Notebook (Example):
-      - Overview: aspen-notebook.md
-      - Facilities Energy Retrofit Decision (Cross-Domain): notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
-    - 2026:
-      - Framing: notebooks/2026/2026-03-aspen-process-framing.md
-      - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
-      - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
-      - Decision Memo: notebooks/2026/2026-03-decision-memo.md
-      - The Shortcut and Its Limits: notebooks/2026/2026-03-shortcut-and-its-limits.md
+    - Framing: notebooks/2026/2026-03-aspen-process-framing.md
+    - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
+    - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
+    - Decision Memo: notebooks/2026/2026-03-decision-memo.md
+    - The Shortcut and Its Limits: notebooks/2026/2026-03-shortcut-and-its-limits.md
+    - Facilities Energy Retrofit Decision (Cross-Domain): notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
+    - Aspen Plus Notebook (Example): aspen-notebook.md
   - Courses Using This Method:
     - CBE 253: contexts/cbe253/index.md
 
@@ -48,5 +46,3 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-
-
