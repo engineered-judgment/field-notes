@@ -12,7 +12,18 @@ theme:
     - content.code.copy
 
 nav:
-  - Home: index.md
+  - Home:
+    - Overview: index.md
+    - Engineering Mindsets:
+      - Overview: mindsets/index.md
+      - Constraint: mindsets/constraint.md
+      - Tradeoff: mindsets/tradeoff.md
+      - Approximation: mindsets/approximation.md
+      - Systems: mindsets/systems.md
+      - Decision: mindsets/decision.md
+      - Margin: mindsets/margin.md
+      - Satisficing: mindsets/satisficing.md
+      - Fragility: mindsets/fragility.md
   - Warrant: warrant.md
   - Students:
     - Choose Your Path: students/index.md
@@ -37,16 +48,6 @@ nav:
       - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
       - Decision Memo: notebooks/2026/2026-03-decision-memo.md
       - Facilities Energy Retrofit Decision (Cross-Domain): notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
-  - Engineering Mindsets:
-    - Overview: mindsets/index.md
-    - Constraint: mindsets/constraint.md
-    - Tradeoff: mindsets/tradeoff.md
-    - Approximation: mindsets/approximation.md
-    - Systems: mindsets/systems.md
-    - Decision: mindsets/decision.md
-    - Margin: mindsets/margin.md
-    - Satisficing: mindsets/satisficing.md
-    - Fragility: mindsets/fragility.md
   - Courses Using This Method:
     - CBE 253: contexts/cbe253/index.md
 
@@ -55,5 +56,3 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-
-
