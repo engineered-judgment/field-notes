@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Warrant Notebook</title>
+<title>CBE 253 Warrant Notebook</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -765,6 +765,111 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
   ::-webkit-scrollbar-thumb:hover { background: var(--text-dimmer); }
+
+  /* PROMPT CARD */
+  .prompt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-dim);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-left-color 0.2s;
+  }
+  .prompt-card.open { border-left-color: var(--accent); }
+
+  .prompt-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .prompt-card-header:hover { background: var(--surface2); }
+
+  .prompt-card-chevron {
+    font-size: 14px;
+    color: var(--text-dimmer);
+    transform: rotate(-90deg);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .prompt-card.open .prompt-card-chevron { transform: rotate(0deg); }
+
+  .prompt-card-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border-light);
+  }
+  .prompt-card.open .prompt-card-body {
+    display: block;
+    padding-top: 16px;
+  }
+
+  .prompt-questions {
+    list-style: none;
+    counter-reset: prompt-counter;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .prompt-question {
+    counter-increment: prompt-counter;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 12px;
+    align-items: start;
+  }
+  .prompt-question::before {
+    content: counter(prompt-counter);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .prompt-q-text {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .prompt-answer {
+    width: 100%;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 10px;
+    resize: vertical;
+    transition: border-color 0.15s;
+  }
+  .prompt-answer:focus {
+    outline: none;
+    border-color: var(--accent-dim);
+  }
+  .prompt-answer::placeholder { color: var(--text-dimmer); }
+
+  @media print {
+    .prompt-card { border-left-color: #b37700 !important; background: #fffdf5 !important; }
+    .prompt-card-header { background: #fffdf5 !important; }
+    .prompt-card-body { display: block !important; padding-top: 12px !important; }
+    .prompt-q-text { color: #333 !important; }
+    .prompt-answer { background: white !important; border-color: #ccc !important; color: black !important; }
+    .prompt-card-chevron { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -773,9 +878,9 @@
 <div id="setup-screen">
   <div class="setup-container">
     <div class="setup-header">
-      <div class="setup-label">Warrant - Reasoning Module</div>
+      <div class="setup-label">CBE 253 Aspen Plus Module</div>
       <div class="setup-title">Warrant<br>Notebook</div>
-      <div class="setup-subtitle">A record of simulation, judgment, and engineering thinking</div>
+      <div class="setup-subtitle">A record of simulation, judgment, and engineered thinking</div>
     </div>
     <div class="setup-divider"></div>
     <div class="field-group">
@@ -790,7 +895,7 @@
       <label class="field-label">Section</label>
       <input class="field-input" id="setup-section" type="text" placeholder="e.g. 001" autocomplete="off">
     </div>
-    <button class="btn-primary" onclick="initNotebook()">Open Notebook -></button>
+    <button class="btn-primary" onclick="initNotebook()">Open Notebook →</button>
   </div>
 </div>
 
@@ -798,7 +903,7 @@
 <div id="app">
   <!-- TOP BAR -->
   <div class="topbar">
-    <div class="topbar-brand">Warrant // Notebook</div>
+    <div class="topbar-brand">CBE 253 // Warrant</div>
     <div class="topbar-divider"></div>
     <div class="topbar-student" id="topbar-student"></div>
     <div class="topbar-actions">
@@ -844,60 +949,117 @@
 const WEEKS = [
   {
     num: 1,
-    title: "HW1 - Mixers and Splitters",
+    hw: "HW1",
+    title: "Mixers and Splitters",
     topic: "MIXER, FSPLIT",
-    mindsets: ["Constraint", "Approximation"],
-    provocation: "Where did you simplify the system, and why was that acceptable for this decision?"
+    due: "Mar 31",
+    mindset: "Constraint",
+    provocation: "The property method is a physical claim about molecular interactions. What claim did IDEAL make this week, and was it warranted?",
+    promptCard: {
+      subtitle: "Methanol Stream Separation and Mixing",
+      questions: [
+        "The feed is 98.5 mol% methanol mixed with liquid water streams at different temperatures. Methanol and water both form hydrogen bonds with each other and with themselves. What does the IDEAL property method assume about the energy released or absorbed when these two liquids mix?",
+        "The FSPLIT block routes 40 wt% of the feed to one mixer and 60 wt% to another. If the feed composition shifted from 98.5 mol% methanol to 70 mol% methanol tomorrow, would you expect the two product stream compositions to remain the same, change proportionally, or change in a way you cannot predict without rerunning?",
+        "One mixer receives a hot methanol stream at 130 F and a cold water stream at 15 C. Before running, predict whether the outlet temperature will sit closer to the hot inlet, the cold inlet, or somewhere determined by the relative flow rates and heat capacities of the two streams."
+      ]
+    }
   },
   {
     num: 2,
-    title: "HW2 - Rankine Cycle",
-    topic: "Rankine Cycle",
-    mindsets: ["Margin", "Tradeoff"],
-    provocation: "Where is your safety or performance margin, and what did it cost you?"
+    hw: "HW2",
+    title: "Rankine Cycle",
+    topic: "PUMP, COMPR, HEATER",
+    due: "Mar 31",
+    mindset: "Tradeoff",
+    provocation: "The cycle converts heat to work and rejects the rest. Where did the rejected energy go in your simulation, and where does it go in a real plant?",
+    promptCard: {
+      subtitle: "Steam Power Cycle",
+      questions: [
+        "The pump compresses liquid water from 0.025 MPa to 0.8 MPa. The turbine expands steam from 0.8 MPa back to 0.025 MPa. Both cross the same pressure difference. Before running, predict whether the pump work and turbine work will be approximately equal, and commit to a reason.",
+        "The turbine isentropic efficiency is specified as 0.9 at design conditions. Real power plants vary their output continuously in response to grid demand. At what operating condition would the actual turbine efficiency drop below the specified value, and by how much?",
+        "The simulation will report a condenser duty as a number in your stream table. Before running, identify what happens to that energy in a real plant, and whether the simulation has any way of representing that destination."
+      ]
+    }
   },
   {
     num: 3,
-    title: "HW3 - Flash Separators",
-    topic: "SEP, SEP2, FLASH2",
-    mindsets: ["Fragility", "Systems"],
-    provocation: "Which property-method or phase assumption could fail first, and how would you detect it?"
+    hw: "HW3",
+    title: "Flash Separators",
+    topic: "SEP, FLASH2, HEATER",
+    due: "Apr 14",
+    mindset: "Fragility",
+    provocation: "Your simulation converged without errors. What does that confirm, and what does it leave completely unverified?",
+    promptCard: {
+      subtitle: "Moist Air Cryogenic Separation",
+      questions: [
+        "You will specify 100% water removal in the SEP block and the simulation will converge cleanly regardless of the temperature or pressure you set. If you replaced the SEP block with a FLASH2 block at 65 F and 14 psia, what do you think Aspen would calculate for the vapor fraction, and what does that tell you about the SEP result?",
+        "The FLASH2 units operate at roughly 280 F below zero, where nitrogen and oxygen are near their normal boiling points. UNIFAC was developed for liquid mixtures of organic compounds at moderate conditions. Before running, state whether you expect UNIFAC to be reliable here, and name one property method that would be a better choice.",
+        "The HEATER block cools the stream to 280 F below zero. That cooling requires refrigeration. Before running, identify what the simulation will report about that cooling duty and what it will not report."
+      ]
+    }
   },
   {
     num: 4,
-    title: "HW4 - Distillation DSTWU",
+    hw: "HW4",
+    title: "Distillation DSTWU",
     topic: "DSTWU",
-    mindsets: ["Approximation", "Decision"],
-    provocation: "DSTWU gives estimates, not verified operation. What decision did you make with that limitation?"
+    due: "Apr 21",
+    mindset: "Approximation",
+    provocation: "DSTWU gave you estimates that feel precise. What would it take to find out whether those estimates are right?",
+    promptCard: {
+      subtitle: "Styrene / Ethylbenzene / Toluene Separation",
+      questions: [
+        "The heuristics give you a range for the reflux ratio (1.2 to 1.5 times the minimum) and a target for the number of stages (about twice the minimum). If energy costs doubled overnight, would the optimal point within those ranges shift, stay the same, or disappear entirely? Commit to an answer before running.",
+        "SRK is specified for a styrene, ethylbenzene, and toluene mixture. All three are nonpolar hydrocarbons and SRK handles them well in this form. Describe one realistic change to the feed that would make SRK unreliable for this system.",
+        "DSTWU will give you a number of stages, a reflux ratio, and a distillate to feed ratio. Before running, state what additional calculation you would need to perform before using those numbers to specify an actual column design, and why DSTWU alone is not sufficient."
+      ]
+    }
   },
   {
     num: 5,
-    title: "HW5 - Reactor and Distillation",
-    topic: "RADFRAC, RSTOIC, RGIBBS",
-    mindsets: ["Systems", "Tradeoff"],
-    provocation: "What changed across the coupled system when you changed one block assumption?"
+    hw: "HW5",
+    title: "Reactor and Distillation",
+    topic: "RSTOIC, RADFRAC",
+    due: "Apr 28",
+    mindset: "Systems",
+    provocation: "You changed the reactor conversion and the distillation column had to follow. Where else in this flowsheet does one unit constrain another?",
+    promptCard: {
+      subtitle: "Ethylbenzene Dehydrogenation",
+      questions: [
+        "Two reactions occur in series. The fractional conversion of 0.34 in reaction 2 applies to the styrene present after reaction 1 completes, not to the original feed. Calculate by hand how many lbmol/hr of styrene reaction 2 consumes if reaction 1 converts 60% of a 100 lbmol/hr ethylbenzene feed.",
+        "The RStoic block models exactly the two reactions you specify. The reactor operates at 1100 F. Describe one class of chemical reaction that is physically plausible at that temperature but invisible to the simulation, and state how it would change the composition entering the distillation column.",
+        "The bottoms purity target is 99.8 mol% styrene. Before running, identify what downstream process or customer specification might require exactly that purity rather than 99.0%, and whether the simulation gives you any information about the energy cost difference between the two targets."
+      ]
+    }
   },
   {
     num: 6,
-    title: "HW6 - Properties and Ternary Analysis",
-    topic: "Properties, Method Selection, Ternary",
-    mindsets: ["Fragility", "Satisficing"],
-    provocation: "What method did you choose, what did it miss, and why was that still acceptable?"
+    hw: "HW6",
+    title: "Properties and Ternary Analysis",
+    topic: "Binary Analysis, Ternary, Property Methods",
+    due: "May 5",
+    mindset: "Decision",
+    provocation: "Every simulation in this course used a property method someone chose. You now have the tools to evaluate that choice. What did IDEAL cost you in HW1?",
+    promptCard: {
+      subtitle: "n-Pentane / Methanol / Acetone System",
+      questions: [
+        "You will generate T-xy diagrams for n-pentane and methanol using three property methods: van Laar, Peng-Robinson, and UNIQUAC. Peng-Robinson was designed for nonpolar systems. n-Pentane is nonpolar and methanol is strongly polar. Before running, predict whether all three methods will agree on whether this system has an azeotrope.",
+        "You will recommend one property method as most accurate for this system. The course decision tree will point you toward an activity coefficient model. State what information beyond the decision tree you would need to confirm that your chosen method is reliable for this specific system at 100 psia.",
+        "In HW1 you used IDEAL for a methanol and water mixture and accepted it because the assignment specified it. The T-xy diagram you generate this week will show you what IDEAL cannot predict for a polar system. Before running, state your best guess at what feature of the T-xy diagram IDEAL would get wrong for methanol and water."
+      ]
+    }
   }
 ];
 
-const MINDSETS = ["Constraint","Tradeoff","Approximation","Systems","Decision","Margin","Satisficing","Fragility"];
-const ENTRY_FIELDS = ["belief_update", "assumption_failure", "math_physical_link", "skeptical_challenge"];
+const MINDSETS = ["Constraint","Approximation","Tradeoff","Decision","Systems","Fragility"];
 
 const FIELD_PROMPTS = {
-  "Constraint": "What boundary condition or requirement dominated your decision?",
-  "Tradeoff": "What did you gain, and what did you accept losing?",
-  "Approximation": "Which approximation shaped your result, and when might it break?",
-  "Systems": "What upstream-downstream interaction mattered most this week?",
-  "Decision": "What recommendation did you make, and what would reverse it?",
-  "Margin": "How much buffer do you have before failure and why is it enough?",
-  "Satisficing": "Where did you choose good-enough over optimal, and why?",
-  "Fragility": "Which assumption could fail silently and mislead your conclusion?"
+  "Constraint":    "What boundaries shaped the decisions you could make, and which of those boundaries did you choose versus inherit?",
+  "Approximation": "What did your model assume away this week, and what is the largest physical consequence of that simplification?",
+  "Tradeoff":      "What did you sacrifice to gain something else? Name both sides explicitly.",
+  "Decision":      "What judgment call did you make that another engineer might have made differently, and what would have changed?",
+  "Systems":       "What happened downstream when you changed something upstream? Where did the constraint propagate?",
+  "Fragility":     "Where is your model most likely to mislead you, and what would it take for the failure to become visible?"
 };
 
 let state = {
@@ -941,27 +1103,31 @@ function initNotebook() {
   save();
   document.getElementById('setup-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section}`;
+  document.getElementById('topbar-student').textContent = `${name}  ·  ID ${id}  ·  Section ${section}`;
   buildSidebar();
   renderWeek(state.currentWeek);
   updateProgress();
 }
 
 function buildSidebar() {
-  // Week nav
   const nav = document.getElementById('week-nav');
   nav.innerHTML = '';
   WEEKS.forEach(w => {
+    const entries = state.entries[w.num] || {};
+    const entry = entries[1] || {};
+    const status = getEntryStatus(entry);
     const item = document.createElement('div');
-    item.className = 'week-nav-item' + (w.num === state.currentWeek ? ' active' : '');
-    item.onclick = () => { renderWeek(w.num); };
-    const status = getWeekStatus(w.num);
+    item.className = `week-nav-item${state.currentWeek === w.num ? ' active' : ''}`;
+    item.onclick = () => renderWeek(w.num);
     item.innerHTML = `
-      <span class="week-num">W${w.num}</span>
-      <div class="week-nav-content">
-        <div class="week-nav-title">${w.title}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em">${w.hw}</span>
+        <span style="font-size:12px;color:var(--text)">${w.title}</span>
       </div>
-      <div class="week-nav-status ${status}"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer)">Due ${w.due}</span>
+        ${status === 'complete' ? '<span style="color:var(--green);font-size:10px">complete</span>' : status === 'partial' ? '<span style="color:var(--accent);font-size:10px">in progress</span>' : ''}
+      </div>
     `;
     nav.appendChild(item);
   });
@@ -983,7 +1149,7 @@ function getWeekStatus(weekNum) {
   let filled = 0, total = 0;
   for (let e = 1; e <= 1; e++) {
     const entry = entries[e] || {};
-    ENTRY_FIELDS.forEach(f => {
+    ['belief', 'assumption', 'mathlink', 'skeptic'].forEach(f => {
       total++;
       if (entry[f] && entry[f].trim()) filled++;
     });
@@ -1004,18 +1170,12 @@ function getEngagedMindsets() {
 }
 
 function updateProgress() {
-  let filled = 0, total = 0;
+  let complete = 0;
   WEEKS.forEach(w => {
-    const entries = state.entries[w.num] || {};
-    for (let e = 1; e <= 1; e++) {
-      const entry = entries[e] || {};
-      ENTRY_FIELDS.forEach(f => {
-        total++;
-        if (entry[f] && entry[f].trim()) filled++;
-      });
-    }
+    const entry = (state.entries[w.num] || {})[1] || {};
+    if (getEntryStatus(entry) === 'complete') complete++;
   });
-  const pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+  const pct = Math.round((complete / WEEKS.length) * 100);
   document.getElementById('progress-pct').textContent = pct + '%';
   document.getElementById('progress-fill').style.width = pct + '%';
 }
@@ -1024,7 +1184,6 @@ function renderWeek(weekNum) {
   state.currentWeek = weekNum;
   save();
 
-  // Update nav active state
   document.querySelectorAll('.week-nav-item').forEach((item, i) => {
     item.classList.toggle('active', WEEKS[i].num === weekNum);
   });
@@ -1035,10 +1194,9 @@ function renderWeek(weekNum) {
   mc.innerHTML = `
     <div class="week-header">
       <div class="week-eyebrow">
-        <span class="week-tag">Week ${week.num}</span>
-        <div class="week-mindset-tags">
-          ${week.mindsets.map(m => `<span class="week-mindset-tag">${m}</span>`).join('')}
-        </div>
+        <span class="week-tag">${week.hw}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);letter-spacing:0.08em">Due ${week.due}</span>
+        <span class="week-mindset-tags"><span class="week-mindset-tag">${week.mindset}</span></span>
       </div>
       <div class="week-title">${week.title}</div>
       <div style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);margin-top:4px;letter-spacing:0.08em">${week.topic}</div>
@@ -1049,11 +1207,56 @@ function renderWeek(weekNum) {
   `;
 
   const container = document.getElementById('entries-container');
-  for (let i = 1; i <= 1; i++) {
-    container.appendChild(buildEntry(weekNum, i));
-  }
-
+  container.appendChild(buildPromptCard(week));
+  container.appendChild(buildEntry(weekNum, 1));
   renderWeekSummary(weekNum);
+}
+
+function buildPromptCard(week) {
+  const card = document.createElement('div');
+  card.className = 'prompt-card';
+
+  const isOpen = !state.entries[week.num] || !state.entries[week.num][1] || !hasAnyData(state.entries[week.num][1]);
+
+  card.innerHTML = `
+    <div class="prompt-card-header" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase">Before You Open Aspen</span>
+        <span style="font-family:var(--serif);font-size:12px;color:var(--text-dimmer);font-style:italic">${week.promptCard.subtitle}</span>
+      </div>
+      <span class="prompt-card-chevron">&#x25BE;</span>
+    </div>
+    <div class="prompt-card-body">
+      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence answering each question. Do this before opening Aspen.</p>
+      <ol class="prompt-questions">
+        ${week.promptCard.questions.map((q, i) => `
+          <li class="prompt-question">
+            <div class="prompt-q-text">${q}</div>
+            <textarea class="prompt-answer"
+              id="pq-${week.num}-${i}"
+              placeholder="Your answer..."
+              rows="2"
+              oninput="savePromptAnswer(${week.num},${i})">${escHtml(getPromptAnswer(week.num, i))}</textarea>
+          </li>
+        `).join('')}
+      </ol>
+    </div>
+  `;
+
+  if (isOpen) card.classList.add('open');
+  return card;
+}
+
+function getPromptAnswer(weekNum, qIndex) {
+  return ((state.entries[weekNum] || {}).promptAnswers || {})[qIndex] || '';
+}
+
+function savePromptAnswer(weekNum, qIndex) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum].promptAnswers) state.entries[weekNum].promptAnswers = {};
+  const el = document.getElementById(`pq-${weekNum}-${qIndex}`);
+  if (el) state.entries[weekNum].promptAnswers[qIndex] = el.value;
+  save();
 }
 
 function buildEntry(weekNum, entryNum) {
@@ -1086,11 +1289,11 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">01</span>
           <span class="field-name">Belief Update</span>
         </div>
-        <div class="field-prompt">What did you believe before this session that you no longer believe, and what changed it?</div>
+        <div class="field-prompt">Name something you believed before this session that you no longer believe. State what specific observation in the simulation changed it.</div>
         <textarea class="field-input tall"
-          id="belief_update-${weekNum}-${entryNum}"
-          placeholder="State your prior belief, then name the evidence or observation that changed it."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.belief_update || '')}</textarea>
+          id="belief-${weekNum}-${entryNum}"
+          placeholder="Before this session I assumed... After running the simulation I now believe... because..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.belief || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
@@ -1098,13 +1301,13 @@ function buildEntry(weekNum, entryNum) {
       <div class="field-block">
         <div class="field-header">
           <span class="field-num">02</span>
-          <span class="field-name">Assumption + Failure Condition</span>
+          <span class="field-name">Assumption and Failure Condition</span>
         </div>
-        <div class="field-prompt">State one consequential assumption, then the condition under which it fails.</div>
+        <div class="field-prompt">Name the most consequential assumption your simulation makes. Then name the specific condition under which that assumption breaks for this system.</div>
         <textarea class="field-input tall"
-          id="assumption_failure-${weekNum}-${entryNum}"
-          placeholder="I assumed ____. This fails when ____."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.assumption_failure || '')}</textarea>
+          id="assumption-${weekNum}-${entryNum}"
+          placeholder="I assumed... This assumption holds when... It fails when... because..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.assumption || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
@@ -1114,11 +1317,12 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">03</span>
           <span class="field-name">Math to Physical Link</span>
         </div>
-        <div class="field-prompt">Name one equation or model output and connect it to a physical behavior in the system.</div>
+        <div class="field-prompt">Name an equation or relationship Aspen used. Report a specific number it produced from your stream table. Connect that number to something physically observable.</div>
         <textarea class="field-input tall"
-          id="math_physical_link-${weekNum}-${entryNum}"
-          placeholder="Equation/output: ____. Physical meaning: ____."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.math_physical_link || '')}</textarea>
+          id="mathlink-${weekNum}-${entryNum}"
+          placeholder="The equation... predicted... [value with units]. In physical terms this means..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.mathlink || '')}</textarea>
+        <div class="char-hint" id="mathlink-hint-${weekNum}-${entryNum}">Must include at least one number from your stream table or block report</div>
       </div>
 
       <div class="field-divider"></div>
@@ -1128,11 +1332,11 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">04</span>
           <span class="field-name">Skeptical Challenge</span>
         </div>
-        <div class="field-prompt">What would a skeptical engineer challenge first, and what evidence would you need to answer it?</div>
+        <div class="field-prompt">A skeptical engineer reviews your simulation. What specific gap or omission would they identify that the model cannot address? This should go somewhere outside the simulation boundary.</div>
         <textarea class="field-input tall"
-          id="skeptical_challenge-${weekNum}-${entryNum}"
-          placeholder="A skeptical engineer would challenge ____. I would need ____ evidence."
-          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.skeptical_challenge || '')}</textarea>
+          id="skeptic-${weekNum}-${entryNum}"
+          placeholder="A skeptical engineer would challenge... specifically because... They would be right to require... before accepting this conclusion."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.skeptic || '')}</textarea>
       </div>
 
       <div class="field-divider"></div>
@@ -1142,7 +1346,7 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">05</span>
           <span class="field-name">Primary Mindset</span>
         </div>
-        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one.</div>
+        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one. The constraint forces prioritization.</div>
         <div class="mindset-select-grid" id="mindset-grid-${weekNum}-${entryNum}">
           ${MINDSETS.map(m => `
             <div class="mindset-option ${entryData.mindset === m ? 'selected' : ''}"
@@ -1165,13 +1369,14 @@ function buildEntry(weekNum, entryNum) {
 }
 
 function hasAnyData(entry) {
-  return ENTRY_FIELDS.some(f => entry[f] && entry[f].trim()) || !!entry.mindset;
+  return !!(entry.belief || entry.assumption || entry.mathlink || entry.skeptic || entry.mindset);
 }
 
 function getEntryStatus(entry) {
-  const filled = ENTRY_FIELDS.filter(f => entry[f] && entry[f].trim()).length;
+  const fields = ['belief', 'assumption', 'mathlink', 'skeptic'];
+  const filled = fields.filter(f => entry[f] && entry[f].trim()).length;
   if (filled === 0) return '';
-  if (filled === ENTRY_FIELDS.length && entry.mindset) return 'complete';
+  if (filled === fields.length && entry.mindset) return 'complete';
   return 'partial';
 }
 
@@ -1188,7 +1393,7 @@ function autosave(weekNum, entryNum) {
   if (!state.entries[weekNum]) state.entries[weekNum] = {};
   if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
   const entry = state.entries[weekNum][entryNum];
-  ENTRY_FIELDS.forEach(field => {
+  ['belief', 'assumption', 'mathlink', 'skeptic'].forEach(field => {
     const el = document.getElementById(`${field}-${weekNum}-${entryNum}`);
     if (el) entry[field] = el.value;
   });
@@ -1290,40 +1495,38 @@ function renderWeekSummary(weekNum) {
   const summary = document.getElementById('week-summary');
   if (!summary) return;
   const entries = state.entries[weekNum] || {};
-  let entriesSaved = 0;
-  const mindsets = new Set();
-  for (let i = 1; i <= 1; i++) {
-    const e = entries[i] || {};
-    if (e.timestamp) entriesSaved++;
-    if (e.mindset) mindsets.add(e.mindset);
-  }
+  const entry = entries[1] || {};
+  const saved = !!entry.timestamp;
+  const mindset = entry.mindset || '';
+  const week = WEEKS.find(w => w.num === weekNum);
+  const fieldsComplete = ['belief','assumption','mathlink','skeptic'].filter(f => entry[f] && entry[f].trim()).length;
   summary.innerHTML = `
-    <div class="week-summary-header">Week ${weekNum} Summary</div>
+    <div class="week-summary-header">${week.hw} Summary</div>
     <div class="week-summary-stats">
       <div class="stat">
-        <div class="stat-value">${entriesSaved}/1</div>
-        <div class="stat-label">Entries Saved</div>
+        <div class="stat-value">${fieldsComplete}/4</div>
+        <div class="stat-label">Fields Complete</div>
       </div>
       <div class="stat">
-        <div class="stat-value">${mindsets.size}</div>
-        <div class="stat-label">Mindsets Tagged</div>
+        <div class="stat-value">${mindset || 'None'}</div>
+        <div class="stat-label">Mindset Tagged</div>
       </div>
       <div class="stat">
-        <div class="stat-value">${[...mindsets].join(', ') || '-'}</div>
-        <div class="stat-label">This Week</div>
+        <div class="stat-value" style="color:${saved ? 'var(--green)' : 'var(--text-dimmer)'}">${saved ? 'Saved' : 'Unsaved'}</div>
+        <div class="stat-label">Entry Status</div>
       </div>
     </div>
   `;
 }
 
 function exportPDF() {
-  // Expand all entries before printing
   document.querySelectorAll('.entry-body').forEach(b => b.classList.remove('collapsed'));
+  document.querySelectorAll('.prompt-card').forEach(c => c.classList.add('open'));
   setTimeout(() => window.print(), 100);
 }
 
 function resetNotebook() {
-  if (!confirm('This will clear all your notebook data. Are you sure?')) return;
+  if (!confirm('This will clear all your Warrant Notebook data. Are you sure?')) return;
   try { localStorage.removeItem(getStorageKey()); } catch(e) {}
   location.reload();
 }
