@@ -20,7 +20,7 @@ nav:
   - Faculty:
     - Adoption Guide: faculty-adoption.md
     - Warrant Template: warrant-template.md
-    - Prompts:
+    - Prompt Kits:
       - Overview: prompts/index.md
       - AI Use Policy: prompts/ai-use-policy.md
       - Good Questions: prompts/good-questions.md
@@ -55,3 +55,4 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
+

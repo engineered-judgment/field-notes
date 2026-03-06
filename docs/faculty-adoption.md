@@ -1,46 +1,72 @@
 # Faculty Adoption Guide
 
-This guide is for instructors who want to adopt the notebook model without redesigning an entire course.
+**Audience:** Faculty (course leads, instructors, TAs)
 
-## What to adopt first (2-week pilot)
-1. Keep your existing technical content.
-2. Add one weekly Warrant notebook entry requirement (10-15 minutes in class, 20 minutes outside class).
-3. Grade using only 3 criteria in week 1:
-   - framing
-   - assumptions
-   - one quantitative check
-4. Add tradeoff and decision-defense criteria in week 2.
+You can adopt this method without redesigning your course. The goal is not new content. The goal is better engineering judgment in the content you already teach.
 
-## Minimum deployment package
-- Student-facing generic notebook: [Warrant (Reasoning Notebook)](warrant.md)
-- Student route selector: [Choose Your Path](students/index.md)
-- Weekly structure: [Warrant Template](warrant-template.md)
-- Live example: [CBE 253 (Live)](contexts/cbe253/index.md)
-- Grading instrument: [Reasoning Rubric](rubrics/reasoning-rubric.md)
+## What success looks like by the end of week 2
+- Most students state a decision question before calculations.
+- Assumptions include at least one explicit failure condition.
+- Entries include a quantitative check and a defendable recommendation.
 
-## Mapping to common outcomes
-- ABET-style problem analysis: framing + assumptions
-- Engineering judgment: tradeoff + decision defense
-- Communication: concise notebook narrative with evidence
+## What you need to do (checklist first)
+- [ ] Select one existing module for a 2-week pilot.
+- [ ] Publish student path page: [Choose Your Path](students/index.md).
+- [ ] Post [Warrant (Reasoning Notebook)](warrant.md) and [Warrant Template](warrant-template.md).
+- [ ] Set rubric mode in [Reasoning Rubric](rubrics/reasoning-rubric.md) for week 1.
+- [ ] Calibrate with 3 sample entries before grading live submissions.
 
-## Assignment pattern that works
-- Weekly notebook submission (1-2 pages equivalent)
-- Biweekly peer review using rubric criteria only
-- One end-of-module decision memo that cites notebook evidence
-
-## Adoption pitfalls and fixes
+## Adoption pitfalls and fixes (read this before launching)
 ### Pitfall: notebooks become summaries
 Fix: require one explicit decision and one explicit failed assumption each week.
 
-### Pitfall: grading burden too high
-Fix: score only 2-3 rubric criteria per week on rotation.
+### Pitfall: grading burden becomes unsustainable
+Fix: score only 2-3 criteria per week on rotation and enforce 4-6 minute grading windows.
 
 ### Pitfall: students treat AI output as final answer
-Fix: require a "verification trace" line: what was AI-assisted and how it was checked.
+Fix: require a verification trace in every entry.
 
-## Implementation checklist
-- [ ] Select one current course module for pilot
-- [ ] Publish context page with weekly links
-- [ ] Choose rubric weights
-- [ ] Calibrate with 3 sample notebooks
-- [ ] Run week 1 and collect friction points
+Minimum verification trace format:
+- AI-assisted step:
+- Independent check performed:
+- Effect on final decision:
+
+Policy and examples: [AI Use Policy](prompts/ai-use-policy.md)
+
+## Two-week pilot (start small)
+1. Keep your existing technical content.
+2. Add one weekly Warrant entry requirement (10-15 minutes in class, about 20 minutes outside class).
+3. Week 1 grading: score only framing, assumptions, quantitative discipline.
+4. Week 2 grading: add tradeoff clarity and decision defense.
+
+**Grading effort target:** 4-6 minutes per notebook using rotating criteria.
+
+## Full-semester pattern (once pilot works)
+- Weekly notebook submission (1-2 pages equivalent)
+- Biweekly peer review using rubric criteria
+- End-of-module decision memo citing notebook evidence
+
+**Typical grade weight in pilots:** 15-25% of final course grade.
+
+## Minimum deployment package and sequence
+Use these in order:
+
+1. **Student orientation artifact:** [Warrant (Reasoning Notebook)](warrant.md)
+2. **Student routing page:** [Choose Your Path](students/index.md)
+3. **Student weekly structure:** [Warrant Template](warrant-template.md)
+4. **Instructor scoring system:** [Reasoning Rubric](rubrics/reasoning-rubric.md)
+5. **Live implementation reference:** [CBE 253 (Live)](contexts/cbe253/index.md)
+
+Relationship map:
+`Warrant -> Warrant Template -> Notebook entries -> Reasoning Rubric -> Decision memo`
+
+## ABET-style mapping
+Use [Reasoning Rubric](rubrics/reasoning-rubric.md) for criterion-level mapping and artifacts.
+
+- SO1 complex problem solving: framing + assumptions + quantitative checks
+- SO2 engineering design under constraints: tradeoffs + switching conditions
+- SO3 communication: recommendation with evidence and caveats
+- SO4 professional judgment: uncertainty limits + verification trace
+
+## Live implementation signal
+Currently active in [CBE 253 (Live)](contexts/cbe253/index.md) at the University of New Mexico (Spring 2026).

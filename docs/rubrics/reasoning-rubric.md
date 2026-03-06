@@ -1,8 +1,13 @@
 # Reasoning Rubric (v2)
 
+**Audience:** Faculty (primary), students (for transparency)
+
 Use this rubric to evaluate engineering reasoning, not answer production.
 
 Scoring scale per criterion: 0-4.
+
+## How to interpret phase weights
+Each phase uses its own complete weighting model. Do not add weights across phases. Select one mode that matches your course stage.
 
 ## Scoring modes by week
 
@@ -75,6 +80,19 @@ Score criteria 1-6.
 - 2: Lists AI-assisted steps and one basic check.
 - 3: Clearly separates AI-assisted vs student-generated reasoning and documents checks.
 - 4: Provides a reproducible verification trace with checks tied to the final decision.
+
+## Verification trace examples
+
+**Score 2 example:**
+"AI suggested an alternative and I checked one equation manually."
+
+**Score 3 example:**
+"AI drafted alternatives; I separated accepted/rejected items and validated accepted claims with units and bounds checks."
+
+**Score 4 example:**
+"AI generated options; I documented each accepted claim, verification method, and how verification changed the final recommendation."
+
+Policy reference: [AI Use Policy](../prompts/ai-use-policy.md)
 
 ## ABET-style mapping (adapt to your program)
 
