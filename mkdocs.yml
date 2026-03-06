@@ -47,10 +47,10 @@ nav:
     - Fragility: mindsets/fragility.md
   - Courses Using This Method:
     - CBE 253: contexts/cbe253/index.md
-    - CBE 312: contexts/cbe312/index.md
 
 markdown_extensions:
   - meta
   - admonition
   - toc:
       permalink: true
+
