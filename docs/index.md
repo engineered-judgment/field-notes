@@ -20,6 +20,8 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 - The method is already implemented in a live teaching context: [CBE 253 (Live)](contexts/cbe253/index.md).
 
 ### Where do I go next?
+**Current build focus:** Student-first deployment in CBE 253, with faculty adoption assets designed for transfer.
+
 **For Students**
 
 - Open [Start Here](start-here.md) for the week-1 orientation workflow, then use [CBE 253 (Live)](contexts/cbe253/index.md) for the current sequence and deliverables.
