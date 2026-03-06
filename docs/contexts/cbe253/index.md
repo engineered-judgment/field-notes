@@ -1,42 +1,64 @@
-# CBE 253 (Live)
+# CBE 253 - Aspen Plus Module
 
-This is the active course implementation of [Warrant](../../warrant.md). Students should start here each week.
+**Spring 2026 - University of New Mexico - CBE 253**  
+**Instructor:** Dr. Jamie Gomez
 
-## Course objective
+This is the active course page for Warrant in CBE 253. Each homework has one Warrant entry. Complete your simulation first, then open Warrant, fill in the four fields, export to PDF, and submit alongside your `.apwz` file on Canvas.
+
+-> [Open Warrant](../../warrant.md)  
+-> [See worked examples](../../notebooks/index.md)
+
+---
+
+## Course Objective
+
 Build the habit of making defensible engineering decisions when models are incomplete, assumptions are uncertain, and tradeoffs are unavoidable.
 
-## Weekly workflow (10-15 minutes in-class + notebook homework)
-1. Identify the decision question for the week.
-2. State at least 3 explicit assumptions and expected failure modes.
-3. Perform one quantitative check (units, bounds, or sensitivity).
-4. Write a one-paragraph decision defense.
+---
 
-## Module sequence
-### Week 1: Framing and boundaries
-- Deliverable: [Framing](../../notebooks/2026/2026-03-aspen-process-framing.md)
-- Checkpoint: boundary definition, basis, and first-pass assumptions
+## Module Sequence
 
-### Week 2: Assumption stress testing
-- Deliverable: [Assumption Failure Map](../../notebooks/2026/2026-03-assumption-failure-map.md)
-- Checkpoint: identify highest-risk assumption and mitigation trigger
+| Session | Date | Topic | HW Due | Warrant Due |
+|---------|------|-------|--------|-------------|
+| 1 | Mar 24 | Intro - Mixers (MIXER) | | |
+| 2 | Mar 26 | Mixers and Splitters (FSPLIT) | | |
+| 3 | Mar 31 | Pressure and Temp Changers (PUMP, COMPR, HEATER, HEATX) | **HW1** | **Warrant HW1** |
+| 4 | Apr 2 | Separators (SEP, SEP2, FLASH) | | |
+| 5 | Apr 7 | Distillation - DSTWU | **HW2** | **Warrant HW2** |
+| 6 | Apr 9 | Distillation - RADFRAC | | |
+| 7 | Apr 14 | Reactors (RSTOIC, RGIBBS) | **HW3** | **Warrant HW3** |
+| 8 | Apr 16 | Reactors (RBATCH, REQUIL w/ Sensitivity) | | |
+| 9 | Apr 21 | Thermodynamic Properties - pure and binary mixtures; T-x-y/P-x-y | **HW4** | **Warrant HW4** |
+| 10 | Apr 23 | Thermodynamic Properties - bubble/dew point, Delta G mixing | | |
+| 11 | Apr 28 | Property Methods - EOS, activity models, method selection | **HW5** | **Warrant HW5** |
+| 12 | Apr 30 | Liquid-Liquid Equilibria - Ternary Analysis | | |
+| 13 | May 5 | Review | **HW6** | **Warrant HW6** |
+| 14 | May 7 | **Final Exam (Aspen only)** | | |
 
-### Week 3: Sensitivity and leverage
-- Deliverable: [Sensitivity Leverage Scan](../../notebooks/2026/2026-03-sensitivity-leverage-scan.md)
-- Checkpoint: defend which variable deserves measurement budget
+---
 
-### Week 4: Decision memo
-- Deliverable: [Decision Memo](../../notebooks/2026/2026-03-decision-memo.md)
-- Checkpoint: include what evidence would change your conclusion
+## Submitting Your Warrant Entry
 
-## Grading map (recommended)
-- 30% Problem framing and assumptions
-- 25% Quantitative discipline
-- 25% Tradeoff articulation
-- 20% Decision defense
+1. Complete your simulation and answer all homework questions first.
+2. Open Warrant and fill in all four fields - Belief Update, Assumption + Failure Condition, Math to Physical Link, Skeptical Challenge.
+3. Select your primary mindset.
+4. Export to PDF using the Export button in the notebook.
+5. Submit the PDF to Canvas alongside your `.apwz` file.
 
-Use: [Reasoning Rubric](../../rubrics/reasoning-rubric.md)
+Your Warrant entry and your homework answers are separate documents. Do not copy homework answers into Warrant fields. The homework demonstrates that you ran the simulation correctly. The Warrant entry demonstrates that you understood what you were doing.
 
-## Instructor notes
-- Keep notebooks reusable; avoid course code in notebook file names.
-- Keep course-specific pacing and deadlines in this page only.
+---
+
+## Worked Examples by Assignment
+
+| Assignment | Worked Example |
+|------------|---------------|
+| HW1 | Coming Mar 31 |
+| HW2 | [HW2 - Flash Separators](../../notebooks/cbe253/hw3-flash-separators.md) |
+| HW3 | [HW3 - Distillation DSTWU](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
+| HW4 | Coming Apr 14 |
+| HW5 | Coming Apr 28 |
+| HW6 | Coming May 5 |
+
+Worked examples are instructor-authored. They show what a strong entry looks like - specific, honest about uncertainty, connected to the physical system. Read the worked example for the current week before writing your own entry, not after.
 
