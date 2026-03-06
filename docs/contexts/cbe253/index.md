@@ -6,7 +6,7 @@
 This is the active course page for Warrant in CBE 253. Each homework has one Warrant entry. Complete your simulation first, then open Warrant, fill in the four fields, export to PDF, and submit alongside your `.apwz` file on Canvas.
 
 -> [Open Warrant](../../warrant.md)  
--> Worked examples are instructor access only.
+-> [Warrant Worked Example](warrant-worked-example.md)
 
 ---
 
@@ -41,12 +41,12 @@ Build the habit of making defensible engineering decisions when models are incom
 
 | HW | Topic | Due | Warrant Entry |
 |----|-------|-----|---------------|
-| HW1 | Mixers and Splitters | Mar 31 | Instructor access only |
-| HW2 | Rankine Cycle | Apr 7 | Instructor access only |
-| HW3 | Flash Separators | Apr 14 | Instructor access only |
-| HW4 | Distillation DSTWU | Apr 21 | Instructor access only |
-| HW5 | Reactor and Distillation | Apr 28 | Instructor access only |
-| HW6 | Properties and Ternary Analysis | May 5 | Instructor access only |
+| HW1 | Mixers and Splitters | Mar 31 | [Reference Worked Example](warrant-worked-example.md) |
+| HW2 | Rankine Cycle | Apr 7 | [Reference Worked Example](warrant-worked-example.md) |
+| HW3 | Flash Separators | Apr 14 | [Reference Worked Example](warrant-worked-example.md) |
+| HW4 | Distillation DSTWU | Apr 21 | [Reference Worked Example](warrant-worked-example.md) |
+| HW5 | Reactor and Distillation | Apr 28 | [Reference Worked Example](warrant-worked-example.md) |
+| HW6 | Properties and Ternary Analysis | May 5 | [Reference Worked Example](warrant-worked-example.md) |
 
 ---
 
