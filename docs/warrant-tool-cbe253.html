@@ -1319,7 +1319,7 @@ function buildEntry(weekNum, entryNum) {
   const week = WEEKS.find(w => w.num === weekNum);
   const entryData = (state.entries[weekNum] || {})[entryNum] || {};
   const timestamp = entryData.timestamp || '';
-  const isCollapsed = entryData.collapsed !== false && !hasAnyData(entryData);
+  const isCollapsed = entryData.collapsed === true && hasAnyData(entryData);
 
   const card = document.createElement('div');
   card.className = 'entry-card';
