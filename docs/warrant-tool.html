@@ -1398,7 +1398,7 @@ const PROFILE_PROMPTS = {
 };
 
 const MINDSETS = ["Constraint","Approximation","Tradeoff","Decision","Systems","Fragility"];
-const BUILD_ID = "2026-03-06f";
+const BUILD_ID = "2026-03-06h";
 
 const FIELD_PROMPTS = {
   "Constraint":    "What boundaries shaped the decisions you could make, and which of those boundaries did you choose versus inherit?",
@@ -1562,7 +1562,7 @@ function renderWeek(weekNum) {
     item.classList.toggle('active', WEEKS[i].num === weekNum);
   });
 
-  const week = WEEKS.find(w => w.num === weekNum);
+  const week = getWeekConfig(weekNum);
   const mc = document.getElementById('main-content');
 
   mc.innerHTML = `
@@ -1655,7 +1655,7 @@ function ensurePromptInputsEditable(weekNum) {
 }
 
 function buildEntry(weekNum, entryNum) {
-  const week = WEEKS.find(w => w.num === weekNum);
+  const week = getWeekConfig(weekNum);
   const entryData = (state.entries[weekNum] || {})[entryNum] || {};
   const timestamp = entryData.timestamp || '';
   const isCollapsed = false;
