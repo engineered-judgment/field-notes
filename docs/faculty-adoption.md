@@ -16,6 +16,12 @@ You can adopt this method without redesigning your course. The goal is not new c
 - [ ] Set rubric mode in [Reasoning Rubric](rubrics/reasoning-rubric.md) for week 1.
 - [ ] Calibrate with 3 sample entries before grading live submissions.
 
+## TA operating role (if you use TAs)
+- Run first-pass scoring on assigned criteria using the selected rubric phase.
+- Flag submissions missing decision question, failure condition, or verification trace.
+- Return one required revision target per notebook.
+- Escalate borderline grade calls to the course lead during weekly calibration.
+
 ## Adoption pitfalls and fixes (read this before launching)
 ### Pitfall: notebooks become summaries
 Fix: require one explicit decision and one explicit failed assumption each week.
@@ -46,7 +52,16 @@ Policy and examples: [AI Use Policy](prompts/ai-use-policy.md)
 - Biweekly peer review using rubric criteria
 - End-of-module decision memo citing notebook evidence
 
+## Full-semester success criteria
+- At least 85% of weekly entries include explicit decision + reversal condition.
+- Median rubric score remains at least 3.0 by midterm on active criteria.
+- Verification trace completeness stays above 80% in AI-assisted submissions.
+- Instructor/TA grading time remains at or below 6 minutes per notebook.
+- Final decision memos cite notebook evidence explicitly (assumptions, checks, and tradeoffs).
+
 **Typical grade weight in pilots:** 15-25% of final course grade.
+
+Use 15% when notebooks are additive practice in a content-heavy course, and 25% when decision quality is a core course outcome. If grading burden rises, keep the weight but reduce weekly scored criteria rather than reducing assignment frequency.
 
 ## Minimum deployment package and sequence
 Use these in order:
