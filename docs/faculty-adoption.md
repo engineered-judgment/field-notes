@@ -12,7 +12,7 @@ You can adopt this method without redesigning your course. The goal is not new c
 ## What you need to do (checklist first)
 - [ ] Select one existing module for a 2-week pilot.
 - [ ] Publish student path page: [Choose Your Path](students/index.md).
-- [ ] Post [Warrant (Reasoning Notebook)](warrant.md) and [Warrant Template](warrant-template.md).
+- [ ] Post [Warrant](warrant.md) and [Warrant Template](warrant-template.md).
 - [ ] Set rubric mode in [Reasoning Rubric](rubrics/reasoning-rubric.md) for week 1.
 - [ ] Calibrate with 3 sample entries before grading live submissions.
 
@@ -51,14 +51,15 @@ Policy and examples: [AI Use Policy](prompts/ai-use-policy.md)
 ## Minimum deployment package and sequence
 Use these in order:
 
-1. **Student orientation artifact:** [Warrant (Reasoning Notebook)](warrant.md)
+1. **Tool endpoint:** [Warrant](warrant.md)
 2. **Student routing page:** [Choose Your Path](students/index.md)
 3. **Student weekly structure:** [Warrant Template](warrant-template.md)
 4. **Instructor scoring system:** [Reasoning Rubric](rubrics/reasoning-rubric.md)
-5. **Live implementation reference:** [CBE 253 (Live)](contexts/cbe253/index.md)
+5. **Worked-example library:** [Field Notes (Examples)](notebooks/index.md)
+6. **Live implementation reference:** [CBE 253 (Live)](contexts/cbe253/index.md)
 
 Relationship map:
-`Warrant -> Warrant Template -> Notebook entries -> Reasoning Rubric -> Decision memo`
+`Warrant (tool) -> Warrant Template -> Field Notes entries -> Reasoning Rubric -> Decision memo`
 
 ## ABET-style mapping
 Use [Reasoning Rubric](rubrics/reasoning-rubric.md) for criterion-level mapping and artifacts.

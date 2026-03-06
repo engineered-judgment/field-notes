@@ -13,9 +13,9 @@ theme:
 
 nav:
   - Home: index.md
+  - Warrant: warrant.md
   - Students:
     - Choose Your Path: students/index.md
-    - Warrant (Reasoning Notebook): warrant.md
     - CBE 253 (Live): contexts/cbe253/index.md
   - Faculty:
     - Adoption Guide: faculty-adoption.md
@@ -28,7 +28,7 @@ nav:
     - Rubrics:
       - Overview: rubrics/index.md
       - Reasoning Rubric: rubrics/reasoning-rubric.md
-  - Notebooks:
+  - Field Notes (Examples):
     - Overview: notebooks/index.md
     - Aspen Plus Notebook (Example): aspen-notebook.md
     - 2026:
@@ -55,4 +55,3 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-

@@ -1,6 +1,9 @@
-# Notebooks
+# Field Notes (Examples)
 
-Reusable field notes organized by date and topic, not by course code.
+This section is a worked-example library.
+
+Use [Warrant](../warrant.md) when you want to write and interact with the notebook tool.
+Use this section when you want to see what high-quality completed entries look like.
 
 ## 2026
 - [Aspen Process Framing](2026/2026-03-aspen-process-framing.md): framing, basis, and first decision turn.

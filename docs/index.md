@@ -15,8 +15,8 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 
 ### What makes this different?
 - Every notebook shows assumptions, checks, and reversal conditions, not just conclusions.
-- [Warrant (Reasoning Notebook)](warrant.md) is the generic transferable artifact.
-- [Aspen Plus Notebook](aspen-notebook.md) and [Pump VFD Control Decision](notebooks/2026/2026-03-pump-vfd-control-decision.md) show live examples.
+- [Warrant](warrant.md) is the stable interactive tool endpoint.
+- [Field Notes (Examples)](notebooks/index.md) is the worked-example library.
 - The [Reasoning Rubric](rubrics/reasoning-rubric.md) makes evaluation criteria explicit.
 
 ### Where do I go next?
@@ -34,10 +34,10 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 
 **Required assets**
 
-- [Warrant (Reasoning Notebook)](warrant.md)
+- [Warrant](warrant.md)
 - [Warrant Template](warrant-template.md)
 - [Reasoning Rubric](rubrics/reasoning-rubric.md)
-- [CBE 253 (Live)](contexts/cbe253/index.md) as implementation example
+- [Field Notes (Examples)](notebooks/index.md)
 
 **Week-1 grading workflow**
 

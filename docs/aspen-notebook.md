@@ -1,6 +1,6 @@
-# Aspen Plus Notebook
+# Aspen Plus Notebook (Example)
 
-This is the site's benchmark example. It shows what a complete, well-reasoned notebook entry looks like in practice.
+This is a benchmark **example entry** in the Field Notes library.
 
 **The problem:** In an ethanol-to-olefins concept model, should the next design sprint prioritize conversion yield or utility intensity?
 
@@ -10,9 +10,9 @@ This is the site's benchmark example. It shows what a complete, well-reasoned no
 
 **The test:** Reversal conditions are explicit: if selectivity drops below 72% or utility economics shift materially, the recommendation changes.
 
-This notebook shows how to identify a binding operating constraint before over-investing in simulation detail.
+This example shows how to identify a binding operating constraint before over-investing in simulation detail.
 
--> [Read the full notebook](notebooks/2026/2026-03-aspen-process-framing.md)
+-> [Read the full notebook entry](notebooks/2026/2026-03-aspen-process-framing.md)
 
 ---
 
@@ -23,9 +23,11 @@ This notebook shows how to identify a binding operating constraint before over-i
 - The math is checked against physical intuition.
 - The recommendation includes explicit conditions for revision.
 
-**Need the source export?**  
-[View the original HTML artifact of the same entry](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
+**Course-specific archived export (reference only):**  
+[View archived HTML for this example](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
 
 **Looking for a non-chemical example?**  
 [Pump VFD Control Decision (Cross-Domain)](notebooks/2026/2026-03-pump-vfd-control-decision.md)
 
+**Need the interactive tool instead?**  
+Open [Warrant](warrant.md).

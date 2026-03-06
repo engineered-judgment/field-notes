@@ -1,24 +1,21 @@
-# Warrant (Reasoning Notebook)
+# Warrant
 
-Warrant is the transferable notebook artifact in this framework.
+This is the stable tool endpoint for the interactive reasoning notebook.
 
-Use it in any engineering course to practice reasoning that connects evidence to a decision.
+**Permanent tool URL:** `/field-notes/warrant/`
 
-## Weekly entry (10-15 minutes)
-Write four short sections each week:
+## Open the tool
+- [Launch Warrant in full-screen](warrant-tool.html)
 
-1. **Belief update:** What I believed before this session that I no longer believe, and what changed it.
-2. **Assumption + failure condition:** One assumption I made and the condition under which it fails.
-3. **Math to physical link:** One place an equation connected to a physical effect in the system.
-4. **Skeptical challenge:** The first thing a skeptical engineer would challenge in my analysis.
+## Embedded view
+<iframe src="../warrant-tool.html" title="Warrant Tool" style="width:100%; min-height:960px; border:1px solid #d9d9d9; border-radius:8px;"></iframe>
 
-## Quality bar
-A strong entry states a decision, cites evidence, and names a reversal condition.
-A weak entry summarizes activity without a decision or check.
+If the embedded view does not load, use the full-screen link above.
 
-## For faculty
-To deploy this quickly, use the [Faculty Adoption Guide](faculty-adoption.md) and the [Warrant Template](warrant-template.md).
+## Looking for worked examples?
+Use [Field Notes (Examples)](notebooks/index.md) for completed entries that show what strong output looks like.
 
-## Worked examples
 - [Aspen Process Framing](notebooks/2026/2026-03-aspen-process-framing.md)
 - [Pump VFD Control Decision (Cross-Domain)](notebooks/2026/2026-03-pump-vfd-control-decision.md)
+
+

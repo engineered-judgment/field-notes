@@ -9,8 +9,8 @@ Current live course:
 - [CBE 253 (Live)](../contexts/cbe253/index.md)
 
 ## I am exploring independently
-Start with [Warrant (Reasoning Notebook)](../warrant.md).
+Start with [Warrant](../warrant.md) at the stable tool URL.
 
 Then use:
 - [Warrant Template](../warrant-template.md)
-- [Notebooks](../notebooks/index.md)
+- [Field Notes (Examples)](../notebooks/index.md)
