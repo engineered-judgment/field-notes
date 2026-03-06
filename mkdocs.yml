@@ -14,16 +14,6 @@ theme:
 nav:
   - Home:
     - Overview: index.md
-    - Engineering Mindsets:
-      - Overview: mindsets/index.md
-      - Constraint: mindsets/constraint.md
-      - Tradeoff: mindsets/tradeoff.md
-      - Approximation: mindsets/approximation.md
-      - Systems: mindsets/systems.md
-      - Decision: mindsets/decision.md
-      - Margin: mindsets/margin.md
-      - Satisficing: mindsets/satisficing.md
-      - Fragility: mindsets/fragility.md
   - Warrant: warrant.md
   - Students:
     - Choose Your Path: students/index.md

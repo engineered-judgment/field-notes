@@ -53,6 +53,11 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 - Post rubric weights
 - Calibrate with 3 sample notebooks before first grading cycle
 
+I teach chemical engineering at the University of New Mexico, where my work also focuses on techno-economic analysis and life cycle assessment. Much of that research examines how engineering decisions are made under constraint. That perspective turned out to be directly relevant to a new challenge in engineering education: the growing presence of AI tools.
+
+As AI systems became capable of completing procedural tasks such as running simulations, setting up calculations, and answering structured questions, it became clear that the visible parts of engineering work were changing. What remained largely invisible was the judgment that makes those outputs meaningful. The eight mindsets were developed to surface that judgment and make it something students can practice, articulate, and defend.
+
+Warrant is currently used in CBE 253 at the University of New Mexico. The framework is shared openly because the underlying challenge is not unique to a single course or institution. It reflects a broader shift in how engineering thinking must be taught and evaluated in an AI-assisted environment.
 ### The Eight Mindsets
 - [Constraint](mindsets/constraint.md): what cannot be violated.
 - [Tradeoff](mindsets/tradeoff.md): what improves and what worsens.
@@ -62,4 +67,6 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 - [Margin](mindsets/margin.md): how uncertainty is absorbed.
 - [Satisficing](mindsets/satisficing.md): what is good enough under real constraints.
 - [Fragility](mindsets/fragility.md): what fails first when assumptions break.
+
+
 
