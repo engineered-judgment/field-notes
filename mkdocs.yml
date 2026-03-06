@@ -31,12 +31,6 @@ nav:
   - Courses Using This Method:
     - CBE 253 Overview:
       - Overview: contexts/cbe253/index.md
-      - HW1 - Mixers and Splitters: notebooks/cbe253/hw1-mixers-and-splitters.md
-      - HW2 - Rankine Cycle: notebooks/cbe253/hw2-pressure-and-temperature-changers.md
-      - HW3 - Flash Separators: notebooks/cbe253/hw3-flash-separators.md
-      - HW4 - Distillation DSTWU: notebooks/cbe253/hw4-distillation-dstwu.md
-      - HW5 - Reactor and Distillation: notebooks/cbe253/hw5-reactor-and-distillation.md
-      - HW6 - Properties and Ternary Analysis: notebooks/cbe253/hw6-property-methods.md
     - Cross-Domain:
       - Facilities Energy Retrofit: notebooks/2026/2026-03-facilities-energy-retrofit-decision.md
 

@@ -6,7 +6,7 @@
 This is the active course page for Warrant in CBE 253. Each homework has one Warrant entry. Complete your simulation first, then open Warrant, fill in the four fields, export to PDF, and submit alongside your `.apwz` file on Canvas.
 
 -> [Open Warrant](../../warrant.md)  
--> [See worked examples](../../notebooks/index.md)
+-> Worked examples are instructor access only.
 
 ---
 
@@ -41,12 +41,12 @@ Build the habit of making defensible engineering decisions when models are incom
 
 | HW | Topic | Due | Warrant Entry |
 |----|-------|-----|---------------|
-| HW1 | Mixers and Splitters | Mar 31 | [Worked Example](../../notebooks/cbe253/hw1-mixers-and-splitters.md) |
-| HW2 | Rankine Cycle | Apr 7 | [Worked Example](../../notebooks/cbe253/hw2-pressure-and-temperature-changers.md) |
-| HW3 | Flash Separators | Apr 14 | [Worked Example](../../notebooks/cbe253/hw3-flash-separators.md) |
-| HW4 | Distillation DSTWU | Apr 21 | [Worked Example](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
-| HW5 | Reactor and Distillation | Apr 28 | Coming Apr 21 |
-| HW6 | Properties and Ternary Analysis | May 5 | Coming Apr 28 |
+| HW1 | Mixers and Splitters | Mar 31 | Instructor access only |
+| HW2 | Rankine Cycle | Apr 7 | Instructor access only |
+| HW3 | Flash Separators | Apr 14 | Instructor access only |
+| HW4 | Distillation DSTWU | Apr 21 | Instructor access only |
+| HW5 | Reactor and Distillation | Apr 28 | Instructor access only |
+| HW6 | Properties and Ternary Analysis | May 5 | Instructor access only |
 
 ---
 
