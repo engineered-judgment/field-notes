@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBE 253 — Engineering Notebook</title>
+<title>CBE 253  -  Engineering Notebook</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -773,7 +773,7 @@
 <div id="setup-screen">
   <div class="setup-container">
     <div class="setup-header">
-      <div class="setup-label">CBE 253 — Aspen Plus Module</div>
+      <div class="setup-label">CBE 253  -  Aspen Plus Module</div>
       <div class="setup-title">Engineering<br>Notebook</div>
       <div class="setup-subtitle">A record of simulation, judgment, and engineering thinking</div>
     </div>
@@ -865,14 +865,14 @@ const WEEKS = [
   },
   {
     num: 4,
-    title: "Distillation — DSTWU",
+    title: "Distillation  -  DSTWU",
     topic: "DSTWU",
     mindsets: ["Decisions", "Systems"],
     provocation: "DSTWU gives you estimates, not answers. What decision did you make with imperfect information?"
   },
   {
     num: 5,
-    title: "Distillation — RadFrac",
+    title: "Distillation  -  RadFrac",
     topic: "RADFRAC",
     mindsets: ["Systems", "Tradeoffs"],
     provocation: "You changed one variable and three things moved. Which system behavior surprised you most?"
@@ -904,12 +904,12 @@ const MINDSETS = ["Constraints","Approximations","Tradeoffs","Decisions","System
 
 const FIELD_PROMPTS = {
   "Constraints": "What boundaries shaped your decisions this week?",
-  "Approximations": "What did your model assume away — and was that acceptable?",
+  "Approximations": "What did your model assume away  -  and was that acceptable?",
   "Tradeoffs": "What did you sacrifice and what did you protect?",
   "Decisions": "What judgment call did you make that another engineer might have made differently?",
   "Systems": "What happened downstream when you changed something upstream?",
   "Margins": "How much gap did you build between your design point and failure?",
-  "Satisficing": "Where did you settle for good enough — and was that the right call?",
+  "Satisficing": "Where did you settle for good enough  -  and was that the right call?",
   "Fragility": "Where is your model most likely to mislead you?"
 };
 
@@ -1124,7 +1124,7 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">02</span>
           <span class="field-name">The Moment of Confusion</span>
         </div>
-        <div class="field-prompt">What didn't work as you expected, and what did you do? Be specific — describe the exact moment, what Aspen showed you, and how you responded.</div>
+        <div class="field-prompt">What didn't work as you expected, and what did you do? Be specific  -  describe the exact moment, what Aspen showed you, and how you responded.</div>
         <textarea class="field-input tall"
           id="confusion-${weekNum}-${entryNum}"
           placeholder="Describe a specific moment where the simulation behaved unexpectedly..."
@@ -1140,7 +1140,7 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">03</span>
           <span class="field-name">The Judgment Statement</span>
         </div>
-        <div class="field-prompt">Not what you did — what you decided. What would have happened if you'd decided differently?</div>
+        <div class="field-prompt">Not what you did  -  what you decided. What would have happened if you'd decided differently?</div>
         <textarea class="field-input tall"
           id="judgment-${weekNum}-${entryNum}"
           placeholder="I decided to... because... If I had instead... the result would have been..."
@@ -1171,7 +1171,7 @@ function buildEntry(weekNum, entryNum) {
           <span class="field-num">05</span>
           <span class="field-name">Primary Mindset</span>
         </div>
-        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one — the constraint forces prioritization.</div>
+        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one  -  the constraint forces prioritization.</div>
         <div class="mindset-select-grid" id="mindset-grid-${weekNum}-${entryNum}">
           ${MINDSETS.map(m => `
             <div class="mindset-option ${entryData.mindset === m ? 'selected' : ''}"
@@ -1345,7 +1345,7 @@ function renderWeekSummary(weekNum) {
         <div class="stat-label">Mindsets Tagged</div>
       </div>
       <div class="stat">
-        <div class="stat-value">${[...mindsets].join(', ') || '—'}</div>
+        <div class="stat-value">${[...mindsets].join(', ') || ' - '}</div>
         <div class="stat-label">This Week</div>
       </div>
     </div>
