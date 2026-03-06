@@ -39,6 +39,7 @@ This is the core style of the site: explicit assumptions, quantitative checks, d
 - Evaluation is based on reasoning quality, not just final numeric output.
 
 ## Current anchors
+- **Flagship example**: [Aspen Notebook](aspen-notebook.md)
 - **Live implementation**: [CBE 253 (working example)](contexts/cbe253/index.md)
 - **Reusable notebook library**: [Notebooks](notebooks/index.md)
 - **Core lenses**: [Engineering Mindsets](mindsets/index.md)
