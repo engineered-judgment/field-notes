@@ -1,6 +1,6 @@
 # CBE 253 (Live)
 
-This is the active implementation track. Students should start here each week.
+This is the active course implementation of [Warrant](../../warrant.md). Students should start here each week.
 
 ## Course objective
 Build the habit of making defensible engineering decisions when models are incomplete, assumptions are uncertain, and tradeoffs are unavoidable.
@@ -39,4 +39,3 @@ Use: [Reasoning Rubric](../../rubrics/reasoning-rubric.md)
 ## Instructor notes
 - Keep notebooks reusable; avoid course code in notebook file names.
 - Keep course-specific pacing and deadlines in this page only.
-

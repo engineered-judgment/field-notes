@@ -15,20 +15,18 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 
 ### What makes this different?
 - Every notebook shows assumptions, checks, and reversal conditions, not just conclusions.
-- The [Aspen Plus Notebook](aspen-notebook.md) is a full working example.
+- [Warrant (Reasoning Notebook)](warrant.md) is the generic transferable artifact.
+- [Aspen Plus Notebook](aspen-notebook.md) and [Pump VFD Control Decision](notebooks/2026/2026-03-pump-vfd-control-decision.md) show live examples.
 - The [Reasoning Rubric](rubrics/reasoning-rubric.md) makes evaluation criteria explicit.
-- The method is already implemented in a live teaching context: [CBE 253 (Live)](contexts/cbe253/index.md).
 
 ### Where do I go next?
-**Current build focus:** Student-first deployment in CBE 253, with faculty adoption assets designed for transfer.
-
 **For Students**
 
-- Open [Start Here](start-here.md) for the week-1 orientation workflow, then use [CBE 253 (Live)](contexts/cbe253/index.md) for the current sequence and deliverables.
+- Open [Choose Your Path](students/index.md): use your live course page or start with [Warrant](warrant.md) independently.
 
 **For Faculty**
 
-- Use the [Faculty Adoption Guide](faculty-adoption.md) for setup sequence, grading map, and calibration process, then deploy the [Notebook Template](notebook-template.md) in your first module (about 1-2 hours to stand up).
+- Use the [Faculty Adoption Guide](faculty-adoption.md), then deploy the [Warrant Template](warrant-template.md) in your first module (about 1-2 hours to stand up).
 
 ### Faculty Quick Start (One Screen)
 **Estimated setup time:** 60-120 minutes  
@@ -36,7 +34,8 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 
 **Required assets**
 
-- [Notebook Template](notebook-template.md)
+- [Warrant (Reasoning Notebook)](warrant.md)
+- [Warrant Template](warrant-template.md)
 - [Reasoning Rubric](rubrics/reasoning-rubric.md)
 - [CBE 253 (Live)](contexts/cbe253/index.md) as implementation example
 
@@ -50,7 +49,7 @@ Observations, worked examples, questions worth keeping, and short exercises orga
 **Minimal deployment checklist**
 
 - Publish course context page
-- Post notebook template
+- Post Warrant template
 - Post rubric weights
 - Calibrate with 3 sample notebooks before first grading cycle
 

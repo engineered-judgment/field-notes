@@ -25,3 +25,7 @@ This notebook shows how to identify a binding operating constraint before over-i
 
 **Need the source export?**  
 [View the original HTML artifact of the same entry](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
+
+**Looking for a non-chemical example?**  
+[Pump VFD Control Decision (Cross-Domain)](notebooks/2026/2026-03-pump-vfd-control-decision.md)
+

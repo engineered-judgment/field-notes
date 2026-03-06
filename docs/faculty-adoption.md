@@ -4,7 +4,7 @@ This guide is for instructors who want to adopt the notebook model without redes
 
 ## What to adopt first (2-week pilot)
 1. Keep your existing technical content.
-2. Add one weekly notebook entry requirement (10-15 minutes in class, 20 minutes outside class).
+2. Add one weekly Warrant notebook entry requirement (10-15 minutes in class, 20 minutes outside class).
 3. Grade using only 3 criteria in week 1:
    - framing
    - assumptions
@@ -12,8 +12,9 @@ This guide is for instructors who want to adopt the notebook model without redes
 4. Add tradeoff and decision-defense criteria in week 2.
 
 ## Minimum deployment package
-- Student-facing start page: [Start Here](start-here.md)
-- Weekly structure: [Notebook Template](notebook-template.md)
+- Student-facing generic notebook: [Warrant (Reasoning Notebook)](warrant.md)
+- Student route selector: [Choose Your Path](students/index.md)
+- Weekly structure: [Warrant Template](warrant-template.md)
 - Live example: [CBE 253 (Live)](contexts/cbe253/index.md)
 - Grading instrument: [Reasoning Rubric](rubrics/reasoning-rubric.md)
 

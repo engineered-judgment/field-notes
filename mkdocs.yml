@@ -14,11 +14,12 @@ theme:
 nav:
   - Home: index.md
   - Students:
-    - Start Here: start-here.md
+    - Choose Your Path: students/index.md
+    - Warrant (Reasoning Notebook): warrant.md
     - CBE 253 (Live): contexts/cbe253/index.md
   - Faculty:
     - Adoption Guide: faculty-adoption.md
-    - Notebook Template: notebook-template.md
+    - Warrant Template: warrant-template.md
     - Prompts:
       - Overview: prompts/index.md
       - AI Use Policy: prompts/ai-use-policy.md
@@ -35,6 +36,7 @@ nav:
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
       - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
       - Decision Memo: notebooks/2026/2026-03-decision-memo.md
+      - Pump VFD Control Decision (Cross-Domain): notebooks/2026/2026-03-pump-vfd-control-decision.md
   - Engineering Mindsets:
     - Overview: mindsets/index.md
     - Constraint: mindsets/constraint.md
