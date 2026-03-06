@@ -41,11 +41,16 @@ Policy and examples: [AI Use Policy](prompts/ai-use-policy.md)
 
 ## Two-week pilot (start small)
 1. Keep your existing technical content.
-2. Add one weekly Warrant entry requirement (10-15 minutes in class, about 20 minutes outside class).
-3. Week 1 grading: score only framing, assumptions, quantitative discipline.
-4. Week 2 grading: add tradeoff clarity and decision defense.
+2. Add one weekly Warrant entry.
 
-**Grading effort target:** 4-6 minutes per notebook using rotating criteria.
+**Student time:** 10-15 minutes in class, 20 minutes outside class.
+
+3. Week 1 grading: score only framing, assumptions, and one quantitative check (at least one numerical check against physical intuition).
+   These are diagnostic criteria that establish whether students can frame a problem and state a testable assumption.
+4. Week 2 grading: add tradeoff clarity and decision defense.
+   These are evaluative criteria that depend on Week 1 habits being in place first.
+
+**Grading time:** 4-6 minutes per entry using rotating criteria (typically 2-3 hours per week for a class of 30).
 
 ## Full-semester pattern (once pilot works)
 - Weekly notebook submission (1-2 pages equivalent)
@@ -86,3 +91,4 @@ Use [Reasoning Rubric](rubrics/reasoning-rubric.md) for criterion-level mapping 
 
 ## Live implementation signal
 Currently active in [CBE 253 (Live)](contexts/cbe253/index.md) at the University of New Mexico (Spring 2026).
+
