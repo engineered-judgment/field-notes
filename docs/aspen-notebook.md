@@ -10,8 +10,9 @@ This is the site's benchmark example. It shows what a complete, well-reasoned no
 
 **The test:** Reversal conditions are explicit: if selectivity drops below 72% or utility economics shift materially, the recommendation changes.
 
-## Read It
-- [Read the full notebook](notebooks/2026/2026-03-aspen-process-framing.md)
+This notebook shows how to identify a binding operating constraint before over-investing in simulation detail.
+
+-> [Read the full notebook](notebooks/2026/2026-03-aspen-process-framing.md)
 
 ---
 
@@ -22,5 +23,5 @@ This is the site's benchmark example. It shows what a complete, well-reasoned no
 - The math is checked against physical intuition.
 - The recommendation includes explicit conditions for revision.
 
-## Source Artifact
-- [View the original HTML export](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
+**Need the source export?**  
+[View the original HTML artifact of the same entry](notebooks/2026/2026-03-aspen-process-framing-appendix.html)
