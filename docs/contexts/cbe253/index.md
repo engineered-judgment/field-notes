@@ -22,18 +22,31 @@ Build the habit of making defensible engineering decisions when models are incom
 |---------|------|-------|--------|-------------|
 | 1 | Mar 24 | Intro - Mixers (MIXER) | | |
 | 2 | Mar 26 | Mixers and Splitters (FSPLIT) | | |
-| 3 | Mar 31 | Pressure and Temp Changers (PUMP, COMPR, HEATER, HEATX) | **HW1** | **Warrant HW1** |
+| 3 | Mar 31 | Pressure and Temp Changers (PUMP, COMPR, HEATER, HEATX) | **HW1 + HW2** | **Warrant HW1 + HW2** |
 | 4 | Apr 2 | Separators (SEP, SEP2, FLASH) | | |
-| 5 | Apr 7 | Distillation - DSTWU | **HW2** | **Warrant HW2** |
+| 5 | Apr 7 | Distillation - DSTWU | **HW3** | **Warrant HW3** |
 | 6 | Apr 9 | Distillation - RADFRAC | | |
-| 7 | Apr 14 | Reactors (RSTOIC, RGIBBS) | **HW3** | **Warrant HW3** |
+| 7 | Apr 14 | Reactors (RSTOIC, RGIBBS) | **HW4** | **Warrant HW4** |
 | 8 | Apr 16 | Reactors (RBATCH, REQUIL w/ Sensitivity) | | |
-| 9 | Apr 21 | Thermodynamic Properties - pure and binary mixtures; T-x-y/P-x-y | **HW4** | **Warrant HW4** |
+| 9 | Apr 21 | Thermodynamic Properties - pure and binary; T-x-y/P-x-y | **HW5** | **Warrant HW5** |
 | 10 | Apr 23 | Thermodynamic Properties - bubble/dew point, Delta G mixing | | |
-| 11 | Apr 28 | Property Methods - EOS, activity models, method selection | **HW5** | **Warrant HW5** |
+| 11 | Apr 28 | Property Methods - EOS, activity models, method selection | | |
 | 12 | Apr 30 | Liquid-Liquid Equilibria - Ternary Analysis | | |
 | 13 | May 5 | Review | **HW6** | **Warrant HW6** |
 | 14 | May 7 | **Final Exam (Aspen only)** | | |
+
+---
+
+## Homework and Warrant Summary
+
+| HW | Topic | Due | Warrant Entry |
+|----|-------|-----|---------------|
+| HW1 | Mixers and Splitters | Mar 31 | [Worked Example](../../notebooks/cbe253/hw1-mixers-and-splitters.md) |
+| HW2 | Rankine Cycle | Mar 31 | [Worked Example](../../notebooks/cbe253/hw2-pressure-and-temperature-changers.md) |
+| HW3 | Flash Separators | Apr 7 | [Worked Example](../../notebooks/cbe253/hw3-flash-separators.md) |
+| HW4 | Distillation DSTWU | Apr 14 | [Worked Example](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
+| HW5 | Reactor and Distillation | Apr 21 | Coming Apr 14 |
+| HW6 | Properties and Ternary Analysis | May 5 | Coming Apr 28 |
 
 ---
 
@@ -45,20 +58,5 @@ Build the habit of making defensible engineering decisions when models are incom
 4. Export to PDF using the Export button in the notebook.
 5. Submit the PDF to Canvas alongside your `.apwz` file.
 
-Your Warrant entry and your homework answers are separate documents. Do not copy homework answers into Warrant fields. The homework demonstrates that you ran the simulation correctly. The Warrant entry demonstrates that you understood what you were doing.
-
----
-
-## Worked Examples by Assignment
-
-| Assignment | Worked Example |
-|------------|---------------|
-| HW1 | Coming Mar 31 |
-| HW2 | Coming Apr 7 |
-| HW3 | [HW3 - Flash Separators](../../notebooks/cbe253/hw3-flash-separators.md) |
-| HW4 | [HW4 - Distillation DSTWU](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
-| HW5 | Coming Apr 28 |
-| HW6 | Coming May 5 |
-
-Worked examples are instructor-authored. They show what a strong entry looks like - specific, honest about uncertainty, connected to the physical system. Read the worked example for the current week before writing your own entry, not after.
+Your Warrant entry and your homework answers are separate documents. The homework demonstrates that you ran the simulation correctly. The Warrant entry demonstrates that you understood what you were doing.
 
