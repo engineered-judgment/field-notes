@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warrant Notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --surface3: #262626;
+    --border: #333333;
+    --border-light: #2a2a2a;
+    --text: #e8e8e8;
+    --text-dim: #8a8a8a;
+    --text-dimmer: #555555;
+    --accent: #f4a100;
+    --accent-dim: #7a5000;
+    --accent-subtle: #1a1200;
+    --red: #da1e28;
+    --green: #24a148;
+    --blue: #0f62fe;
+    --mindset-inactive: #2a2a2a;
+    --mindset-active: #f4a100;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'IBM Plex Serif', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* SETUP SCREEN */
+  #setup-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .setup-container {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .setup-header {
+    margin-bottom: 48px;
+  }
+
+  .setup-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .setup-title {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .setup-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+
+  .setup-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  .field-group {
+    margin-bottom: 24px;
+  }
+
+  .field-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .field-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .field-input:focus {
+    border-color: var(--accent);
+  }
+
+  .field-input::placeholder {
+    color: var(--text-dimmer);
+  }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 8px;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* MAIN APP */
+  #app {
+    display: none;
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    height: 48px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 24px;
+  }
+
+  .topbar-brand {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .topbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  .topbar-student {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .topbar-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-export {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-export:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* LAYOUT */
+  .app-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 48px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-section {
+    padding: 0 20px;
+    margin-bottom: 32px;
+  }
+
+  .sidebar-section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 12px;
+  }
+
+  /* WEEK NAV */
+  .week-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 12px;
+    margin-bottom: 32px;
+  }
+
+  .week-nav-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 6px 12px 8px;
+  }
+
+  .week-nav-children {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .week-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.1s;
+    border: 1px solid transparent;
+  }
+
+  .week-nav-item:hover {
+    background: var(--surface2);
+  }
+
+  .week-nav-item.active {
+    background: var(--accent-subtle);
+    border-color: var(--accent-dim);
+  }
+
+  .week-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dimmer);
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .week-nav-item.active .week-num {
+    color: var(--accent);
+  }
+
+  .week-nav-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .week-nav-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .week-nav-item.active .week-nav-title {
+    color: var(--text);
+  }
+
+  .week-nav-status {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .week-nav-status.complete {
+    background: var(--green);
+  }
+
+  .week-nav-status.partial {
+    background: var(--accent);
+  }
+
+  /* MINDSET PANEL */
+  .mindset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .mindset-chip {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .mindset-chip.engaged {
+    border-color: var(--accent-dim);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  .sidebar-spacer { flex: 1; }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--surface3);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    padding: 40px 48px;
+    max-width: 860px;
+  }
+
+  /* WEEK HEADER */
+  .week-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .week-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .week-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .week-mindset-tags {
+    display: flex;
+    gap: 6px;
+  }
+
+  .week-mindset-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+  }
+
+  .week-title {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .week-provocation {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 15px;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 16px;
+  }
+
+  /* ENTRY CARD */
+  .entry-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--surface2);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .entry-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .entry-number {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .entry-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .entry-timestamp {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dimmer);
+  }
+
+  .entry-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .entry-status-dot.complete { background: var(--green); }
+  .entry-status-dot.partial { background: var(--accent); }
+
+  .entry-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .entry-body.collapsed { display: none; }
+
+  /* FIELD */
+  .field-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .field-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .field-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .field-prompt {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    padding-left: 28px;
+  }
+
+  textarea.field-input {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+    font-size: 13px;
+    font-family: var(--sans);
+  }
+
+  textarea.field-input.tall { min-height: 120px; }
+
+  .char-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dimmer);
+    text-align: right;
+  }
+
+  .char-hint.warning { color: var(--accent); }
+  .char-hint.error { color: var(--red); }
+
+  .guidance-card {
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    padding: 14px 16px;
+    margin-bottom: 4px;
+  }
+
+  .guidance-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .guidance-item {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .guidance-item:last-child { margin-bottom: 0; }
+
+  .guidance-item strong {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+
+  /* ARTIFACT ZONE */
+  .artifact-zone {
+    border: 1px dashed var(--border);
+    padding: 20px;
+    background: var(--surface2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .artifact-zone-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    text-align: center;
+  }
+
+  .artifact-preview {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .artifact-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+  }
+
+  .artifact-filename {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .btn-artifact {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    align-self: center;
+  }
+
+  .btn-artifact:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* MINDSET SELECT */
+  .mindset-select-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .mindset-option {
+    padding: 8px 6px;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .mindset-option:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+  }
+
+  .mindset-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+    color: var(--accent);
+  }
+
+  /* FIELD DIVIDER */
+  .field-divider {
+    height: 1px;
+    background: var(--border-light);
+  }
+
+  /* SAVE BUTTON */
+  .entry-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface2);
+  }
+
+  .save-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dimmer);
+  }
+
+  .btn-save {
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-save:hover { opacity: 0.85; }
+
+  .save-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .save-status.visible { opacity: 1; }
+
+  /* WEEK SUMMARY */
+  .week-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-top: 8px;
+  }
+
+  .week-summary-header {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 12px;
+  }
+
+  .week-summary-stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+  }
+
+  /* HIDDEN FILE INPUT */
+  .hidden-file { display: none; }
+
+  /* PRINT / PDF */
+  @media print {
+    .topbar, .sidebar, .btn-export, .btn-save, .entry-footer, .btn-artifact { display: none !important; }
+    .app-body { grid-template-columns: 1fr !important; }
+    .main-content { padding: 20px !important; max-width: 100% !important; }
+    .entry-body.collapsed { display: flex !important; }
+    body { background: white !important; color: black !important; }
+    .entry-card, .week-summary { border-color: #ccc !important; background: white !important; }
+    .field-input, textarea.field-input { border-color: #ccc !important; background: white !important; color: black !important; }
+    .week-title, .entry-title, .field-name { color: black !important; }
+    .field-prompt { color: #555 !important; }
+    .week-tag, .entry-number, .field-num { color: #b37700 !important; }
+    .week-provocation { border-left-color: #b37700 !important; color: #555 !important; }
+    .mindset-option.selected { background: #fff8e0 !important; border-color: #b37700 !important; color: #b37700 !important; }
+    .artifact-preview { display: flex !important; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dimmer); }
+
+  /* PROMPT CARD */
+  .prompt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-dim);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-left-color 0.2s;
+  }
+  .prompt-card.open { border-left-color: var(--accent); }
+
+  .prompt-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .prompt-card-header:hover { background: var(--surface2); }
+
+  .prompt-card-chevron {
+    font-size: 14px;
+    color: var(--text-dimmer);
+    transform: rotate(-90deg);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .prompt-card.open .prompt-card-chevron { transform: rotate(0deg); }
+
+  .prompt-card-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border-light);
+  }
+  .prompt-card.open .prompt-card-body {
+    display: block;
+    padding-top: 16px;
+  }
+
+  .prompt-questions {
+    list-style: none;
+    counter-reset: prompt-counter;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .prompt-question {
+    counter-increment: prompt-counter;
+    position: relative;
+    padding-left: 28px;
+  }
+  .prompt-question::before {
+    content: counter(prompt-counter);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .prompt-q-text {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .prompt-answer {
+    width: 100%;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 10px;
+    resize: vertical;
+    min-height: 64px;
+    transition: border-color 0.15s;
+    display: block;
+    pointer-events: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
+    position: relative;
+    z-index: 1;
+  }
+  .prompt-answer:focus {
+    outline: none;
+    border-color: var(--accent-dim);
+  }
+  .prompt-answer::placeholder { color: var(--text-dimmer); }
+
+  @media print {
+    .prompt-card { border-left-color: #b37700 !important; background: #fffdf5 !important; }
+    .prompt-card-header { background: #fffdf5 !important; }
+    .prompt-card-body { display: block !important; padding-top: 12px !important; }
+    .prompt-q-text { color: #333 !important; }
+    .prompt-answer { background: white !important; border-color: #ccc !important; color: black !important; }
+    .prompt-card-chevron { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen">
+  <div class="setup-container">
+    <div class="setup-header">
+      <div class="setup-label">Engineering Reasoning Notebook</div>
+      <div class="setup-title">Warrant<br>Notebook</div>
+      <div class="setup-subtitle">A record of simulation, judgment, and engineered thinking</div>
+    </div>
+    <div class="setup-divider"></div>
+    <div class="field-group">
+      <label class="field-label">Full Name</label>
+      <input class="field-input" id="setup-name" type="text" placeholder="e.g. Maria Santos" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Student ID</label>
+      <input class="field-input" id="setup-id" type="text" placeholder="e.g. 202412345" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Section</label>
+      <input class="field-input" id="setup-section" type="text" placeholder="e.g. 001" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Discipline Profile</label>
+      <select class="field-input" id="setup-profile">
+        <option value="general">General Engineering</option>
+        <option value="civil">Civil Engineering</option>
+        <option value="mechanical">Mechanical Engineering</option>
+        <option value="chemical">Chemical Engineering</option>
+        <option value="ece">Electrical and Computer Engineering</option>
+        <option value="cs">Computer Science</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="initNotebook()">Open Notebook -></button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">Warrant // Generic</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-student" id="build-id" style="flex:0;color:var(--text-dimmer);font-size:10px;">build</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-student" id="topbar-student"></div>
+    <div class="topbar-actions">
+      <button class="btn-export" onclick="exportPDF()">Export PDF</button>
+      <button class="btn-export" onclick="resetNotebook()" style="border-color:#da1e2844;color:#da1e2888;">Reset</button>
+    </div>
+  </div>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Weeks</div>
+      </div>
+      <nav class="week-nav" id="week-nav"></nav>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Mindsets Engaged</div>
+        <div class="mindset-grid" id="mindset-tracker"></div>
+      </div>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-footer">
+        <div class="progress-label">
+          <span>Overall Progress</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content" id="main-content"></div>
+  </div>
+</div>
+
+<input type="file" class="hidden-file" id="file-input" accept="image/*">
+
+<script>
+const WEEKS = [
+  {
+    num: 1,
+    hw: "M1",
+    title: "Problem Framing and Assumptions",
+    topic: "Decision question, boundaries, assumptions",
+    due: "Self-paced",
+    mindset: "Constraint",
+    provocation: "What did you assume without checking, and what boundary condition controls whether your result can be trusted?"
+  },
+  {
+    num: 2,
+    hw: "M2",
+    title: "Math, Models, and Physical Meaning",
+    topic: "Governing equations, checks, interpretation",
+    due: "Self-paced",
+    mindset: "Approximation",
+    provocation: "Where does your model simplify reality, and what physical consequence does that simplification create?"
+  },
+  {
+    num: 3,
+    hw: "M3",
+    title: "Tradeoffs and Constraints",
+    topic: "Competing objectives, performance limits",
+    due: "Self-paced",
+    mindset: "Tradeoff",
+    provocation: "What did your design gain, and what did it cost in performance, risk, or complexity?"
+  },
+  {
+    num: 4,
+    hw: "M4",
+    title: "Systems and Coupling",
+    topic: "Upstream-downstream effects, propagation",
+    due: "Self-paced",
+    mindset: "Systems",
+    provocation: "What change in one subsystem produced the largest consequence somewhere else?"
+  },
+  {
+    num: 5,
+    hw: "M5",
+    title: "Failure Modes and Robustness",
+    topic: "Fragility, uncertainty, operating envelope",
+    due: "Self-paced",
+    mindset: "Fragility",
+    provocation: "Where is your model most likely to fail silently, and how would you detect it early?"
+  },
+  {
+    num: 6,
+    hw: "M6",
+    title: "Decision Defense and Evidence",
+    topic: "Recommendation, reversal conditions, evidence plan",
+    due: "Self-paced",
+    mindset: "Decision",
+    provocation: "What decision are you defending, and what evidence would make you reverse it?"
+  }
+];
+
+const PROFILE_LABELS = {
+  general: "General Engineering",
+  civil: "Civil Engineering",
+  mechanical: "Mechanical Engineering",
+  chemical: "Chemical Engineering",
+  ece: "Electrical and Computer Engineering",
+  cs: "Computer Science"
+};
+
+const PROFILE_EXAMPLES = {
+  general: "Generic design or analysis notebook entry",
+  civil: "Example context: retaining wall sizing with serviceability checks",
+  mechanical: "Example context: pump retrofit and duty-cycle control strategy",
+  chemical: "Example context: reactor-separator train with utility constraints",
+  ece: "Example context: control loop and power budget co-design",
+  cs: "Example context: model serving architecture under latency constraints"
+};
+
+const PROFILE_PROMPTS = {
+  general: {
+    1: {
+      subtitle: "General Problem Framing",
+      questions: [
+        "State the engineering decision this model is intended to inform in one sentence.",
+        "List the most consequential assumption and one measurable condition that would invalidate it.",
+        "Identify one output you expect to change the most if that assumption is wrong."
+      ]
+    },
+    2: {
+      subtitle: "Model Interpretation",
+      questions: [
+        "Name one equation or model relation driving your result and the variable it is most sensitive to.",
+        "Predict one numerical result before running, then compare with model output.",
+        "Translate one computed quantity into a physical or operational meaning."
+      ]
+    },
+    3: {
+      subtitle: "Tradeoff Framing",
+      questions: [
+        "Name two objectives in conflict and which one your current setup prioritizes.",
+        "What constraint is binding first (cost, safety, code, time, energy, reliability)?",
+        "Define a switching condition that would make you choose the alternative design."
+      ]
+    },
+    4: {
+      subtitle: "System Coupling",
+      questions: [
+        "Choose one upstream variable and identify the downstream response most sensitive to it.",
+        "What feedback or coupling is not represented in your current model boundary?",
+        "Which subsystem should be re-validated first if the upstream assumption changes?"
+      ]
+    },
+    5: {
+      subtitle: "Robustness Check",
+      questions: [
+        "What failure mode is most plausible under off-design conditions?",
+        "What signal would reveal that failure mode early in operation?",
+        "What low-effort verification step would reduce your fragility risk the most?"
+      ]
+    },
+    6: {
+      subtitle: "Decision Defense",
+      questions: [
+        "Write your recommendation in one sentence with scope and confidence.",
+        "State one reversal condition with a measurable threshold.",
+        "List the minimum evidence package required before final implementation."
+      ]
+    }
+  },
+  civil: {
+    1: {
+      subtitle: "Site, Loads, and Code Assumptions",
+      questions: [
+        "State the civil decision (alignment, section, material, or staging) this model supports.",
+        "Which code assumption (loads, soil class, drainage, safety factor) is most consequential?",
+        "What field condition would invalidate that assumption first?"
+      ]
+    },
+    2: {
+      subtitle: "Structural/Geotechnical Interpretation",
+      questions: [
+        "Name one governing relation (stress, deflection, bearing, settlement) and key sensitivity.",
+        "Predict whether strength or serviceability controls before checking results.",
+        "Translate one model output into a physical risk (cracking, settlement, slope movement, drainage failure)."
+      ]
+    },
+    3: {
+      subtitle: "Cost-Safety-Constructability Tradeoff",
+      questions: [
+        "What tradeoff are you making between safety margin, cost, and constructability?",
+        "Which constraint is binding now: right-of-way, code, staging, budget, or schedule?",
+        "What threshold would shift you to an alternate section or method?"
+      ]
+    },
+    4: {
+      subtitle: "Infrastructure Coupling",
+      questions: [
+        "How does changing one element (grade, section, material, drainage) affect adjacent systems?",
+        "What lifecycle effect (maintenance, resilience, flood behavior) is omitted from this model?",
+        "What downstream stakeholder impact should be checked before finalizing?"
+      ]
+    },
+    5: {
+      subtitle: "Failure Modes",
+      questions: [
+        "What off-design event is most critical (extreme storm, scour, overload, liquefaction, creep)?",
+        "What monitoring indicator would provide earliest warning?",
+        "What conservative check would you add before stamp-level confidence?"
+      ]
+    },
+    6: {
+      subtitle: "Permit and Decision Defense",
+      questions: [
+        "State the recommendation and confidence range for this design choice.",
+        "Define a measurable reversal condition tied to code or field verification.",
+        "List the minimum evidence needed for review board or permitting approval."
+      ]
+    }
+  },
+  mechanical: {
+    1: {
+      subtitle: "System Definition and Assumptions",
+      questions: [
+        "State the mechanical decision (component sizing, control strategy, duty point) in one sentence.",
+        "Which assumption about load profile, efficiency map, or boundary condition is most consequential?",
+        "What measured operating condition would break that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Thermo/Fluids Interpretation",
+      questions: [
+        "Name one governing relation (energy balance, affinity, pressure drop, stress) driving your result.",
+        "Predict one key output before running and compare magnitude after run.",
+        "Explain one model output as a physical mechanism (heat transfer limit, flow regime, fatigue driver)."
+      ]
+    },
+    3: {
+      subtitle: "Performance Tradeoff",
+      questions: [
+        "What tradeoff are you making between efficiency, reliability, and controllability?",
+        "Which design limit binds first: temperature, stress, vibration, duty, or maintenance interval?",
+        "What quantitative threshold would make you choose the alternative design?"
+      ]
+    },
+    4: {
+      subtitle: "Subsystem Coupling",
+      questions: [
+        "How does changing one subsystem parameter propagate to others (thermal, structural, controls)?",
+        "What coupling is missing (control loop dynamics, transient behavior, degradation)?",
+        "Which subsystem should be validated first after any design change?"
+      ]
+    },
+    5: {
+      subtitle: "Reliability and Failure",
+      questions: [
+        "What failure mode dominates risk (fatigue, cavitation, overheating, wear, instability)?",
+        "Which operating signal would indicate that failure mode earliest?",
+        "What quick test would most reduce uncertainty before procurement?"
+      ]
+    },
+    6: {
+      subtitle: "Recommendation and Evidence",
+      questions: [
+        "Write your recommendation with expected performance delta and confidence.",
+        "Name a measurable reversal condition for your recommendation.",
+        "List the minimum test data required before implementation."
+      ]
+    }
+  },
+  chemical: {
+    1: {
+      subtitle: "Process Framing",
+      questions: [
+        "State the process decision (configuration, condition, or method choice) this model informs.",
+        "Which thermodynamic, kinetic, or separation assumption is most consequential?",
+        "What composition/operating condition would make that assumption fail?"
+      ]
+    },
+    2: {
+      subtitle: "Thermo/Kinetics Interpretation",
+      questions: [
+        "Name one governing relation (equilibrium, rate law, energy balance) and key sensitivity.",
+        "Predict one stream or unit output before running and compare after run.",
+        "Translate one output into a physical process meaning (selectivity, duty, conversion, phase behavior)."
+      ]
+    },
+    3: {
+      subtitle: "Yield-Energy-Capital Tradeoff",
+      questions: [
+        "What tradeoff are you making between yield, purity, energy, and equipment complexity?",
+        "Which process constraint binds first (safety, utility, equilibrium, throughput, emissions)?",
+        "What switching condition would justify an alternative process choice?"
+      ]
+    },
+    4: {
+      subtitle: "Flowsheet Coupling",
+      questions: [
+        "What upstream change most strongly affects downstream separation or utility demand?",
+        "What recycle, purge, or control interaction is not represented in your current boundary?",
+        "Which downstream unit should be rechecked first after upstream changes?"
+      ]
+    },
+    5: {
+      subtitle: "Fragility and Off-Design",
+      questions: [
+        "What off-design condition is most likely to break model validity (fouling, feed swing, side reaction)?",
+        "What process measurement would detect this deviation earliest?",
+        "What additional verification run would reduce this fragility risk?"
+      ]
+    },
+    6: {
+      subtitle: "Decision Defense",
+      questions: [
+        "State your recommendation and expected process impact in one sentence.",
+        "Define one measurable reversal condition for this recommendation.",
+        "List the minimum evidence package needed before design freeze."
+      ]
+    }
+  },
+  ece: {
+    1: {
+      subtitle: "Architecture and Assumptions",
+      questions: [
+        "State the ECE decision (topology, control law, interface, or implementation target) in one sentence.",
+        "Which assumption about load, timing, noise, or operating environment is most consequential?",
+        "What measurable condition would invalidate that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Circuit/Signal Interpretation",
+      questions: [
+        "Name one governing relation (transfer function, KCL/KVL, timing, power budget) driving your result.",
+        "Predict one key output (gain, delay, SNR, power, thermal rise) before simulation.",
+        "Map one simulated metric to a physical behavior in hardware."
+      ]
+    },
+    3: {
+      subtitle: "Performance Tradeoff",
+      questions: [
+        "What tradeoff is central: power vs performance, latency vs robustness, cost vs precision?",
+        "Which constraint is binding: bandwidth, thermal, area, EMC, battery, or real-time deadline?",
+        "What threshold would make you switch to another design option?"
+      ]
+    },
+    4: {
+      subtitle: "System Integration",
+      questions: [
+        "How does a change in one block propagate through sensing, compute, control, and actuation?",
+        "What interface or coupling (clocking, quantization, communication delay) is omitted now?",
+        "Which subsystem needs first re-validation after any change?"
+      ]
+    },
+    5: {
+      subtitle: "Failure and Robustness",
+      questions: [
+        "What failure mode is most likely under off-nominal operation (noise burst, drift, overload, race)?",
+        "What telemetry signal would reveal it first?",
+        "What bench test would most reduce deployment risk?"
+      ]
+    },
+    6: {
+      subtitle: "Engineering Decision Defense",
+      questions: [
+        "State the recommendation and expected system-level benefit.",
+        "Define a measurable reversal condition.",
+        "List the minimum verification evidence required before release."
+      ]
+    }
+  },
+  cs: {
+    1: {
+      subtitle: "Problem and Assumptions",
+      questions: [
+        "State the CS decision (algorithm, architecture, model choice, or system policy) in one sentence.",
+        "Which assumption about data, workload, user behavior, or environment is most consequential?",
+        "What measurable condition would invalidate that assumption?"
+      ]
+    },
+    2: {
+      subtitle: "Model and Metric Interpretation",
+      questions: [
+        "Name one governing relation (complexity, objective, throughput/latency model, error metric).",
+        "Predict one key metric before running experiments or benchmarks.",
+        "Explain what one observed metric means for real system behavior or user impact."
+      ]
+    },
+    3: {
+      subtitle: "Tradeoff Analysis",
+      questions: [
+        "What tradeoff dominates: accuracy vs latency, memory vs speed, fairness vs utility, security vs usability?",
+        "Which constraint binds first: compute budget, memory, SLA, policy, maintainability, or risk?",
+        "What threshold would make you select an alternative approach?"
+      ]
+    },
+    4: {
+      subtitle: "System Effects",
+      questions: [
+        "How does changing one module affect other services, pipelines, or users?",
+        "What dependency or feedback loop is missing from your current evaluation?",
+        "Which integration point should be re-validated first after changes?"
+      ]
+    },
+    5: {
+      subtitle: "Failure Modes",
+      questions: [
+        "What failure mode is most plausible (distribution shift, adversarial input, outage, drift, regression)?",
+        "What monitoring signal would detect this earliest in production?",
+        "What pre-release test would most reduce that risk?"
+      ]
+    },
+    6: {
+      subtitle: "Decision and Evidence",
+      questions: [
+        "State your recommendation and expected impact in one sentence.",
+        "Define one measurable reversal condition.",
+        "List the minimum evidence package needed before deployment approval."
+      ]
+    }
+  }
+};
+
+const MINDSETS = ["Constraint","Approximation","Tradeoff","Decision","Systems","Fragility"];
+const BUILD_ID = "2026-03-06f";
+
+const FIELD_PROMPTS = {
+  "Constraint":    "What boundaries shaped the decisions you could make, and which of those boundaries did you choose versus inherit?",
+  "Approximation": "What did your model assume away this week, and what is the largest physical consequence of that simplification?",
+  "Tradeoff":      "What did you sacrifice to gain something else? Name both sides explicitly.",
+  "Decision":      "What judgment call did you make that another engineer might have made differently, and what would have changed?",
+  "Systems":       "What happened downstream when you changed something upstream? Where did the constraint propagate?",
+  "Fragility":     "Where is your model most likely to mislead you, and what would it take for the failure to become visible?"
+};
+
+let state = {
+  student: { name: '', id: '', section: '', profile: 'general' },
+  currentWeek: 1,
+  entries: {},
+  artifacts: {}
+};
+
+function getStorageKey() {
+  return `warrant_notebook_generic_${state.student.profile || 'general'}_${state.student.id || 'default'}`;
+}
+
+function save() {
+  try {
+    localStorage.setItem(getStorageKey(), JSON.stringify(state));
+  } catch(e) {}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(getStorageKey());
+    if (raw) {
+      const loaded = JSON.parse(raw);
+      state = { ...state, ...loaded };
+    }
+  } catch(e) {}
+}
+
+function getProfileKey() {
+  return state.student.profile || 'general';
+}
+
+function getProfileLabel(key) {
+  return PROFILE_LABELS[key] || PROFILE_LABELS.general;
+}
+
+function getProfileExample(key) {
+  return PROFILE_EXAMPLES[key] || PROFILE_EXAMPLES.general;
+}
+
+function getWeekConfig(weekNum) {
+  const base = WEEKS.find(w => w.num === weekNum);
+  const profileKey = getProfileKey();
+  const profilePack = PROFILE_PROMPTS[profileKey] || PROFILE_PROMPTS.general;
+  const promptCard = profilePack[weekNum] || PROFILE_PROMPTS.general[weekNum];
+  return { ...base, promptCard };
+}
+
+function initNotebook() {
+  const name = document.getElementById('setup-name').value.trim();
+  const id = document.getElementById('setup-id').value.trim();
+  const section = document.getElementById('setup-section').value.trim();
+  const profile = document.getElementById('setup-profile').value || 'general';
+  if (!name || !id) {
+    alert('Please enter your name and student ID.');
+    return;
+  }
+  state.student = { name, id, section, profile };
+  load();
+  state.student = { name, id, section, profile };
+  save();
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('topbar-student').textContent = `${name} - ID ${id} - Section ${section} - ${getProfileLabel(profile)}`;
+  const buildEl = document.getElementById('build-id');
+  if (buildEl) buildEl.textContent = BUILD_ID;
+  buildSidebar();
+  renderWeek(state.currentWeek);
+  updateProgress();
+}
+
+function buildSidebar() {
+  const nav = document.getElementById('week-nav');
+  nav.innerHTML = `
+    <div class="week-nav-group-label">${getProfileLabel(getProfileKey())}</div>
+    <div class="week-nav-children" id="week-nav-children"></div>
+  `;
+  const children = document.getElementById('week-nav-children');
+  WEEKS.forEach(w => {
+    const entries = state.entries[w.num] || {};
+    const entry = entries[1] || {};
+    const status = getEntryStatus(entry);
+    const item = document.createElement('div');
+    item.className = `week-nav-item${state.currentWeek === w.num ? ' active' : ''}`;
+    item.onclick = () => renderWeek(w.num);
+    item.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em">${w.hw}</span>
+        <span style="font-size:12px;color:var(--text)">${w.title}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer)">${w.due}</span>
+        ${status === 'complete' ? '<span style="color:var(--green);font-size:10px">complete</span>' : status === 'partial' ? '<span style="color:var(--accent);font-size:10px">in progress</span>' : ''}
+      </div>
+    `;
+    children.appendChild(item);
+  });
+
+  // Mindset tracker
+  const tracker = document.getElementById('mindset-tracker');
+  tracker.innerHTML = '';
+  const engaged = getEngagedMindsets();
+  MINDSETS.forEach(m => {
+    const chip = document.createElement('div');
+    chip.className = 'mindset-chip' + (engaged.has(m) ? ' engaged' : '');
+    chip.textContent = m;
+    tracker.appendChild(chip);
+  });
+}
+
+function getWeekStatus(weekNum) {
+  const entries = state.entries[weekNum] || {};
+  let filled = 0, total = 0;
+  for (let e = 1; e <= 1; e++) {
+    const entry = entries[e] || {};
+    ['belief', 'assumption', 'mathlink', 'skeptic'].forEach(f => {
+      total++;
+      if (entry[f] && entry[f].trim()) filled++;
+    });
+  }
+  if (filled === 0) return '';
+  if (filled === total) return 'complete';
+  return 'partial';
+}
+
+function getEngagedMindsets() {
+  const engaged = new Set();
+  Object.values(state.entries).forEach(weekEntries => {
+    Object.values(weekEntries).forEach(entry => {
+      if (entry.mindset) engaged.add(entry.mindset);
+    });
+  });
+  return engaged;
+}
+
+function updateProgress() {
+  let complete = 0;
+  WEEKS.forEach(w => {
+    const entry = (state.entries[w.num] || {})[1] || {};
+    if (getEntryStatus(entry) === 'complete') complete++;
+  });
+  const pct = Math.round((complete / WEEKS.length) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function renderWeek(weekNum) {
+  state.currentWeek = weekNum;
+  save();
+
+  document.querySelectorAll('.week-nav-item').forEach((item, i) => {
+    item.classList.toggle('active', WEEKS[i].num === weekNum);
+  });
+
+  const week = WEEKS.find(w => w.num === weekNum);
+  const mc = document.getElementById('main-content');
+
+  mc.innerHTML = `
+    <div class="week-header">
+      <div class="week-eyebrow">
+        <span class="week-tag">${week.hw}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);letter-spacing:0.08em">${week.due}</span>
+        <span class="week-mindset-tags"><span class="week-mindset-tag">${week.mindset}</span></span>
+      </div>
+      <div class="week-title">${week.title}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text-dimmer);margin-top:4px;letter-spacing:0.08em">${week.topic}</div>
+      <div style="font-family:var(--serif);font-size:12px;color:var(--text-dim);margin-top:6px;font-style:italic">${getProfileExample(getProfileKey())}</div>
+      <div class="week-provocation">${week.provocation}</div>
+    </div>
+    <div id="entries-container"></div>
+    <div class="week-summary" id="week-summary"></div>
+  `;
+
+  const container = document.getElementById('entries-container');
+  container.appendChild(buildPromptCard(week));
+  container.appendChild(buildEntry(weekNum, 1));
+  ensurePromptInputsEditable(weekNum);
+  renderWeekSummary(weekNum);
+}
+
+function buildPromptCard(week) {
+  const card = document.createElement('div');
+  card.className = 'prompt-card';
+
+  const isOpen = !state.entries[week.num] || !state.entries[week.num][1] || !hasAnyData(state.entries[week.num][1]);
+
+  card.innerHTML = `
+    <div class="prompt-card-header" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase">Pre-Run Prompt Card</span>
+        <span style="font-family:var(--serif);font-size:12px;color:var(--text-dimmer);font-style:italic">${week.promptCard.subtitle}</span>
+      </div>
+      <span class="prompt-card-chevron">&#x25BE;</span>
+    </div>
+    <div class="prompt-card-body">
+      <p style="font-family:var(--serif);font-size:13px;color:var(--text-dimmer);margin-bottom:16px;font-style:italic">Write one sentence for each question before running your model.</p>
+      <ol class="prompt-questions">
+        ${week.promptCard.questions.map((q, i) => `
+          <li class="prompt-question">
+            <div class="prompt-q-text">${q}</div>
+            <textarea class="prompt-answer"
+              id="pq-${week.num}-${i}"
+              placeholder="Your answer..."
+              rows="2"
+              onclick="event.stopPropagation()"
+              onfocus="event.stopPropagation()"
+              oninput="savePromptAnswer(${week.num},${i})">${escHtml(getPromptAnswer(week.num, i))}</textarea>
+          </li>
+        `).join('')}
+      </ol>
+    </div>
+  `;
+
+  if (isOpen) card.classList.add('open');
+  return card;
+}
+
+function getPromptAnswer(weekNum, qIndex) {
+  return ((state.entries[weekNum] || {}).promptAnswers || {})[qIndex] || '';
+}
+
+function savePromptAnswer(weekNum, qIndex) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum].promptAnswers) state.entries[weekNum].promptAnswers = {};
+  const el = document.getElementById(`pq-${weekNum}-${qIndex}`);
+  if (el) state.entries[weekNum].promptAnswers[qIndex] = el.value;
+  save();
+}
+
+function ensurePromptInputsEditable(weekNum) {
+  const selectors = [
+    `#pq-${weekNum}-0`,
+    `#pq-${weekNum}-1`,
+    `#pq-${weekNum}-2`,
+    `#pq-${weekNum}-3`
+  ];
+  selectors.forEach(sel => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.readOnly = false;
+    el.disabled = false;
+    el.style.pointerEvents = 'auto';
+    el.style.userSelect = 'text';
+  });
+}
+
+function buildEntry(weekNum, entryNum) {
+  const week = WEEKS.find(w => w.num === weekNum);
+  const entryData = (state.entries[weekNum] || {})[entryNum] || {};
+  const timestamp = entryData.timestamp || '';
+  const isCollapsed = entryData.collapsed === true && hasAnyData(entryData);
+
+  const card = document.createElement('div');
+  card.className = 'entry-card';
+  card.id = `entry-${weekNum}-${entryNum}`;
+
+  const statusClass = getEntryStatus(entryData);
+
+  card.innerHTML = `
+    <div class="entry-header" onclick="toggleEntry(${weekNum},${entryNum})">
+      <div class="entry-header-left">
+        <span class="entry-number">Warrant Entry</span>
+        <span class="entry-title">${week.title}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="entry-timestamp" id="ts-${weekNum}-${entryNum}">${timestamp ? 'Saved ' + timestamp : 'Not yet saved'}</span>
+        <div class="entry-status-dot ${statusClass}" id="dot-${weekNum}-${entryNum}"></div>
+      </div>
+    </div>
+    <div class="entry-body ${isCollapsed ? 'collapsed' : ''}" id="body-${weekNum}-${entryNum}">
+      <div class="guidance-card">
+        <div class="guidance-title">Field guidance</div>
+        <div class="guidance-item"><strong>Belief update:</strong> State what you believed before this session that you now revise. Name the evidence or calculation that changed your view.</div>
+        <div class="guidance-item"><strong>Assumption + failure condition:</strong> Name one assumption and the condition under which it fails. If it fails, note what part of your recommendation changes.</div>
+        <div class="guidance-item"><strong>Math to physical link:</strong> Show one equation-to-physical-system connection. Do not just show math; explain what physical behavior it represents.</div>
+        <div class="guidance-item"><strong>Skeptical challenge:</strong> Name the first point a skeptical engineer would challenge. State what additional evidence would resolve that challenge.</div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">01</span>
+          <span class="field-name">Belief Update</span>
+        </div>
+        <div class="field-prompt">Name something you believed before this session that you no longer believe. State what specific observation in the simulation changed it.</div>
+        <textarea class="field-input tall"
+          id="belief-${weekNum}-${entryNum}"
+          placeholder="Before this session I assumed... After running the simulation I now believe... because..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.belief || '')}</textarea>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">02</span>
+          <span class="field-name">Assumption and Failure Condition</span>
+        </div>
+        <div class="field-prompt">Name the most consequential assumption your simulation makes. Then name the specific condition under which that assumption breaks for this system.</div>
+        <textarea class="field-input tall"
+          id="assumption-${weekNum}-${entryNum}"
+          placeholder="I assumed... This assumption holds when... It fails when... because..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.assumption || '')}</textarea>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">03</span>
+          <span class="field-name">Math to Physical Link</span>
+        </div>
+        <div class="field-prompt">Name an equation or relationship Aspen used. Report a specific number it produced from your stream table. Connect that number to something physically observable.</div>
+        <textarea class="field-input tall"
+          id="mathlink-${weekNum}-${entryNum}"
+          placeholder="The equation... predicted... [value with units]. In physical terms this means..."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.mathlink || '')}</textarea>
+        <div class="char-hint" id="mathlink-hint-${weekNum}-${entryNum}">Must include at least one number from your stream table or block report</div>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">04</span>
+          <span class="field-name">Skeptical Challenge</span>
+        </div>
+        <div class="field-prompt">A skeptical engineer reviews your simulation. What specific gap or omission would they identify that the model cannot address? This should go somewhere outside the simulation boundary.</div>
+        <textarea class="field-input tall"
+          id="skeptic-${weekNum}-${entryNum}"
+          placeholder="A skeptical engineer would challenge... specifically because... They would be right to require... before accepting this conclusion."
+          oninput="autosave(${weekNum},${entryNum})">${escHtml(entryData.skeptic || '')}</textarea>
+      </div>
+
+      <div class="field-divider"></div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-num">05</span>
+          <span class="field-name">Primary Mindset</span>
+        </div>
+        <div class="field-prompt" id="mindset-prompt-${weekNum}-${entryNum}">Which single mindset did this entry most activate? Choose one. The constraint forces prioritization.</div>
+        <div class="mindset-select-grid" id="mindset-grid-${weekNum}-${entryNum}">
+          ${MINDSETS.map(m => `
+            <div class="mindset-option ${entryData.mindset === m ? 'selected' : ''}"
+              onclick="selectMindset(${weekNum},${entryNum},'${m}')">${m}</div>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+    <div class="entry-footer">
+      <span class="save-hint">Auto-saves as you type</span>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="save-status" id="save-status-${weekNum}-${entryNum}">Saved</span>
+        <button class="btn-save" onclick="manualSave(${weekNum},${entryNum})">Save Entry</button>
+      </div>
+    </div>
+  `;
+
+  return card;
+}
+
+function hasAnyData(entry) {
+  return !!(entry.belief || entry.assumption || entry.mathlink || entry.skeptic || entry.mindset);
+}
+
+function getEntryStatus(entry) {
+  const fields = ['belief', 'assumption', 'mathlink', 'skeptic'];
+  const filled = fields.filter(f => entry[f] && entry[f].trim()).length;
+  if (filled === 0) return '';
+  if (filled === fields.length && entry.mindset) return 'complete';
+  return 'partial';
+}
+
+function toggleEntry(weekNum, entryNum) {
+  const body = document.getElementById(`body-${weekNum}-${entryNum}`);
+  body.classList.toggle('collapsed');
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].collapsed = body.classList.contains('collapsed');
+  save();
+}
+
+function autosave(weekNum, entryNum) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  const entry = state.entries[weekNum][entryNum];
+  ['belief', 'assumption', 'mathlink', 'skeptic'].forEach(field => {
+    const el = document.getElementById(`${field}-${weekNum}-${entryNum}`);
+    if (el) entry[field] = el.value;
+  });
+  updateEntryUI(weekNum, entryNum);
+  save();
+  buildSidebar();
+  updateProgress();
+}
+
+function manualSave(weekNum, entryNum) {
+  autosave(weekNum, entryNum);
+  const now = new Date();
+  const ts = now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].timestamp = ts;
+  state.entries[weekNum][entryNum].collapsed = false;
+  save();
+  const tsEl = document.getElementById(`ts-${weekNum}-${entryNum}`);
+  if (tsEl) tsEl.textContent = 'Saved ' + ts;
+  const statusEl = document.getElementById(`save-status-${weekNum}-${entryNum}`);
+  if (statusEl) {
+    statusEl.classList.add('visible');
+    setTimeout(() => statusEl.classList.remove('visible'), 2000);
+  }
+  renderWeekSummary(weekNum);
+}
+
+function updateEntryUI(weekNum, entryNum) {
+  const entry = (state.entries[weekNum] || {})[entryNum] || {};
+  const dot = document.getElementById(`dot-${weekNum}-${entryNum}`);
+  if (dot) {
+    dot.className = 'entry-status-dot ' + getEntryStatus(entry);
+  }
+}
+
+function selectMindset(weekNum, entryNum, mindset) {
+  if (!state.entries[weekNum]) state.entries[weekNum] = {};
+  if (!state.entries[weekNum][entryNum]) state.entries[weekNum][entryNum] = {};
+  state.entries[weekNum][entryNum].mindset = mindset;
+
+  // Update UI
+  const grid = document.getElementById(`mindset-grid-${weekNum}-${entryNum}`);
+  if (grid) {
+    grid.querySelectorAll('.mindset-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent === mindset);
+    });
+  }
+
+  // Update prompt
+  const prompt = document.getElementById(`mindset-prompt-${weekNum}-${entryNum}`);
+  if (prompt && FIELD_PROMPTS[mindset]) {
+    prompt.textContent = FIELD_PROMPTS[mindset];
+  }
+
+  save();
+  buildSidebar();
+  updateProgress();
+  renderWeekSummary(weekNum);
+}
+
+function triggerUpload(weekNum, entryNum) {
+  const fileInput = document.getElementById('file-input');
+  fileInput.onchange = (e) => handleFileUpload(e, weekNum, entryNum);
+  fileInput.click();
+}
+
+function handleFileUpload(e, weekNum, entryNum) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const dataUrl = ev.target.result;
+    if (!state.artifacts) state.artifacts = {};
+    state.artifacts[`${weekNum}-${entryNum}`] = { dataUrl, name: file.name };
+    save();
+    showArtifact(weekNum, entryNum, dataUrl, file.name);
+  };
+  reader.readAsDataURL(file);
+}
+
+function restoreArtifact(weekNum, entryNum) {
+  const artifact = state.artifacts && state.artifacts[`${weekNum}-${entryNum}`];
+  if (artifact) showArtifact(weekNum, entryNum, artifact.dataUrl, artifact.name);
+}
+
+function showArtifact(weekNum, entryNum, dataUrl, name) {
+  const preview = document.getElementById(`artifact-preview-${weekNum}-${entryNum}`);
+  const placeholder = document.getElementById(`artifact-placeholder-${weekNum}-${entryNum}`);
+  const img = document.getElementById(`artifact-img-${weekNum}-${entryNum}`);
+  const nameEl = document.getElementById(`artifact-name-${weekNum}-${entryNum}`);
+  if (preview) preview.style.display = 'flex';
+  if (placeholder) placeholder.style.display = 'none';
+  if (img) img.src = dataUrl;
+  if (nameEl) nameEl.textContent = name;
+}
+
+function renderWeekSummary(weekNum) {
+  const summary = document.getElementById('week-summary');
+  if (!summary) return;
+  const entries = state.entries[weekNum] || {};
+  const entry = entries[1] || {};
+  const saved = !!entry.timestamp;
+  const mindset = entry.mindset || '';
+  const week = getWeekConfig(weekNum);
+  const fieldsComplete = ['belief','assumption','mathlink','skeptic'].filter(f => entry[f] && entry[f].trim()).length;
+  summary.innerHTML = `
+    <div class="week-summary-header">${week.hw} Summary</div>
+    <div class="week-summary-stats">
+      <div class="stat">
+        <div class="stat-value">${fieldsComplete}/4</div>
+        <div class="stat-label">Fields Complete</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">${mindset || 'None'}</div>
+        <div class="stat-label">Mindset Tagged</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" style="color:${saved ? 'var(--green)' : 'var(--text-dimmer)'}">${saved ? 'Saved' : 'Unsaved'}</div>
+        <div class="stat-label">Entry Status</div>
+      </div>
+    </div>
+  `;
+}
+
+function exportPDF() {
+  document.querySelectorAll('.entry-body').forEach(b => b.classList.remove('collapsed'));
+  document.querySelectorAll('.prompt-card').forEach(c => c.classList.add('open'));
+  setTimeout(() => window.print(), 100);
+}
+
+function resetNotebook() {
+  if (!confirm('This will clear all your Warrant Notebook data. Are you sure?')) return;
+  try { localStorage.removeItem(getStorageKey()); } catch(e) {}
+  location.reload();
+}
+
+function escHtml(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Check for existing session
+window.addEventListener('load', () => {
+  // Try to find any existing notebook
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('warrant_notebook_generic_')) {
+      try {
+        const data = JSON.parse(localStorage.getItem(key));
+        if (data && data.student && data.student.name) {
+          state = data;
+          document.getElementById('setup-name').value = data.student.name;
+          document.getElementById('setup-id').value = data.student.id;
+          document.getElementById('setup-section').value = data.student.section;
+          document.getElementById('setup-profile').value = data.student.profile || 'general';
+        }
+      } catch(e) {}
+      break;
+    }
+  }
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

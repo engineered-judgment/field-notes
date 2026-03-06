@@ -6,6 +6,7 @@ This is the stable, generic tool endpoint for the interactive reasoning notebook
 
 ## Open the tool
 - [Launch Warrant in full-screen](warrant-tool.html)
+- [Launch Warrant (cache-safe URL)](warrant-tool-live.html)
 - [CBE 253 course instance](warrant-tool-cbe253.html)
 
 In the generic tool, choose a **Discipline Profile** at startup:
