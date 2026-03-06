@@ -13,7 +13,6 @@ theme:
 
 nav:
   - Home: index.md
-  - Aspen Plus Notebook: aspen-notebook.md
   - Students:
     - Start Here: start-here.md
     - CBE 253 (Live): contexts/cbe253/index.md
@@ -30,6 +29,7 @@ nav:
       - Reasoning Rubric: rubrics/reasoning-rubric.md
   - Notebooks:
     - Overview: notebooks/index.md
+    - Aspen Plus Notebook (Example): aspen-notebook.md
     - 2026:
       - Aspen Process Framing: notebooks/2026/2026-03-aspen-process-framing.md
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
@@ -53,4 +53,3 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
-
