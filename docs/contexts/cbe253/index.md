@@ -54,9 +54,9 @@ Your Warrant entry and your homework answers are separate documents. Do not copy
 | Assignment | Worked Example |
 |------------|---------------|
 | HW1 | Coming Mar 31 |
-| HW2 | [HW2 - Flash Separators](../../notebooks/cbe253/hw3-flash-separators.md) |
-| HW3 | [HW3 - Distillation DSTWU](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
-| HW4 | Coming Apr 14 |
+| HW2 | Coming Apr 7 |
+| HW3 | [HW3 - Flash Separators](../../notebooks/cbe253/hw3-flash-separators.md) |
+| HW4 | [HW4 - Distillation DSTWU](../../notebooks/cbe253/hw4-distillation-dstwu.md) |
 | HW5 | Coming Apr 28 |
 | HW6 | Coming May 5 |
 

@@ -1,9 +1,9 @@
-# HW2 - Flash Separators
+# HW3 - Flash Separators
 
 **Course:** CBE 253 - Aspen Plus Module  
 **Sessions:** 4 - Week 12 - Apr 2  
-**Assignment:** HW2 - Moist Air Separation using SEP, HEATER, and FLASH2  
-**Due:** April 7  
+**Assignment:** HW3 - Moist Air Separation using SEP, HEATER, and FLASH2  
+**Due:** April 14  
 **Primary Mindset:** Fragility  
 **Connection forward:** The property method concern raised here - UNIFAC at cryogenic conditions - reappears directly in HW5 and HW6 when property method selection becomes the explicit subject of the course.
 

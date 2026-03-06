@@ -1,11 +1,11 @@
-# HW3 - Distillation DSTWU
+# HW4 - Distillation DSTWU
 
 **Course:** CBE 253 - Aspen Plus Module  
 **Sessions:** 5-6 - Weeks 12-13 - Apr 7-9  
-**Assignment:** HW3 - Distillation of Styrene / Ethylbenzene / Toluene using DSTWU  
-**Due:** April 14  
+**Assignment:** HW4 - Distillation of Styrene / Ethylbenzene / Toluene using DSTWU  
+**Due:** April 21  
 **Primary Mindset:** Approximation  
-**Connection forward:** The DSTWU outputs recorded here become the starting inputs for the RADFRAC simulation in HW4. Where this entry ends - with an estimate and its known limitations - HW4 begins.
+**Connection forward:** The DSTWU outputs recorded here become the starting inputs for the RADFRAC simulation in HW5. Where this entry ends - with an estimate and its known limitations - HW5 begins.
 
 ---
 
@@ -50,7 +50,7 @@ The Fenske equation underlies the minimum stages calculation in DSTWU - it assum
 
 A skeptical engineer would challenge whether 0.995 mol fraction styrene in the bottoms is actually achievable at the reflux ratio and stage count I selected, and would ask to see the stream table, not just the block report. DSTWU is a shortcut - it estimates the operating conditions that *should* achieve the spec, but it does not verify that they do. The block report gives minimum stages and reflux ratio under idealized assumptions. Whether those translate to the specified purity in a rigorous tray-by-tray calculation is not confirmed until RADFRAC is run. I am reporting a design estimate, not a verified result. The skeptical engineer would be right to want the RADFRAC confirmation before signing off on the column design.
 
-> **Annotation:** The student has correctly identified the epistemological status of DSTWU output: it is an estimate whose validity is contingent on the rigorous calculation agreeing with it. DSTWU is a tool for getting to RADFRAC, not a substitute for it. A student who understands this is ready for HW4. A student who treats DSTWU output as the final answer will be confused when RADFRAC gives different results.
+> **Annotation:** The student has correctly identified the epistemological status of DSTWU output: it is an estimate whose validity is contingent on the rigorous calculation agreeing with it. DSTWU is a tool for getting to RADFRAC, not a substitute for it. A student who understands this is ready for HW5. A student who treats DSTWU output as the final answer will be confused when RADFRAC gives different results.
 
 ---
 
@@ -68,4 +68,4 @@ A weak entry for this assignment reads: *"I used DSTWU to find the number of sta
 
 ## What This Entry Sets Up
 
-The DSTWU outputs from this entry - approximately 22 actual stages, reflux ratio in the 1.3-1.4x minimum range, distillate-to-feed ratio near 0.55, feed stage near the middle of the column - become the starting inputs for RADFRAC in HW4. The skeptical challenge in Field 04 is not rhetorical: it is the literal setup for the next assignment. When RADFRAC disagrees with DSTWU, the student who wrote this entry will have already predicted that disagreement and will be able to explain why it happened rather than treating it as an error.
+The DSTWU outputs from this entry - approximately 22 actual stages, reflux ratio in the 1.3-1.4x minimum range, distillate-to-feed ratio near 0.55, feed stage near the middle of the column - become the starting inputs for RADFRAC in HW5. The skeptical challenge in Field 04 is not rhetorical: it is the literal setup for the next assignment. When RADFRAC disagrees with DSTWU, the student who wrote this entry will have already predicted that disagreement and will be able to explain why it happened rather than treating it as an error.
