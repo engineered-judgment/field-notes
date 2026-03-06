@@ -872,18 +872,18 @@
 
   .prompt-question {
     counter-increment: prompt-counter;
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 0 12px;
-    align-items: start;
+    position: relative;
+    padding-left: 28px;
   }
   .prompt-question::before {
     content: counter(prompt-counter);
+    position: absolute;
+    left: 0;
+    top: 2px;
     font-family: var(--mono);
     font-size: 11px;
     color: var(--accent);
     font-weight: 600;
-    padding-top: 3px;
     letter-spacing: 0.05em;
   }
 
@@ -906,7 +906,10 @@
     line-height: 1.5;
     padding: 8px 10px;
     resize: vertical;
+    min-height: 64px;
     transition: border-color 0.15s;
+    display: block;
+    pointer-events: auto;
   }
   .prompt-answer:focus {
     outline: none;
