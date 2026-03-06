@@ -39,6 +39,7 @@ nav:
       - Assumption Failure Map: notebooks/2026/2026-03-assumption-failure-map.md
       - Sensitivity Leverage Scan: notebooks/2026/2026-03-sensitivity-leverage-scan.md
       - Decision Memo: notebooks/2026/2026-03-decision-memo.md
+      - The Shortcut and Its Limits: notebooks/2026/2026-03-shortcut-and-its-limits.md
   - Courses Using This Method:
     - CBE 253: contexts/cbe253/index.md
 
@@ -47,3 +48,5 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: true
+
+

@@ -17,4 +17,4 @@ Use this section when you want to see what high-quality completed entries look l
 2. [Assumption Failure Map](2026/2026-03-assumption-failure-map.md): maps assumption failure conditions, signals, impacts, and mitigations.
 3. [Sensitivity Leverage Scan](2026/2026-03-sensitivity-leverage-scan.md): ranks uncertain inputs by decision leverage and measurement priority.
 4. [Decision Memo](2026/2026-03-decision-memo.md): issues recommendation with confidence level and explicit reversal conditions.
-
+5. [The Shortcut and Its Limits](2026/2026-03-shortcut-and-its-limits.md): Week 4 DSTWU approximation entry that explicitly sets up RADFRAC Week 5.
