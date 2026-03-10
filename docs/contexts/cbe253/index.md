@@ -37,19 +37,6 @@ Build the habit of making defensible engineering decisions when models are incom
 
 ---
 
-## Homework and Warrant Summary
-
-| HW | Topic | Due | Warrant Entry |
-|----|-------|-----|---------------|
-| HW1 | Mixers and Splitters | Mar 31 | [Reference Worked Example](warrant-worked-example.md) |
-| HW2 | Rankine Cycle | Apr 7 | [Reference Worked Example](warrant-worked-example.md) |
-| HW3 | Flash Separators | Apr 14 | [Reference Worked Example](warrant-worked-example.md) |
-| HW4 | Distillation DSTWU | Apr 21 | [Reference Worked Example](warrant-worked-example.md) |
-| HW5 | Reactor and Distillation | Apr 28 | [Reference Worked Example](warrant-worked-example.md) |
-| HW6 | Properties and Ternary Analysis | May 5 | [Reference Worked Example](warrant-worked-example.md) |
-
----
-
 ## Submitting Your Warrant Entry
 
 1. Complete your simulation and answer all homework questions first.
